@@ -65,15 +65,24 @@ namespace WizardWars
             progressLabel.SetActive(true);
             controlPanel.SetActive(false);
 
-            // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
-            if (PhotonNetwork.connected)
+            if (!PhotonNetwork.connected)
             {
+                PhotonNetwork.ConnectUsingSettings(_gameVersion);
+            }
+            else
+            {
+                Debug.Log("Photon is already connected");
+            }
+            // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
+            /*if (PhotonNetwork.connected)
+            {
+                Debug.Log(gameName);
                 PhotonNetwork.CreateRoom(gameName, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
             }
             else {
                 // #Critical, we must first and foremost connect to Photon Online Server.
                 PhotonNetwork.ConnectUsingSettings(_gameVersion);
-            }            
+            }*/            
         }
 
         /// <summary>
@@ -131,6 +140,7 @@ namespace WizardWars
             // we don't want to do anything.
             if (isConnecting)
             {
+                Debug.Log("game name: " + gameName);
                 PhotonNetwork.CreateRoom(gameName, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
             }
         }
@@ -151,6 +161,8 @@ namespace WizardWars
         public override void OnJoinedRoom()
         {
             Debug.Log("DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
+
+            PhotonNetwork.LoadLevel("Lobby");
         }
 
 

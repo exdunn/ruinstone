@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace WizardWars
 {
     public class LobbyLabel : MonoBehaviour
+        , IPointerClickHandler
     {
         #region Public Variables
 
@@ -100,6 +102,19 @@ namespace WizardWars
 
         #endregion
 
+        #region EventSystems Handlers
+
+        public void OnPointerClick(PointerEventData data)
+        {
+            GameObject joinMenu = GameObject.FindGameObjectWithTag("Join Menu");
+            Debug.Log("room name: " + GetComponent<LobbyLabel>().GetNameLabel());
+            joinMenu.GetComponent<JoinMenu>().SetRoomName(GetComponent<LobbyLabel>().GetNameLabel());
+
+            Image im = GetComponent<Image>();
+            im.color = new Color32((byte)im.color.r, (byte)im.color.g, (byte)im.color.b, 100);
+        }
+
+        #endregion
 
     }
 }

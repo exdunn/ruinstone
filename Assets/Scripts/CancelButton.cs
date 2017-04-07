@@ -12,6 +12,11 @@ namespace WizardWars
         /// </summary>
         public void Cancel()
         {
+            if (PhotonNetwork.connected)
+            {
+                PhotonNetwork.Disconnect();
+            }
+
             SceneManager.LoadScene(0);
         }
     }

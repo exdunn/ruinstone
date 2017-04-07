@@ -54,9 +54,36 @@ namespace WizardWars
         /// </summary>
         string _gameVersion = "1";
 
+        /// <summary>
+        /// Name of the selected room.
+        /// Default is an empty string
+        /// </summary>
+        string roomName;
+
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// Join the room corresponding to the highlighted lobby label
+        /// Load the lobby scene corresponding to the room name
+        /// </summary>
+        public void JoinClick()
+        {
+            // join the room if 
+            if (!roomName.Equals(""))
+            {
+                PhotonNetwork.JoinRoom(roomName);
+            }
+        }
+
+        /// <summary>
+        /// Set roomName to value
+        /// </summary>
+        public void SetRoomName(string value)
+        {
+            roomName = value;
+        }
 
         #endregion
 
@@ -86,6 +113,7 @@ namespace WizardWars
         void Start()
         {
             PhotonNetwork.ConnectUsingSettings(_gameVersion);
+            roomName = "";
 
             roomList = PhotonNetwork.GetRoomList();
         }
@@ -95,20 +123,6 @@ namespace WizardWars
         {
 
         }
-
-        /// <summary>
-        /// OnGUI is called for rendering and handling GUI events.
-        /// </summary>
-        /*void OnGUI()
-        {
-            // for each existing room create a corresponding GUI label in the room panel
-            foreach (RoomInfo room in roomList)
-            {
-                float xCoord = labelAnchor.GetComponent<Transform>().position.x;
-                float yCoord = labelAnchor.GetComponent<Transform>().position.y;
-                GUI.Label(new Rect(xCoord, yCoord, room.Name.Length*5, 25), room.Name, menuStyle);
-            }
-        }*/
 
         #endregion
 
@@ -142,12 +156,12 @@ namespace WizardWars
             foreach (RoomInfo room in roomList)
             {
                 Transform parentTransform = gameListPanel.transform;
-                Vector3 pos = new Vector3(parentTransform.position.x - 150,
+                Vector3 pos = new Vector3(parentTransform.position.x,
                     parentTransform.position.y + 225 - 100 * i,
                     parentTransform.position.z);
                 i++;
                 GameObject newLobbyLabel = Instantiate(lobbyPrefab, pos, parentTransform.rotation, parentTransform);
-                //newLobbyLabel.GetComponent<LobbyLabel>().SetNameLabel(room.Name);
+                newLobbyLabel.GetComponent<LobbyLabel>().SetNameLabel(room.Name);
             }
         }
 
