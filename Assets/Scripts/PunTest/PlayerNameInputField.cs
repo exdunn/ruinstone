@@ -35,6 +35,7 @@ namespace WizardWars
         {
 
         }
+
         /// <summary>
         /// Sets the name of the player, and save it in the PlayerPrefs for future sessions.
         /// </summary>

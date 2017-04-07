@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace WizardWars
+namespace PunTest
 {
     public class Launcher : Photon.PunBehaviour
     {
@@ -30,6 +30,13 @@ namespace WizardWars
         /// This client's version number. Users are separated from each other by gameversion (which allows you to make breaking changes).
         /// </summary>
         string _gameVersion = "1";
+
+        /// <summary>
+        /// Keep track of the current process. Since connection is asynchronous and is based on several callbacks from Photon, 
+        /// we need to keep track of this to properly adjust the behavior when we receive call back by Photon.
+        /// Typically this is used for the OnConnectedToMaster() callback.
+        /// </summary>
+        bool isConnecting;
 
         #endregion
 
@@ -75,6 +82,7 @@ namespace WizardWars
         /// </summary>
         public void Connect()
         {
+            isConnecting = true;
 
             progressLabel.SetActive(true);
             controlPanel.SetActive(false);
@@ -100,7 +108,14 @@ namespace WizardWars
         {
             Debug.Log("DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN");
 
-            PhotonNetwork.JoinRandomRoom();
+            // we don't want to do anything if we are not attempting to join a room. 
+            // this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
+            // we don't want to do anything.
+            if (isConnecting)
+            {
+                // #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnPhotonRandomJoinFailed()
+                PhotonNetwork.JoinRandomRoom();
+            }
         }
 
         public override void OnDisconnectedFromPhoton()
@@ -122,6 +137,13 @@ namespace WizardWars
         public override void OnJoinedRoom()
         {
             Debug.Log("DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
+
+            if (PhotonNetwork.room.PlayerCount == 1)
+            {
+                Debug.Log("There is 1 player");
+
+                PhotonNetwork.LoadLevel("Test Scene");
+            }
         }
 
         #endregion
