@@ -40,11 +40,6 @@ namespace WizardWars
         #region Private Variables
 
         /// <summary>
-        /// Holds information about the existing PUN rooms
-        /// </summary>
-        RoomInfo[] roomList;
-
-        /// <summary>
         /// Font style for Wizard Wars menus
         /// </summary>
         GUIStyle menuStyle;
@@ -114,8 +109,6 @@ namespace WizardWars
         {
             PhotonNetwork.ConnectUsingSettings(_gameVersion);
             roomName = "";
-
-            roomList = PhotonNetwork.GetRoomList();
         }
 
         // Update is called once per frame
@@ -147,7 +140,7 @@ namespace WizardWars
         public override void OnReceivedRoomListUpdate()
         {
             // get list of existing PUN rooms
-            roomList = PhotonNetwork.GetRoomList();
+            RoomInfo[] roomList = PhotonNetwork.GetRoomList();
             roomListLabel.text = "Number of Rooms: " + roomList.Length;
             Debug.Log("Number of Rooms: " + roomList.Length);
 
