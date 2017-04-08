@@ -16,11 +16,6 @@ namespace WizardWars
         public Text roomListLabel;
 
         /// <summary>
-        /// Holds the location for where to draw the game name labels
-        /// </summary>
-        public GameObject labelAnchor;
-
-        /// <summary>
         /// The PUN loglevel. 
         /// </summary>
         public PhotonLogLevel Loglevel = PhotonLogLevel.Informational;
@@ -144,17 +139,20 @@ namespace WizardWars
             roomListLabel.text = "Number of Rooms: " + roomList.Length;
             Debug.Log("Number of Rooms: " + roomList.Length);
 
-            // instantiate lobby label for each room in roomList
-            int i = 1;
+            // instantiate player label for each room in roomList
+            int i = 0;
             foreach (RoomInfo room in roomList)
             {
                 Transform parentTransform = gameListPanel.transform;
-                Vector3 pos = new Vector3(parentTransform.position.x,
-                    parentTransform.position.y + 225 - 100 * i,
-                    parentTransform.position.z);
-                i++;
-                GameObject newLobbyLabel = Instantiate(lobbyPrefab, pos, parentTransform.rotation, parentTransform);
+                GameObject newLobbyLabel = Instantiate(lobbyPrefab, new Vector3(0, 0, 0), parentTransform.rotation, parentTransform);
                 newLobbyLabel.GetComponent<LobbyLabel>().SetNameLabel(room.Name);
+
+                // set position of instantiated label to top of the panel
+                newLobbyLabel.GetComponent<RectTransform>().anchoredPosition = new Vector2(1, 0.5f);
+                // move the new label down to line up with other player labels
+                float height = newLobbyLabel.GetComponent<RectTransform>().rect.height;
+                newLobbyLabel.transform.position += Vector3.up * (-(height / 2) + -height * i);
+                i++;
             }
         }
 
