@@ -71,7 +71,9 @@ namespace WizardWars
             }
             else
             {
-                Debug.Log("Photon is already connected");
+                Debug.Log("Photon is already connected... creating new room");
+                Debug.Log("game name: " + gameName);
+                PhotonNetwork.CreateRoom(gameName, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
             }
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
             /*if (PhotonNetwork.connected)

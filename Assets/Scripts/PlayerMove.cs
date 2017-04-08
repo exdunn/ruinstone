@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace WizardWars
 {
-    public class PlayerMove : MonoBehaviour
+    public class PlayerMove : Photon.MonoBehaviour
     {
 
         #region Public Variables
@@ -47,8 +47,11 @@ namespace WizardWars
         /// </summary>
         void FixedUpdate ()
         {
+            if (photonView.isMine == false && PhotonNetwork.connected == true)
+            {
+                return;
+            }
 
-            
             float moveX = Input.GetAxis("Horizontal");
             float moveZ = Input.GetAxis("Vertical");
             Rigidbody rb = GetComponent<Rigidbody>();

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace WizardWars
 {
-    public class LobbyManager : MonoBehaviour
+    public class LobbyManager : Photon.PunBehaviour
     {
         #region Public Variables
 
@@ -48,7 +48,23 @@ namespace WizardWars
 
         }
 
-    #endregion
+        #endregion
+
+        #region Photon.PunBehaviour CallBacks
+
+        public override void OnPhotonPlayerDisconnected(PhotonPlayer player)
+        {
+            Debug.Log("OnPhotonPlayerDisconnected() called");
+        }
+
+        public override void OnMasterClientSwitched(PhotonPlayer player)
+        {
+            Debug.Log("OnMasterClientSwitched() called");
+            PhotonNetwork.Disconnect();
+            SceneManager.LoadScene(0);
+        }
+
+        #endregion
 
     }
 }
