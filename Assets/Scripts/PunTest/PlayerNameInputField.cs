@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace WizardWars
+namespace PunTest
 {
     /// <summary>
     /// Player name input field. Let the user input his name, will appear above the player in the game.
