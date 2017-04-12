@@ -45,7 +45,7 @@ namespace WizardWars
         /// <summary>
         /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
         /// </summary>
-        void FixedUpdate ()
+        void Update ()
         {
             if (photonView.isMine == false && PhotonNetwork.connected == true)
             {
