@@ -18,6 +18,8 @@ namespace WizardWars
         public GameObject controlPanel;
         [Tooltip("The UI Label to inform the user that the connection is in progress")]
         public GameObject progressLabel;
+        [Tooltip("The pop up window that displays status messages to the player")]
+        public GameObject popUpWindow;
 
         /// <summary>
         /// The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created.
@@ -74,6 +76,7 @@ namespace WizardWars
                 Debug.Log("Photon is already connected... creating new room");
                 Debug.Log("game name: " + gameName);
                 PhotonNetwork.CreateRoom(gameName, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
+                
             }
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
             /*if (PhotonNetwork.connected)
@@ -136,15 +139,15 @@ namespace WizardWars
         public override void OnConnectedToMaster()
         {
             Debug.Log("DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN");
-            PhotonNetwork.JoinLobby();
-            // we don't want to do anything if we are not attempting to join a room. 
-            // this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
-            // we don't want to do anything.
-            if (isConnecting)
-            {
-                Debug.Log("game name: " + gameName);
-                PhotonNetwork.CreateRoom(gameName, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
-            }
+                PhotonNetwork.JoinLobby();
+                // we don't want to do anything if we are not attempting to join a room. 
+                // this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
+                // we don't want to do anything.
+                if (isConnecting)
+                {
+                    Debug.Log("game name: " + gameName);
+                    PhotonNetwork.CreateRoom(gameName, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
+                }
         }
 
         public override void OnDisconnectedFromPhoton()
@@ -167,6 +170,11 @@ namespace WizardWars
             PhotonNetwork.LoadLevel("Lobby");
         }
 
+        public override void OnPhotonCreateRoomFailed(object[] codeAndMsg)
+        {
+            progressLabel.SetActive(false);
+            popUpWindow.GetComponent<PopUpWindow>().Show(codeAndMsg[1].ToString());
+        }
 
         #endregion
 
