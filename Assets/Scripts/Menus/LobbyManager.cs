@@ -72,14 +72,15 @@ namespace WizardWars
             foreach (PhotonPlayer player in players)
             {
                 Transform parentTransform = playersPanel.transform;
-                GameObject newPlayerLabel = Instantiate(labelPrefab, new Vector3(0,0,0), parentTransform.rotation, parentTransform);
-                newPlayerLabel.GetComponent<PlayerLabel>().SetNameLabel(player.NickName);
 
-                // set position of instantiated label to top of the panel
-                newPlayerLabel.GetComponent<RectTransform>().anchoredPosition = new Vector2(1, 0.5f);
-                // move the new label down to line up with other player labels
+                // instantiate label prefab
+                GameObject newPlayerLabel = Instantiate(labelPrefab, parentTransform.position, parentTransform.rotation, parentTransform);
+                newPlayerLabel.GetComponent<PlayerLabel>().SetNameLabel(player.NickName);
+                
+                // set position of instantiated label
                 float height = newPlayerLabel.GetComponent<RectTransform>().rect.height;
-                newPlayerLabel.transform.position += Vector3.up * (-(height / 2) + -height * i);
+                newPlayerLabel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -(height / 2.0f) + -height * i);
+
                 i++;
             }
         }
