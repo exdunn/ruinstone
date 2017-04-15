@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void LeaveClick()
     {
+        PhotonNetwork.Disconnect();
         SceneManager.LoadScene(0);
     }
 

@@ -146,7 +146,10 @@ namespace WizardWars
                 if (isConnecting)
                 {
                     Debug.Log("game name: " + gameName);
-                    PhotonNetwork.CreateRoom(gameName, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
+                    PhotonNetwork.CreateRoom(gameName, new RoomOptions() {
+                        MaxPlayers = MaxPlayersPerRoom,
+                        IsOpen= true
+                    }, null);
                 }
         }
 

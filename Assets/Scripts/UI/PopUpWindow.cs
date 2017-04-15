@@ -34,6 +34,10 @@ namespace WizardWars
         /// </summary>
         public void Show(string message)
         {
+            foreach (GameObject item in backgroundContent)
+            {
+                item.SetActive(false);
+            }
             gameObject.GetComponentInChildren<Text>().text = message;
             gameObject.SetActive(true);
         }

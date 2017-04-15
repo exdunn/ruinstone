@@ -33,11 +33,13 @@ namespace WizardWars
         public void StartClick()
         {
             if (!PhotonNetwork.isMasterClient)
-            { 
+            {
                 Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
             }
+            // if player is the master then close the room and load arena
             else
             {
+                PhotonNetwork.room.IsOpen = false;
                 PhotonNetwork.LoadLevel("Test Scene");
             }
         }

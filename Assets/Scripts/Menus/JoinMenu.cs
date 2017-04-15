@@ -11,24 +11,21 @@ namespace WizardWars
         #region Public Variables
 
         /// <summary>
-        /// Holds the location for where to draw the game name labels
-        /// </summary>
-        public Text roomListLabel;
-
-        /// <summary>
         /// The PUN loglevel. 
         /// </summary>
         public PhotonLogLevel Loglevel = PhotonLogLevel.Informational;
 
-        /// <summary>
-        /// Lobby label prefab
-        /// </summary>
+        [Tooltip("Holds the location for where to draw the game name labels")]
+        public Text roomListLabel;
+
+        [Tooltip("Label prefab that displays information about the game")]
         public GameObject lobbyPrefab;
 
-        /// <summary>
-        /// Panel which is used as the parent when instantiating lobby labels
-        /// </summary>
+        [Tooltip("Panel which is used as the parent when instantiating lobby labels")]
         public GameObject gameListPanel;
+
+        [Tooltip("The pop up window that displays status messages to the player")]
+        public GameObject popUpWindow;
 
         #endregion
 
@@ -143,17 +140,24 @@ namespace WizardWars
             int i = 0;
             foreach (RoomInfo room in roomList)
             {
-                Transform parentTransform = gameListPanel.transform;
-                GameObject newLobbyLabel = Instantiate(lobbyPrefab, new Vector3(0, 0, 0), parentTransform.rotation, parentTransform);
-                newLobbyLabel.GetComponent<LobbyLabel>().SetNameLabel(room.Name);
+                if (room.IsOpen)
+                {
+                    Transform parentTransform = gameListPanel.transform;
+                    GameObject newLobbyLabel = Instantiate(lobbyPrefab, new Vector3(0, 0, 0), parentTransform.rotation, parentTransform);
+                    newLobbyLabel.GetComponent<LobbyLabel>().SetNameLabel(room.Name);
 
-                // set position of instantiated label to top of the panel
-                newLobbyLabel.GetComponent<RectTransform>().anchoredPosition = new Vector2(1, 0.5f);
-                // move the new label down to line up with other player labels
-                float height = newLobbyLabel.GetComponent<RectTransform>().rect.height;
-                newLobbyLabel.transform.position += Vector3.up * (-(height / 2) + -height * i);
-                i++;
+                    // set position of instantiated label to top of the panel
+                    float height = newLobbyLabel.GetComponent<RectTransform>().rect.height;
+                    newLobbyLabel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -height / 2);
+                    i++;
+                }
+                
             }
+        }
+
+        public override void OnPhotonJoinRoomFailed(object[] codeAndMsg)
+        {
+            popUpWindow.GetComponent<PopUpWindow>().Show(codeAndMsg[1].ToString());
         }
 
         #endregion
