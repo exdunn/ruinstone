@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour {
     [Tooltip("The prefab to use for representing the player")]
     public GameObject playerPrefab;
 
+    /// <summary>
+    /// Game menu which can be opened by pressing ESC
+    /// </summary>
+    public GameObject gameMenu;
+
     #endregion
 
     #region Private Variables
@@ -25,6 +30,14 @@ public class GameManager : MonoBehaviour {
     {
         PhotonNetwork.Disconnect();
         SceneManager.LoadScene(0);
+    }
+
+    /// <summary>
+    /// Close the in game menu
+    /// </summary>
+    public void CancelClick()
+    {
+        gameMenu.SetActive(false);
     }
 
     #endregion
@@ -49,7 +62,18 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("ASDFD");
+            if (!gameMenu.activeSelf)
+            {
+                gameMenu.SetActive(true);
+            }
+            else
+            {
+                gameMenu.SetActive(false);
+            }
+        }
     }
 
     #endregion
