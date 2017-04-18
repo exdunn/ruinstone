@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace WizardWars
 {
@@ -11,8 +12,23 @@ namespace WizardWars
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
 
+        [Tooltip("UI element that displays player's current health")]
+        public GameObject healthBar;
+
+        // Leave variables public for now for testing purposes
+        // Should be private in production version
+
         [Tooltip("The current Health of our player")]
-        public int Health = 100;
+        public float health = 100f;
+
+        [Tooltip("The maximum Health of our player")]
+        public float maxHealth = 100f;
+
+        [Tooltip("The number of kills player has this round")]
+        public int kills;
+
+        [Tooltip("The number of times the player has died this round")]
+        public int deaths;
 
         #endregion
 
@@ -44,8 +60,10 @@ namespace WizardWars
         /// </summary>
         void Start()
         {
-            CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
+            deaths = 0;
+            kills = 0;
 
+            CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
 
             if (_cameraWork != null)
             {
@@ -64,7 +82,7 @@ namespace WizardWars
         /// </summary>
         void Update()
         {
-            if (Health <= 0)
+            if (health <= 0)
             {
                 Debug.Log("Player has died");
             }
@@ -82,10 +100,9 @@ namespace WizardWars
             }
 
 
-            // rule out any trigger not tagged "Beam". We are only interested in Beamers
             if (!other.CompareTag("Firebolt"))
             {
-                Health -= 15;
+                health -= 15;
             }   
         }
 
@@ -93,9 +110,84 @@ namespace WizardWars
 
         #region Public Methods
 
+        /// <summary>
+        /// Update current health of the player
+        /// </summary>
+        /// <param name="damage"></param>
+        public void UpdateHealth(float damage)
+        {
+            health += damage; 
+
+            if (health >= maxHealth)
+            {
+                health = maxHealth;
+            }
+            else if (health < 0)
+            {
+                health = 0;
+            }
+
+            // update heatlh bar
+            healthBar.transform.GetChild(0).GetComponent<Image>().fillAmount = 1.0f - health / maxHealth;
+        }
+        
+        /// <summary>
+        /// update number of kills player has
+        /// </summary>
+        /// <param name="update"></param>
+        public void UpdateKills (int update)
+        {
+            kills += update;
+
+            if (kills < 0)
+            {
+                kills = 0;
+            }
+        }
+
+        /// <summary>
+        /// update number of deaths player has
+        /// </summary>
+        /// <param name="update"></param>
+        public void UpdateDeaths(int update)
+        {
+            deaths += update;
+
+            if (deaths < 0)
+            {
+                deaths = 0;
+            }
+        }
+
+        /// <summary>
+        /// Return number of kills
+        /// </summary>
+        public int GetKills ()
+        {
+            return kills;
+        }
+
+        /// <summary>
+        /// Return number of deaths
+        /// </summary>
+        public int GetDeaths()
+        {
+            return deaths;
+        }
+
+        /// <summary>
+        /// Return current heatlh
+        /// </summary>
+        public float GetHealth()
+        {
+            return health;
+        }
+
         #endregion
 
         #region Private Methods
+
+
 
         #endregion
 
