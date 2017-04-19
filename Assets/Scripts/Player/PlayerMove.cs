@@ -31,21 +31,18 @@ namespace WizardWars
 
         #endregion
 
-        #region Public Methods
-
-        #endregion
-
-        #region Private Methods
+        #region MonoBehaviour CallBacks
 
         // Use this for initialization
-        void Start () {
-		
-	    }
+        void Start()
+        {
+            GetComponent<Rigidbody>().freezeRotation = true;
+        }
 
         /// <summary>
         /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
         /// </summary>
-        void Update ()
+        void Update()
         {
             if (photonView.isMine == false && PhotonNetwork.connected == true)
             {
@@ -82,6 +79,14 @@ namespace WizardWars
                 rb.MoveRotation(rb.rotation * deltaRotation);
             }
         }
+
+        #endregion
+
+        #region Public Methods
+
+        #endregion
+
+        #region Private Methods
 
         #endregion
 
