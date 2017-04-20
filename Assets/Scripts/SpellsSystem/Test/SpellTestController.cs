@@ -14,7 +14,7 @@ public class SpellTestController : MonoBehaviour {
 
     void Update() {
         if(begin && !begun) {
-            proj.origin = this.transform.position;
+            //proj.origin = this.transform.position;
             proj.direction = Vector3.up;
             proj.Effect();
             begun = true;

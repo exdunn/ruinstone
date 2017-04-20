@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System;
-
 namespace WizardWars
 {
     public class HealthGlobe : MonoBehaviour

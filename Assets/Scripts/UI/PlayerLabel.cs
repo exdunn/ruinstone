@@ -15,9 +15,9 @@ namespace WizardWars
         public Text nameLabel;
 
         /// <summary>
-        /// Text element that displays the number of players out of the maximum number of players 
+        /// Panel for wizard affinity
         /// </summary>
-        public Text classLabel;
+        public GameObject afftinity;
 
         /// <summary>
         /// Text element that displays the game mode
