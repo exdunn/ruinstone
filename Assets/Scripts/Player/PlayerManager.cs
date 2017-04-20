@@ -13,7 +13,7 @@ namespace WizardWars
         public static GameObject LocalPlayerInstance;
 
         [Tooltip("UI element that displays player's current health")]
-        public GameObject healthBar;
+        public GameObject healthGlobe;
 
         // Leave variables public for now for testing purposes
         // Should be private in production version
@@ -128,7 +128,7 @@ namespace WizardWars
             }
 
             // update heatlh bar
-            healthBar.transform.GetChild(0).GetComponent<Image>().fillAmount = 1.0f - health / maxHealth;
+            healthGlobe.GetComponent<HealthGlobe>().SetFill(health / maxHealth);
         }
         
         /// <summary>
