@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Teleport : Payload {
     public Transform blink { get; set; }
@@ -10,17 +11,19 @@ public class Teleport : Payload {
         _targetType = Types.Target.SELF;
     }
 
-    public override void DuraEffect() {
-        Debug.Log("DuraEffect in Teleport does nothing.");
+    public override void DoEffect(GameObject caster, Transform target) {
+        this.target = target;
+        Effect();
     }
 
-    public override void Effect() {
+    protected override void Effect() {
         //First target in targets should be self
         //Get move component
         //Call teleport or something
+        Finish();
     }
 
-    protected override IEnumerator Duration() {
+    protected override IEnumerator DuraEffect() {
         yield return null;
     }
 

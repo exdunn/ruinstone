@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 public class Projectile : Behaviour {
+    public const float THRESHOLD = 0.05f;
     public float _speed = 0f;
     public bool _pass = false;
 
     public Queue<GameObject> targets { get; set; }
     public bool collided { get; set; }
     public bool outOfRange { get; set; }
+    public bool atLoc { get; set; }
     public Transform origin { get; set; }
     public Vector3 direction { get; set; }
     public float distance {
@@ -37,6 +40,9 @@ public class Projectile : Behaviour {
             if(distance >= _range) {
                 outOfRange = true;
             }
+            if(target != null && Vector3.Distance(this.transform.position, target.position) <= THRESHOLD) {
+                atLoc = true;
+            }
         }
     }
 
@@ -51,19 +57,17 @@ public class Projectile : Behaviour {
         }
     }
 
-    void OnEnable() {
+    public bool Done() {
+        return collided && !_pass || outOfRange || atLoc;
+    }
+
+    public override void DoEffect(GameObject caster, Transform target) {
+        this.caster = caster;
+        this.target = target;
         Effect();
     }
 
-    void OnDisable() {
-        Finish();
-    }
-
-    public bool Done() {
-        return collided && !_pass || outOfRange;
-    }
-
-    protected override IEnumerator Duration() {
+    protected override IEnumerator DuraEffect() {
         //Does nothing
         Debug.Log("DuraEffect method in Projectile does nothing.");
         yield return null;
@@ -74,12 +78,18 @@ public class Projectile : Behaviour {
         isDone = true;
     }
 
-    public override void DuraEffect() {
-        StartCoroutine(Duration());
-    }
+    protected override void Effect() {
+        Debug.Log("Moving");
 
-    public override void Effect() {
+        if(target == null) {
+            target = new GameObject().transform;
+            target.position = origin.position + (direction.normalized * _range);
+        }
+        else {
+
+        }
         Vector3 force = direction.normalized * _speed;
         _rigidbody.velocity = force;
+        Debug.Log("Target: " + target.position);
     }
 }

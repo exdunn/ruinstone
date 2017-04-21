@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 
 public class SpellTestController : MonoBehaviour {
-    public Projectile proj;
+    //public Projectile proj;
+    public Spell Cube;
 
     public bool begin = false;
     private bool begun = false;
@@ -15,8 +16,10 @@ public class SpellTestController : MonoBehaviour {
     void Update() {
         if(begin && !begun) {
             //proj.origin = this.transform.position;
-            proj.direction = Vector3.up;
-            proj.Effect();
+            Cube.Activate(this.gameObject, null); //Spells need to be activated like this
+            //Caster, Target Position
+            //Caster cannot be null.
+            //Target can be null, which means the target is the caster itself, or it is a linear projectile
             begun = true;
         }
     }
