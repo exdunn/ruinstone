@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Delay : Behaviour {
     public float _duration = 0f;
@@ -12,28 +13,20 @@ public class Delay : Behaviour {
         _targetType = Types.Target.SELF;
     }
 
-    void OnEnable() {
-        DuraEffect();
+    public override void DoEffect(GameObject caster, Transform target) {
+        StartCoroutine(DuraEffect());
     }
 
-    void OnDisable() {
-        Finish();
-    }
-
-    public override void DuraEffect() {
-        StartCoroutine(Duration());
-        Finish();
-    }
-
-    public override void Effect() {
+    protected override void Effect() {
         Debug.Log("Effect in Delay does nothing.");
     }
 
-    protected override IEnumerator Duration() {
+    protected override IEnumerator DuraEffect() {
         while(_internal < _duration) {
             yield return new WaitForSeconds(TICK);
             _internal += TICK;
         }
+        Finish();
     }
 
     protected override void Finish() {

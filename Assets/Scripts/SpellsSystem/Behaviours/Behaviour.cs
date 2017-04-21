@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+//TODO;
+//Ignore Passthrough on Projectile
+//Behaviours need a GameObject target parameter on DoEffect
+//Remove public target properties from Payloads
+//Move GetAll into the Effect of Payloads
 
+//Create dummy methods in PlayerManager for Heal, Damage, Status, CC, Displace, Teleport
+//Test the other components
 
 /* Abstract Base Behaviour class */
 public abstract class Behaviour : MonoBehaviour {
@@ -14,15 +21,16 @@ public abstract class Behaviour : MonoBehaviour {
     public float _recharge = 0f;
 
     public bool isDone { get; set; }
-    public int caster { get; set; }
+    public GameObject caster { get; set; }
     public Transform target { get; set; }
 
     void Start() {
         isDone = false;
     }
 
-    public abstract void Effect();
-    public abstract void DuraEffect();
-    protected abstract IEnumerator Duration();
+    public abstract void DoEffect(GameObject caster, Transform target);
+
+    protected abstract void Effect();
+    protected abstract IEnumerator DuraEffect();
     protected abstract void Finish();
 }
