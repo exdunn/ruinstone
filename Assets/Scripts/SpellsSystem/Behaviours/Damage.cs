@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using System.Collections.Generic;
 
 public class Damage : Payload {
     void Start() {
         _abilityType = Types.Ability.DAMAGE;
     }
 
-    public override void DoEffect(GameObject caster, Transform target) {
+    public override void DoEffect(GameObject caster, GameObject target, Transform point) {
         this.caster = caster;
         this.target = target;
+        this.point = point;
         if(_duration > 0) {
             StartCoroutine(DuraEffect());
         }
@@ -19,12 +20,14 @@ public class Damage : Payload {
     }
 
     protected override void Effect() {
-        //For each target, do power damage to it
-        while(targets.Count > 0) {
-            GameObject t = targets.Dequeue();
-            //Get Health component of t
-            //If cannot, skip
-            //Call set health or something
+        if(_area == 0) {
+            //Do stuff to the target
+        }
+        else if(_area > 0) {
+            List<GameObject> targets = GetAll(_targetType);
+            for(int i = 0; i < targets.Count; ++i) {
+                //Do stuff to the target
+            }
         }
         Finish();
     }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using System.Collections.Generic;
 
 public class Control : Payload {
     public Names.CrowdControl _cc;
@@ -9,9 +9,10 @@ public class Control : Payload {
         _abilityType = Types.Ability.DISRUPT;
     }
 
-    public override void DoEffect(GameObject caster, Transform target) {
+    public override void DoEffect(GameObject caster, GameObject target, Transform point) {
         this.caster = caster;
         this.target = target;
+        this.point = point;
         if(_duration > 0) {
             StartCoroutine(DuraEffect());
         }
@@ -21,11 +22,14 @@ public class Control : Payload {
     }
 
     protected override void Effect() {
-        while(targets.Count > 0) {
-            GameObject t = targets.Dequeue();
-            //Get Status component of t
-            //If cannot, skip
-            //Call set status or something
+        if(_area == 0) {
+            //Do stuff to the target
+        }
+        else if(_area > 0) {
+            List<GameObject> targets = GetAll(_targetType);
+            for(int i = 0; i < targets.Count; ++i) {
+                //Do stuff to the target
+            }
         }
         Finish();
     }
