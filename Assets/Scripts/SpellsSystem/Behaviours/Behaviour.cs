@@ -11,7 +11,7 @@ using System.Collections;
 
 /* Abstract Base Behaviour class */
 public abstract class Behaviour : MonoBehaviour {
-    protected const float TICK = .1f;
+    protected const float TICK = 1f;
 
     public Types.Ability _abilityType = Types.Ability.DAMAGE;
     public Types.Area _areaType = Types.Area.LINEAR;
@@ -22,13 +22,14 @@ public abstract class Behaviour : MonoBehaviour {
 
     public bool isDone { get; set; }
     public GameObject caster { get; set; }
-    public Transform target { get; set; }
+    public GameObject target { get; set; }
+    public Transform point { get; set; }
 
     void Start() {
         isDone = false;
     }
 
-    public abstract void DoEffect(GameObject caster, Transform target);
+    public abstract void DoEffect(GameObject caster, GameObject target, Transform point);
 
     protected abstract void Effect();
     protected abstract IEnumerator DuraEffect();

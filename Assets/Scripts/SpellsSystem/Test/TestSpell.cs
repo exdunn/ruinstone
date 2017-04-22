@@ -11,7 +11,8 @@ public class TestSpell : Spell {
 
     private bool _begun = false;
     private GameObject caster;
-    private Transform target;
+    private GameObject target;
+    private Transform point;
     void Start() {
         //Set up stats here
         //Add expected behaviours here
@@ -23,7 +24,7 @@ public class TestSpell : Spell {
         Debug.Log(this.transform.position);
     }
     
-    public override void Activate(GameObject caster, Transform target) {
+    public override void Activate(GameObject caster, GameObject target, Transform point) {
         //The Activate method needs to be something like this
         //Behaviours activate one after the other
         //Behaviours need to be activated something like this
@@ -33,6 +34,7 @@ public class TestSpell : Spell {
         Debug.Log("Activated");
         this.caster = caster;
         this.target = target;
+        this.point = point;
         //a.direction = Vector3.up;
         _begun = true;
         StartCoroutine(DoActivation());
@@ -45,7 +47,7 @@ public class TestSpell : Spell {
     private IEnumerator DoActivation() {
         while(q.Count > 0) {
             Behaviour b = q.Dequeue();
-            b.DoEffect(caster, target);
+            b.DoEffect(caster, target, point);
             while(!b.isDone) {
                 yield return null;
             }

@@ -15,6 +15,6 @@ public abstract class Spell : MonoBehaviour {
         isActive = false;
     }
 
-    public abstract void Activate(GameObject caster, Transform target);
+    public abstract void Activate(GameObject caster, GameObject target, Transform point);
     public abstract void Finish();
 }

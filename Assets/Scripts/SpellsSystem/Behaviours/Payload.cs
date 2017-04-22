@@ -8,14 +8,12 @@ public abstract class Payload : Behaviour {
 
     protected float _internal = 0f;
 
-    public Queue<GameObject> targets { get; set; }
-
     void Start() {
-        targets = new Queue<GameObject>();
+
     }
 
     protected List<GameObject> GetAll(Types.Target type) {
-        Collider[] t = Physics.OverlapSphere(target.position, _area);
+        Collider[] t = Physics.OverlapSphere(point.position, _area);
         List<GameObject> all = new List<GameObject>();
         foreach(Collider c in t) {
             if(c.gameObject.CompareTag(Types.TargetToString(type))) {

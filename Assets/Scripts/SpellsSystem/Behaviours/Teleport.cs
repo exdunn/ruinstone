@@ -11,8 +11,10 @@ public class Teleport : Payload {
         _targetType = Types.Target.SELF;
     }
 
-    public override void DoEffect(GameObject caster, Transform target) {
+    public override void DoEffect(GameObject caster, GameObject target, Transform point) {
+        this.caster = caster;
         this.target = target;
+        this.point = point;
         Effect();
     }
 

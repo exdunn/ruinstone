@@ -40,7 +40,7 @@ public class Projectile : Behaviour {
             if(distance >= _range) {
                 outOfRange = true;
             }
-            if(target != null && Vector3.Distance(this.transform.position, target.position) <= THRESHOLD) {
+            if(point != null && Vector3.Distance(this.transform.position, point.position) <= THRESHOLD) {
                 atLoc = true;
             }
         }
@@ -61,9 +61,10 @@ public class Projectile : Behaviour {
         return collided && !_pass || outOfRange || atLoc;
     }
 
-    public override void DoEffect(GameObject caster, Transform target) {
-        this.caster = caster;
-        this.target = target;
+    public override void DoEffect(GameObject caster, GameObject target, Transform point) {
+        this.point = point;
+        //this.caster = caster;
+        //this.target = target;
         Effect();
     }
 
@@ -81,15 +82,15 @@ public class Projectile : Behaviour {
     protected override void Effect() {
         Debug.Log("Moving");
 
-        if(target == null) {
-            target = new GameObject().transform;
-            target.position = origin.position + (direction.normalized * _range);
+        if(point == null) {
+            point = new GameObject().transform;
+            point.position = origin.position + (direction.normalized * _range);
         }
         else {
 
         }
         Vector3 force = direction.normalized * _speed;
         _rigidbody.velocity = force;
-        Debug.Log("Target: " + target.position);
+        Debug.Log("Target: " + point.position);
     }
 }
