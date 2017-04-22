@@ -13,8 +13,8 @@ namespace WizardWars
     {
         #region Public Variables
 
-        public Sprite normal;
-        public Sprite highlighted;
+        public Sprite spriteNormal;
+        public Sprite spriteHighlighted;
         public GameObject runeImage;
 
         #endregion
@@ -23,12 +23,12 @@ namespace WizardWars
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            runeImage.GetComponent<Image>().sprite = highlighted;
+            runeImage.GetComponent<Image>().sprite = spriteHighlighted;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            runeImage.GetComponent<Image>().sprite = normal;
+            runeImage.GetComponent<Image>().sprite = spriteNormal;
         }
 
         #endregion

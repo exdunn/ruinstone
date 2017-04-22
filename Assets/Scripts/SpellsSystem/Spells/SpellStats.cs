@@ -2,118 +2,57 @@
 using System;
 using System.Collections.Generic;
 
-public class SpellStats {
+public class SpellStats: MonoBehaviour {
 
-    int id;
-    string name;
-    string description;
+    [SerializeField]
+    private int id;
+
+    [SerializeField]
+    private string spellName;
+
+    [SerializeField]
+    private string description;
 
     /// <summary>
     /// projectile, ground, self
     /// </summary>
-    string behaviour;
+    [SerializeField]
+    private string behaviour;
 
-    float damage;
-    float range;
-    float radius;
-    float speed;
-    float duration;
+    [SerializeField]
+    private float damage;
 
-    #region Get Methods
+    [SerializeField]
+    private float radius;
 
-    public int GetId()
+    [SerializeField]
+    private float range;
+
+    [SerializeField]
+    private float speed;
+
+    [SerializeField]
+    private float duration;
+
+    [SerializeField]
+    private float delay;
+
+    [SerializeField]
+    private float cooldown;
+
+    [SerializeField]
+    private Sprite runeSprite;
+
+    [SerializeField]
+    private Sprite highlightedRuneSprite;
+
+    public Sprite GetRuneSprite()
     {
-        return id;
+        return runeSprite;
     }
 
-    public string GetName()
+    public Sprite GetHighlightedRuneSprite()
     {
-        return name;
+        return highlightedRuneSprite;
     }
-
-    public string GetDescription()
-    {
-        return description;
-    }
-
-    public string GetBehaviour()
-    {
-        return behaviour;
-    }
-
-    public float GetDamage()
-    {
-        return damage;
-    }
-
-    public float GetRange()
-    {
-        return range;
-    }
-
-    public float GetRadius()
-    {
-        return radius;
-    }
-
-    public float GetSpeed()
-    {
-        return speed;
-    }
-
-    public float GetDuration()
-    {
-        return duration;
-    }
-
-    #endregion
-
-    #region Set Methods
-
-    public void SetId(int value)
-    {
-        id = value;
-    }
-
-    public void SetName(string value)
-    {
-        name = value;
-    }
-
-    public void SetDescription(string value)
-    {
-        description = value;
-    }
-
-    public void SetBehaviour(string value)
-    {
-        behaviour = value;
-    }
-
-    public void SetDamage(int value)
-    {
-        damage = value;
-    }
-
-    public void SetRange(int value)
-    {
-        range = value;
-    }
-
-    public void SetRadius(int value)
-    {
-        radius = value;
-    }
-
-    public void SetSpeed(int value)
-    {
-        speed = value;
-    }
-
-    public void SetDuration(int value)
-    {
-        duration = value;
-    }
-
-    #endregion
 }

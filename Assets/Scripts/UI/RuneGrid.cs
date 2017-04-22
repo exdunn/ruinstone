@@ -23,6 +23,8 @@ namespace WizardWars
         /// </summary>
         private int size;
 
+        private GameObject library;
+
         private List<GameObject> runes;
 
         #endregion
@@ -32,14 +34,12 @@ namespace WizardWars
         // Use this for initialization
         void Start () {
 
+            library = GameObject.FindGameObjectWithTag("Library");
+
             InstantiateRunes();
 
 	    }
 	
-	    // Update is called once per frame
-	    void Update () {
-		
-	    }
 
         #endregion
 
@@ -79,11 +79,17 @@ namespace WizardWars
         private void InstantiateRunes()
         {
             runes = new List<GameObject>();
-            for (int i = 0; i < 8; i++)
+            int i = 0;
+
+            foreach (SpellStats spell in library.GetComponents<SpellStats>())
             {
                 GameObject newRune = Instantiate(runePrefab, runePanel.transform.position, runePanel.transform.rotation, runePanel.transform);
                 newRune.GetComponent<RectTransform>().anchoredPosition = RunePosition(i);
+                newRune.GetComponent<RuneUI>().spriteNormal = spell.GetRuneSprite();
+                newRune.GetComponent<RuneUI>().spriteHighlighted = spell.GetHighlightedRuneSprite();
+                newRune.GetComponent<RuneUI>().runeImage.GetComponent<Image>().sprite = spell.GetRuneSprite();
                 runes.Add(newRune);
+                i++;
             }
         }
 
