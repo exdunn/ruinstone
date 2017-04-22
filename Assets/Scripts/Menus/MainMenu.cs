@@ -50,6 +50,14 @@ namespace WizardWars
             Application.Quit();
         }
 
+        /// <summary>
+        /// Go to Collection scene
+        /// </summary>
+        public void CollectionClick()
+        {
+            SceneManager.LoadScene("Collection");
+        }
+
         #endregion
 
         #region Private Methods
