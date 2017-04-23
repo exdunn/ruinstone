@@ -30,26 +30,21 @@ namespace WizardWars
         // Use this for initialization
         void Awake()
         {
-            DontDestroyOnLoad(transform);
   
             library = GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>();
 
-            spellBarList = new SpellBarList();              
+            PlayerPrefsX.SetStringArray("SpellBarNames", new string[] { "Spell Bar 1", "Spell Bar Two", "Spell Bar Three", "Spell Bar Four", "Spell Bar Five" });
+
+            PlayerPrefsX.SetIntArray("SpellListOne", new int[]{ 7,2,3,4});
+            PlayerPrefsX.SetIntArray("SpellListTwo", new int[] { 2, 2, 3, 4 });
+            PlayerPrefsX.SetIntArray("SpellListThree", new int[] { 3, 2, 3, 4 });
+            PlayerPrefsX.SetIntArray("SpellListFour", new int[] { 4, 2, 3, 4 });
+            PlayerPrefsX.SetIntArray("SpellListFive", new int[] { 5, 6, 7, 7 });
         }
 
         #endregion
 
         #region Public Methods
-
-        public void InsertSpellBar(int index, SpellBar bar)
-        {
-            spellBarList.spellBar[index] = bar;
-        }
-
-        public SpellBarList GetSpellBarList()
-        {
-            return spellBarList;
-        }
 
         #endregion
 

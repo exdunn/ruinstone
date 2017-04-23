@@ -46,6 +46,9 @@ public class SpellStats: MonoBehaviour {
     [SerializeField]
     private Sprite highlightedRuneSprite;
 
+    [SerializeField]
+    private Sprite iconSprite;
+
     public int GetId()
     {
         return id;
@@ -109,5 +112,10 @@ public class SpellStats: MonoBehaviour {
     public Sprite GetHighlightedRuneSprite()
     {
         return highlightedRuneSprite;
+    }
+
+    public Sprite GetIconSprite()
+    {
+        return iconSprite;
     }
 }
