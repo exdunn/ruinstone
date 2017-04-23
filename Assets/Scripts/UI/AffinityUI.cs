@@ -62,7 +62,7 @@ namespace WizardWars
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            tooltip.GetComponent<Tooltip>().SetDescription(GlobalVariable.AFFINITYTOOLTIPDESC[affinityIndex]);
+            tooltip.GetComponent<Tooltip>().SetBody(GlobalVariable.AFFINITYTOOLTIPDESC[affinityIndex]);
             tooltip.GetComponent<Tooltip>().SetTitle(GlobalVariable.AFFINITYTOOLTIPTITLE[affinityIndex]);
             icon.GetComponent<Image>().sprite = sprites[affinityIndex];
 

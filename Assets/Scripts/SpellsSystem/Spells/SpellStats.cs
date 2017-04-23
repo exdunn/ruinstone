@@ -46,6 +46,61 @@ public class SpellStats: MonoBehaviour {
     [SerializeField]
     private Sprite highlightedRuneSprite;
 
+    public int GetId()
+    {
+        return id;
+    }
+
+    public string GetName()
+    {
+        return spellName;
+    }
+
+    public string GetDescription()
+    {
+        return description;
+    }
+
+    public string GetBehaviour()
+    {
+        return behaviour;
+    }
+
+    public float GetDamage()
+    {
+        return damage;
+    }
+
+    public float GetRadius()
+    {
+        return radius;
+    }
+
+    public float GetRange()
+    {
+        return range;
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
+    public float GetDuration()
+    {
+        return duration;
+    }
+
+    public float GetDelay()
+    {
+        return delay;
+    }
+
+    public float GetCooldown()
+    {
+        return cooldown;
+    }
+
     public Sprite GetRuneSprite()
     {
         return runeSprite;

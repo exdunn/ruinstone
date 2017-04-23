@@ -13,9 +13,13 @@ namespace WizardWars
     {
         #region Public Variables
 
-        public Sprite spriteNormal;
-        public Sprite spriteHighlighted;
         public GameObject runeImage;
+
+        #endregion
+
+        #region Private Variables
+
+        SpellStats spell;
 
         #endregion
 
@@ -23,16 +27,31 @@ namespace WizardWars
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            runeImage.GetComponent<Image>().sprite = spriteHighlighted;
+            runeImage.GetComponent<Image>().sprite = spell.GetHighlightedRuneSprite();
+            GetComponentInParent<RuneGrid>().UpdateTooltip(spell);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            runeImage.GetComponent<Image>().sprite = spriteNormal;
+            runeImage.GetComponent<Image>().sprite = spell.GetRuneSprite();
         }
 
         #endregion
 
+
+        #region Public Methods
+
+        public void SetSpell(SpellStats value)
+        {
+            spell = value;
+        }
+
+        public SpellStats GetSpell()
+        {
+            return spell;
+        }
+
+        #endregion
     }
 }
 

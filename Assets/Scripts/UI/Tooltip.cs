@@ -11,7 +11,7 @@ namespace WizardWars
 
         public GameObject title;
 
-        public GameObject description;
+        public GameObject body;
 
         #endregion
 
@@ -30,9 +30,9 @@ namespace WizardWars
         /// Set description text to input
         /// </summary>
         /// <param name="input"></param>
-        public void SetDescription(string input)
+        public void SetBody(string input)
         {
-            description.GetComponent<Text>().text = input;
+            body.GetComponent<Text>().text = input;
         }
 
         #endregion
