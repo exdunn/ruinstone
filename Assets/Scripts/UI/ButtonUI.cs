@@ -13,7 +13,7 @@ namespace WizardWars
         /// <summary>
         /// text printed on the button
         /// </summary>
-        Text buttonText;
+        public GameObject buttonText;
 
         #endregion
 
@@ -22,7 +22,7 @@ namespace WizardWars
         // Use this for initialization
         void Start()
         {
-            buttonText = GetComponentInChildren<Text>();
+
         }
 
         #endregion
@@ -31,7 +31,7 @@ namespace WizardWars
 
         public void SetText(string input)
         {
-            buttonText.text = input;
+            buttonText.GetComponent<Text>().text = input;
         }
 
         #endregion

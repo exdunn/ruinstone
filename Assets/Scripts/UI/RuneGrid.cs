@@ -38,7 +38,7 @@ namespace WizardWars
         void Start () {
 
             runeSize = runePrefab.GetComponent<RectTransform>().rect.size;
-            runeGrid.GetComponent<GridLayoutGroup>().padding = new RectOffset(20, 20, 20, 20);
+            runeGrid.GetComponent<GridLayoutGroup>().padding = new RectOffset(10, 10, 0, 10);
             library = GameObject.FindGameObjectWithTag("Library");
 
             InstantiateRunes();
