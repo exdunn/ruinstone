@@ -51,6 +51,8 @@ namespace WizardWars
         {
             itemBeingDragged = gameObject;
 
+            runeImage.GetComponent<RectTransform>().localScale = new Vector3(0.7f, 0.7f, 1);
+
             // remember the objects starting parent
             startParent = transform.parent;
 
@@ -69,6 +71,8 @@ namespace WizardWars
         public void OnEndDrag(PointerEventData eventData)
         {
             itemBeingDragged = null;
+
+            runeImage.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
 
             // reparent the dragged object to its starting parent
             transform.parent = startParent;

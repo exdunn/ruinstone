@@ -48,15 +48,14 @@ namespace WizardWars
             background.GetComponent<Image>().sprite = spriteHighlighted;
             background.GetComponent<Image>().SetNativeSize();
 
-            Debug.Log("id: " + spellId);
-            // Search spell library for spell with spellId and use it to set the tooltip
-            GetComponentInParent<CollectionManager>().UpdateTooltip(GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>()[spellId]);
+            UpdateTooltip();
         }
 
         public void OnDrop(PointerEventData eventData)
         {
             spellIcon.GetComponent<Image>().sprite = RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().GetIconSprite();
-
+            spellId = RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().GetId();
+            UpdateTooltip();
 
             string playerPrefIndex = "";
 
@@ -111,6 +110,19 @@ namespace WizardWars
         {
             index[0] = bar;
             index[1] = pos;
+        }
+
+        #endregion
+
+        #region Private Methods 
+
+        /// <summary>
+        /// Updates the tooltip with current spell ID
+        /// </summary>
+        private void UpdateTooltip()
+        {
+            // Search spell library for spell with spellId and use it to set the tooltip
+            GetComponentInParent<CollectionManager>().UpdateTooltip(GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>()[spellId]);
         }
 
         #endregion
