@@ -13,7 +13,6 @@ namespace WizardWars
         public GameObject runeGrid;
         public GameObject runePrefab;
         public GameObject sizeSlider;
-        public GameObject tooltip;
 
         #endregion
 
@@ -80,20 +79,6 @@ namespace WizardWars
                 default:
                     break;
             }
-        }
-
-        public void UpdateTooltip(SpellStats spell)
-        {
-            tooltip.GetComponent<Tooltip>().SetTitle(spell.GetName());
-            string body = spell.GetDescription() + "\n";
-            body += spell.GetDamage() > 0 ? "\nDamage: " + spell.GetDamage() : "";
-            body += spell.GetCooldown() > 0 ? "\nCooldown: " + spell.GetCooldown() : "";
-            //body += spell.GetRadius() > 0 ? "\nRadius: " + spell.GetRadius() : "";
-            //body += spell.GetRange() > 0 ? "\nRange: " + spell.GetRange() : "";
-            //body += spell.GetSpeed() > 0 ? "\nSpeed: " + spell.GetSpeed() : "";
-            body += spell.GetDuration() > 0 ? "\nDuration: " + spell.GetDuration() + "s" : "";
-            //body += spell.GetDelay() > 0 ? "\nDelay: " + spell.GetDelay() : "";
-            tooltip.GetComponent<Tooltip>().SetBody(body);
         }
 
         #endregion

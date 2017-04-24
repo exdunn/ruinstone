@@ -6,23 +6,6 @@ namespace WizardWars
 {
     public class PlayerAccount : MonoBehaviour
     {
-        /// <summary>
-        /// Serializable spell bar list class
-        /// </summary>
-        [System.Serializable]
-        public class SpellBarList
-        {
-            public SpellBar[] spellBar;
-
-            public SpellBarList ()
-            {
-                spellBar = new SpellBar[GlobalVariable.DECKCOUNT];
-            }
-        }
-
-        [SerializeField]
-        private SpellBarList spellBarList;
-
         SpellStats[] library;
 
         #region MonoBehaviour Callbacks
@@ -33,24 +16,18 @@ namespace WizardWars
   
             library = GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>();
 
-            PlayerPrefsX.SetStringArray("SpellBarNames", new string[] { "Spell Bar 1", "Spell Bar Two", "Spell Bar Three", "Spell Bar Four", "Spell Bar Five" });
+            if (PlayerPrefsX.GetStringArray("SpellBarNames").Length == 0)
+            {
+                PlayerPrefsX.SetStringArray("SpellBarNames", new string[] { "Preset 1", "Preset 2", "Preset 3", "Preset 4", "Preset 5" });
 
-            PlayerPrefsX.SetIntArray("SpellListOne", new int[]{ 7,2,3,4});
-            PlayerPrefsX.SetIntArray("SpellListTwo", new int[] { 2, 2, 3, 4 });
-            PlayerPrefsX.SetIntArray("SpellListThree", new int[] { 3, 2, 3, 4 });
-            PlayerPrefsX.SetIntArray("SpellListFour", new int[] { 4, 2, 3, 4 });
-            PlayerPrefsX.SetIntArray("SpellListFive", new int[] { 5, 6, 7, 7 });
+                PlayerPrefsX.SetIntArray("SpellListOne", new int[]{ 1,2,3,4});
+                PlayerPrefsX.SetIntArray("SpellListTwo", new int[] { 2, 3, 4, 5 });
+                PlayerPrefsX.SetIntArray("SpellListThree", new int[] { 3, 4, 5, 6 });
+                PlayerPrefsX.SetIntArray("SpellListFour", new int[] { 5, 6, 7, 8 });
+                PlayerPrefsX.SetIntArray("SpellListFive", new int[] { 1, 3, 5, 7 });
+            }  
         }
-
-        #endregion
-
-        #region Public Methods
-
-        #endregion
-
-        #region Private Methods
 
         #endregion
     }
 }
-
