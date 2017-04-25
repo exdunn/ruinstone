@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace WizardWars
 {
-    public class MainMenu : MonoBehaviour
+    public class MainMenu : Photon.MonoBehaviour
     {
 
         #region Public Variables
@@ -68,12 +68,9 @@ namespace WizardWars
 
         // Use this for initialization
         void Start () {
-		
-	    }
-	
-	    // Update is called once per frame
-	    void Update () {
-		
+
+            PhotonNetwork.playerName = PlayerPrefs.GetString("PlayerName");
+
 	    }
     }
 

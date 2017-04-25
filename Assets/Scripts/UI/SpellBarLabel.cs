@@ -7,7 +7,7 @@ using System;
 
 namespace WizardWars
 {
-    public class SpellBarLabel : MonoBehaviour
+    public class SpellBarLabel : Photon.PunBehaviour
         , IPointerEnterHandler
         , IPointerExitHandler
         , IPointerClickHandler
@@ -38,6 +38,12 @@ namespace WizardWars
         
         public void OnPointerClick(PointerEventData eventData)
         {
+            Debug.Log("name: " + PhotonNetwork.playerName);
+            if (GetComponentInParent<PlayerLabel>().nameLabel.text != PlayerPrefs.GetString("PlayerName"))
+            {
+                return;
+            }
+
             if (index < GlobalVariable.DECKCOUNT - 1)
             {
                 index++;

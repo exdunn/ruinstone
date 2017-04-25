@@ -15,11 +15,6 @@ namespace WizardWars
         public Text nameLabel;
 
         /// <summary>
-        /// Panel for wizard affinity
-        /// </summary>
-        public GameObject afftinity;
-
-        /// <summary>
         /// Text element that displays the game mode
         /// </summary>
         public Text teamLabel;
@@ -29,7 +24,13 @@ namespace WizardWars
         #region Private Variables
 
         #endregion
-        
+
+
+        #region MonoBehaviour CallBacks
+
+
+        #endregion
+
         #region Public Methods
 
         /// <summary>
@@ -45,11 +46,10 @@ namespace WizardWars
             {
                 nameLabel.text = "Player";
             }
-            
         }
 
         #endregion
-        
+
         #region Private Methods
 
         #endregion
