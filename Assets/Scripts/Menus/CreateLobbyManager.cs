@@ -15,17 +15,19 @@ namespace WizardWars
         public PhotonLogLevel Loglevel = PhotonLogLevel.Informational;
 
         [Tooltip("The Ui Panel to let the user enter game name, connect and play")]
-        public GameObject controlPanel;
+        public GameObject contentPanel;
         [Tooltip("The UI Label to inform the user that the connection is in progress")]
         public GameObject progressLabel;
         [Tooltip("The pop up window that displays status messages to the player")]
         public GameObject popUpWindow;
+        [Tooltip("Slider that controls the max number of players")]
+        public GameObject maxPlayerSlider;
 
         /// <summary>
         /// The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created.
         /// </summary>   
         [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
-        public byte MaxPlayersPerRoom = 4;
+        public byte maxPlayersPerRoom = 4;
 
         #endregion
 
@@ -57,6 +59,13 @@ namespace WizardWars
 
         #region Public Methods
 
+        public void SetMaxPlayers()
+        {
+            maxPlayersPerRoom = (byte)maxPlayerSlider.GetComponent<Slider>().value;
+            maxPlayerSlider.GetComponentInChildren<Text>().text = string.Format("{0:N0}", maxPlayerSlider.GetComponent<Slider>().value);
+            Debug.Log("max: " + maxPlayersPerRoom);
+        }
+
         /// <summary>
         /// Create a PUN lobby with the user-input name
         /// </summary>
@@ -65,8 +74,8 @@ namespace WizardWars
             isConnecting = true;
 
             progressLabel.SetActive(true);
-            controlPanel.SetActive(false);
-
+            contentPanel.SetActive(false);
+            
             if (!PhotonNetwork.connected)
             {
                 PhotonNetwork.ConnectUsingSettings(_gameVersion);
@@ -75,7 +84,7 @@ namespace WizardWars
             {
                 Debug.Log("Photon is already connected... creating new room");
                 Debug.Log("game name: " + gameName);
-                PhotonNetwork.CreateRoom(gameName, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
+                PhotonNetwork.CreateRoom(gameName, new RoomOptions() { MaxPlayers = maxPlayersPerRoom }, null);
                 
             }
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
@@ -124,7 +133,7 @@ namespace WizardWars
             nameInputField = GetComponent<InputField>();
 
             progressLabel.SetActive(false);
-            controlPanel.SetActive(true);
+            contentPanel.SetActive(true);
         }
 
         #endregion
@@ -147,7 +156,7 @@ namespace WizardWars
                 {
                     Debug.Log("game name: " + gameName);
                     PhotonNetwork.CreateRoom(gameName, new RoomOptions() {
-                        MaxPlayers = MaxPlayersPerRoom,
+                        MaxPlayers = maxPlayersPerRoom,
                         IsOpen= true
                     }, null);
                 }
@@ -156,7 +165,7 @@ namespace WizardWars
         public override void OnDisconnectedFromPhoton()
         {
             progressLabel.SetActive(false);
-            controlPanel.SetActive(true);
+            contentPanel.SetActive(true);
 
             Debug.LogWarning("DemoAnimator/Launcher: OnDisconnectedFromPhoton() was called by PUN");
         }
