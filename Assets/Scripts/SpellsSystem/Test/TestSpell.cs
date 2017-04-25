@@ -5,9 +5,10 @@ using System.Collections.Generic;
 
 public class TestSpell : Spell {
     //public Projectile a;
-    public Displace a;
+    //public Displace a;
 
-    public Queue<Behaviour> q = new Queue<Behaviour>();
+    public Projectile _projectile = null;
+    public Behaviour[] _behaviours = null;
 
     private bool _begun = false;
     private GameObject caster;
@@ -17,7 +18,7 @@ public class TestSpell : Spell {
         //Set up stats here
         //Add expected behaviours here
         //Set up stats here
-        q.Enqueue(a);
+        //_behaviours.Enqueue(a);
     }
 
     void FixedUpdate() {
@@ -25,30 +26,46 @@ public class TestSpell : Spell {
     }
     
     public override void Activate(GameObject caster, GameObject target, Transform point) {
-        //The Activate method needs to be something like this
-        //Behaviours activate one after the other
-        //Behaviours need to be activated something like this
-        //Behaviour.Effect(Caster, Target)
-        //Effect should do everything needed, there should be no outside interaction until it is finished
-        //Parameters should be set on inspector before, or can be changed before Effect
-        Debug.Log("Activated");
+        //Basic flow of a spell activation:
+        //Load up the three parameters given
+        //In case of targeted or direct spells, use target here
+        //This target may not be needed (as it will always be null)
+        //For self cast spells, it may just check if it is a self cast without ever checking if the target == caster
+        //For projectile, calculate the direction
+        //Activate the first module (Usually a projectile)
+        //When the projectile is Done, load up target module
+        //This is the target of collision with projectile.
+        //Activate the second - last modules, one by one
+        //Activate the next one only when the previous one is done
+        //Keep going until there are no more modules.
+        //You are done!
         this.caster = caster;
         this.target = target;
         this.point = point;
-        //a.direction = Vector3.up;
-        _begun = true;
+
         StartCoroutine(DoActivation());
-        //b.Effect();
-        //c.Effect();
-        //d.Effect();
-        //e.Effect();
     }
 
     private IEnumerator DoActivation() {
-        while(q.Count > 0) {
-            Behaviour b = q.Dequeue();
-            b.DoEffect(caster, target, point);
-            while(!b.isDone) {
+        //Projectile Stuff
+        Debug.Log(_projectile);
+        if(_projectile != null) {
+            Debug.Log("Moving projectile...");
+            _projectile.DoEffect(caster, target, point);
+            while(!_projectile.isDone) {
+                yield return null;
+            }
+            Debug.Log("Projectile is done moving...");
+            Debug.Log("Collided with ... ");
+            target = _projectile.collidedTarget;
+            point = _projectile.collidedLoc;
+            Debug.Log(target + ", " + point);
+        }
+
+        //Payload Stuff
+        for(int i = 0; i < _behaviours.Length; ++i) {
+            _behaviours[i].DoEffect(caster, target, point);
+            while(!_behaviours[i].isDone) {
                 yield return null;
             }
         }

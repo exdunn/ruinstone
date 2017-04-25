@@ -28,7 +28,7 @@ public static class Types {
             case Target.DEFAULT:
                 return "default";
             case Target.ENEMY:
-                return "enemy";
+                return "Player";
             case Target.SELF:
                 return "self";
             default:

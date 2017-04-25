@@ -8,7 +8,9 @@ public class Projectile : Behaviour {
     public float _speed = 0f;
     public bool _pass = false;
 
-    public Queue<GameObject> targets { get; set; }
+    //public Queue<GameObject> targets { get; set; }
+    public GameObject collidedTarget { get; set; }
+    public Transform collidedLoc { get; set; }
     public bool collided { get; set; }
     public bool outOfRange { get; set; }
     public bool atLoc { get; set; }
@@ -27,9 +29,11 @@ public class Projectile : Behaviour {
         collided = false;
         outOfRange = false;
         origin = this.transform;
-        targets = new Queue<GameObject>();
+        //targets = new Queue<GameObject>();
 
         _areaType = Types.Area.LINEAR;
+        collidedTarget = null;
+        collidedLoc = null;
     }
 
     void FixedUpdate() {
@@ -39,9 +43,11 @@ public class Projectile : Behaviour {
         else {
             if(distance >= _range) {
                 outOfRange = true;
+                collidedLoc = point;
             }
             if(point != null && Vector3.Distance(this.transform.position, point.position) <= THRESHOLD) {
                 atLoc = true;
+                collidedLoc = point;
             }
         }
     }
@@ -53,7 +59,9 @@ public class Projectile : Behaviour {
 
         if(other.tag == Types.TargetToString(_targetType)) {
             collided = true;
-            targets.Enqueue(other.gameObject);
+            //targets.Enqueue(other.gameObject);
+            collidedTarget = other.gameObject;
+            collidedLoc = other.transform;
         }
     }
 
@@ -82,14 +90,16 @@ public class Projectile : Behaviour {
     protected override void Effect() {
         Debug.Log("Moving");
 
+        //If point is null, then the point is actually at the max range point in the given direction
         if(point == null) {
             point = new GameObject().transform;
             point.position = origin.position + (direction.normalized * _range);
         }
-        else {
-
+        else { //Else just move towards the given point
+            direction = (point.position - origin.position).normalized;
         }
         Vector3 force = direction.normalized * _speed;
+        Debug.Log("Force: " + force);
         _rigidbody.velocity = force;
         Debug.Log("Target: " + point.position);
     }

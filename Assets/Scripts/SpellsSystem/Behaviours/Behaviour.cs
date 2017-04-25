@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 //TODO;
-//Ignore Passthrough on Projectile
-//Behaviours need a GameObject target parameter on DoEffect
-//Remove public target properties from Payloads
-//Move GetAll into the Effect of Payloads
+//Create a dummy Delivery called Direct
+//Deliveries will have the range, Area Type, etc.
+//Deliveries will not have Ability Type, but will have target type
+//Deliveries will not have recharge (in fact no module will have recharge ) - this is unique to only spells
+//Payloads will not have range, area type, nor recharge
+//Payloads will have ability type, target type, power,duration, area
 
-//Create dummy methods in PlayerManager for Heal, Damage, Status, CC, Displace, Teleport
+    //Idea is every spell has a delivery mechanism that determines how far the targets can be selected, or how far it can travel and what kind of travelling does it do
+    //Payloads on the other hand are what it does once it reaches a destination
+
 //Test the other components
 
 /* Abstract Base Behaviour class */
