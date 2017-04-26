@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace WizardWars
 {
-    public class CollectionManager : MonoBehaviour
+    public class AthenaeumManager : MonoBehaviour
     {
 
         #region Public Variables
@@ -74,7 +75,20 @@ namespace WizardWars
             UpdateButtonLabels();
         }
 
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("Main Menu");
+            }
+        }
+
         #region Public Methods
+        
+        public void BackClick()
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
 
         public void SpellBar1Click()
         {

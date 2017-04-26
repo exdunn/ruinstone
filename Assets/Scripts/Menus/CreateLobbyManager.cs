@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace WizardWars
 {
@@ -134,6 +135,14 @@ namespace WizardWars
 
             progressLabel.SetActive(false);
             contentPanel.SetActive(true);
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("Main Menu");
+            }
         }
 
         #endregion

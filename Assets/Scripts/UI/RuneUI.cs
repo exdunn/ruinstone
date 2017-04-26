@@ -32,15 +32,18 @@ namespace WizardWars
 
         #region MonoBehaviour Callbacks
 
-        public void Start()
+        void Start()
         {
             unmaskedParent = GameObject.FindGameObjectWithTag("Rune Panel").transform;
+            startParent = transform.parent;
         }
+
+        
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             runeImage.GetComponent<Image>().sprite = spell.GetHighlightedRuneSprite();
-            GetComponentInParent<CollectionManager>().UpdateTooltip(spell);
+            GetComponentInParent<AthenaeumManager>().UpdateTooltip(spell);
         }
 
         public void OnPointerExit(PointerEventData eventData)

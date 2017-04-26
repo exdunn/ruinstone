@@ -90,7 +90,7 @@ namespace WizardWars
             newSpellBar[index[1]] =  RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().GetId();
 
             PlayerPrefsX.SetIntArray(playerPrefIndex, newSpellBar);
-            GetComponentInParent<CollectionManager>().UpdateRunesIsDraggable();
+            GetComponentInParent<AthenaeumManager>().UpdateRunesIsDraggable();
         }
 
         #endregion
@@ -123,7 +123,7 @@ namespace WizardWars
         private void UpdateTooltip()
         {
             // Search spell library for spell with spellId and use it to set the tooltip
-            GetComponentInParent<CollectionManager>().UpdateTooltip(GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>()[spellId]);
+            GetComponentInParent<AthenaeumManager>().UpdateTooltip(GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>()[spellId]);
         }
 
         #endregion
