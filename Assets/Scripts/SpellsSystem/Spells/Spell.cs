@@ -40,22 +40,4 @@ public abstract class Spell : MonoBehaviour {
         }
         isCastable = true;
     }
-
-    protected GameObject CreateProjectile(Projectile projectile, Transform point) {
-        GameObject spawn = Instantiate<GameObject>(_spawnPrefab, point.position, Quaternion.identity, this.transform);
-        spawn = CopyProjectile(spawn, projectile);
-        return spawn;
-    }
-    
-
-    protected GameObject CopyProjectile(GameObject spawn, Projectile projectile) {
-        spawn.AddComponent<Projectile>();
-        Projectile proj = spawn.GetComponent<Projectile>();
-        proj._speed = projectile._speed;
-        proj._range = projectile._range;
-        proj.Init();
-        proj._rigidbody = spawn.GetComponent<Rigidbody>();
-        return spawn;
-    }
-
 }

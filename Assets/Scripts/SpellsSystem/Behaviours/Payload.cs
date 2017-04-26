@@ -14,14 +14,4 @@ public abstract class Payload : Behaviour {
 
     }
 
-    protected List<GameObject> GetAll(Types.Target type) {
-        Collider[] t = Physics.OverlapSphere(point.position, _area);
-        List<GameObject> all = new List<GameObject>();
-        foreach(Collider c in t) {
-            if(c.gameObject.CompareTag(Types.TargetToString(type))) {
-                all.Add(c.gameObject);
-            }
-        }
-        return all;
-    }
 }

@@ -13,7 +13,15 @@ public class Projectile : Delivery {
     public bool outOfRange { get; set; }
     public bool atLoc { get; set; }
     public Transform origin { get; set; }
-    public Vector3 direction { get; set; }
+    public Vector3 direction {
+        get {
+            return dir.normalized;
+        }
+        set {
+            dir = value;
+            dir.y = 0;
+        }
+    }
     public float distance {
         get {
             return Vector3.Distance(origin.position, this.transform.position);
@@ -22,14 +30,16 @@ public class Projectile : Delivery {
 
     public Rigidbody _rigidbody;
 
+    private Vector3 dir;
+
     void Start() {
         Init();
     }
 
     void FixedUpdate() {
-        Debug.Log("Fixed Update");
+        //Debug.Log("Fixed Update");
         if(Done()) {
-            Debug.Log("DONE!");
+            //Debug.Log("DONE!");
             Finish();
         }
         else {
@@ -47,7 +57,7 @@ public class Projectile : Delivery {
     void OnTriggerEnter(Collider other) {
         Debug.Log("Collided with " + other);
         Debug.Log("Tag: " + other.tag);
-        Debug.Log("First check: " + (Done()));
+        //Debug.Log("First check: " + (Done()));
         if(Done()) {
             return;
         }
@@ -86,14 +96,16 @@ public class Projectile : Delivery {
 
     protected override void Effect() {
         Debug.Log("Moving");
+        //Either the direction is given, but the destination is not
+        //OR the destination is given, but the direction is not
 
         //If point is null, then the point is actually at the max range point in the given direction
-        if(point == null) {
-            Debug.Log("Point is null");
-            point = new GameObject().transform;
+        if(point == null) { //Direction is given, go in direction to max range point
+            //Debug.Log("Point is null");
+            point = Utils.CreateNewTransform(Vector3.zero);
             point.position = origin.position + (direction.normalized * _range);
         }
-        else { //Else just move towards the given point
+        else { //Direction is not given, but position is given. The direction is the difference between points
             direction = (point.position - origin.position).normalized;
         }
         Debug.Log("POINT: " + point.position);

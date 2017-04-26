@@ -31,7 +31,7 @@ public class Damage : Payload {
             }
         }
         else if(_area > 0) {
-            List<GameObject> targets = GetAll(_targetType);
+            List<GameObject> targets = Utils.GetAll(_targetType, point.position, _area);
             for(int i = 0; i < targets.Count; ++i) {
                 //Do stuff to the target
                 Debug.Log("Did damage to" + i + ".");
