@@ -88,24 +88,6 @@ namespace WizardWars
             }
         }
 
-        /// <summary>
-        /// MonoBehaviour method called when the Collider 'other' enters the trigger.
-        /// Affect Health of the Player if the collider is a beam
-        /// </summary>
-        void OnTriggerEnter(Collider other)
-        {
-            if (!photonView.isMine)
-            {
-                return;
-            }
-
-
-            if (!other.CompareTag("Firebolt"))
-            {
-                health -= 15;
-            }   
-        }
-
         #endregion
 
         #region Public Methods
