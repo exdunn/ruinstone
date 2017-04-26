@@ -9,6 +9,8 @@ namespace WizardWars
 
         #region Public Variables
 
+        public Spell[] spells;
+
         #endregion
 
         #region Private Variables
@@ -28,6 +30,11 @@ namespace WizardWars
         /// Use for character rotation
         /// </summary>
         bool rightClicked;
+
+        /// <summary>
+        /// When true play is in the targetting state
+        /// </summary>
+        bool casting;
 
         #endregion
 
@@ -63,8 +70,19 @@ namespace WizardWars
             // player casts spell one
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                Debug.Log("SPELL ONE");
+                casting = true;
+            }
 
+
+            // spell targetting state
+            if (casting)
+            {
+                if (Input.GetMouseButton(1))
+                {
+                    Debug.Log("CAST SPELL ONE");
+                    Debug.DrawRay(transform.position, (Input.mousePosition), Color.green);
+                    //spells[0].Activate(gameObject, null, director);
+                }
             }
         }
 
@@ -94,6 +112,35 @@ namespace WizardWars
         #endregion
 
         #region Private Methods
+        
+        /// <summary>
+        /// When player casts spell
+        /// </summary>
+        /// <param name="spell"></param>
+        private void CastSpell(int spell)
+        {
+            Debug.Log("CAST SPELL " + spell);
+
+            // if spell is projectile
+            if (true)
+            {
+                // enter targetting state
+                //display targetting reticule
+
+            }
+            // if spell is ground
+            else if (true)
+            {
+                // enter targetting state
+                // display ground AoE indicator
+
+            }
+            // if spell is self
+            else if (true)
+            {
+                // cast the spell
+            }
+        }
 
         #endregion
 
