@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
-using System;
 
-public class Projectile : Behaviour {
+public class Projectile : Delivery {
     public const float THRESHOLD = 0.05f;
     public float _speed = 0f;
     public bool _pass = false;
@@ -22,22 +20,16 @@ public class Projectile : Behaviour {
         }
     }
 
-    private Rigidbody _rigidbody;
+    public Rigidbody _rigidbody;
 
     void Start() {
-        _rigidbody = GetComponent<Rigidbody>();
-        collided = false;
-        outOfRange = false;
-        origin = this.transform;
-        //targets = new Queue<GameObject>();
-
-        _areaType = Types.Area.LINEAR;
-        collidedTarget = null;
-        collidedLoc = null;
+        Init();
     }
 
     void FixedUpdate() {
+        Debug.Log("Fixed Update");
         if(Done()) {
+            Debug.Log("DONE!");
             Finish();
         }
         else {
@@ -53,11 +45,14 @@ public class Projectile : Behaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        if(!this.enabled || Done()) {
+        Debug.Log("Collided with " + other);
+        Debug.Log("Tag: " + other.tag);
+        Debug.Log("First check: " + (Done()));
+        if(Done()) {
             return;
         }
-
-        if(other.tag == Types.TargetToString(_targetType)) {
+        else if(other.tag == Types.TargetToString(_targetType)) {
+            Debug.Log("Collided with an enemy.");
             collided = true;
             //targets.Enqueue(other.gameObject);
             collidedTarget = other.gameObject;
@@ -66,6 +61,7 @@ public class Projectile : Behaviour {
     }
 
     public bool Done() {
+        Debug.Log("Collided, OutOfRange, AtLoc: " + collided + ", " + outOfRange + ", " + atLoc);
         return collided && !_pass || outOfRange || atLoc;
     }
 
@@ -85,6 +81,7 @@ public class Projectile : Behaviour {
     protected override void Finish() {
         _rigidbody.velocity *= 0;
         isDone = true;
+        Destroy(_rigidbody.gameObject);
     }
 
     protected override void Effect() {
@@ -92,15 +89,30 @@ public class Projectile : Behaviour {
 
         //If point is null, then the point is actually at the max range point in the given direction
         if(point == null) {
+            Debug.Log("Point is null");
             point = new GameObject().transform;
             point.position = origin.position + (direction.normalized * _range);
         }
         else { //Else just move towards the given point
             direction = (point.position - origin.position).normalized;
         }
+        Debug.Log("POINT: " + point.position);
+        Debug.Log("ORIGIN: " + origin.position);
         Vector3 force = direction.normalized * _speed;
         Debug.Log("Force: " + force);
         _rigidbody.velocity = force;
         Debug.Log("Target: " + point.position);
+    }
+
+    public void Init() {
+        //_rigidbody = GetComponent<Rigidbody>();
+        collided = false;
+        outOfRange = false;
+        origin = this.transform;
+        //targets = new Queue<GameObject>();
+
+        _areaType = Types.Area.LINEAR;
+        collidedTarget = null;
+        collidedLoc = null;
     }
 }

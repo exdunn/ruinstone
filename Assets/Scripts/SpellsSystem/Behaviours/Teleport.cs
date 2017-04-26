@@ -7,7 +7,6 @@ public class Teleport : Payload {
 
     void Start() {
         _abilityType = Types.Ability.DISPLACE;
-        _areaType = Types.Area.POINT;
         _targetType = Types.Target.SELF;
     }
 

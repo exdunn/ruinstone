@@ -8,8 +8,6 @@ public class Delay : Behaviour {
     private float _internal = 0f;
 
     void Start() {
-        _abilityType = Types.Ability.MISC;
-        _areaType = Types.Area.POINT;
         _targetType = Types.Target.SELF;
     }
 
