@@ -26,6 +26,7 @@ namespace WizardWars
         SpellStats spell;
         Transform unmaskedParent;
         Transform startParent;
+        Boolean isDraggable = true;
 
         #endregion
 
@@ -49,6 +50,11 @@ namespace WizardWars
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (!isDraggable)
+            {
+                return;
+            }
+
             itemBeingDragged = gameObject;
 
             runeImage.GetComponent<RectTransform>().localScale = new Vector3(0.7f, 0.7f, 1);
@@ -65,6 +71,11 @@ namespace WizardWars
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (!isDraggable)
+            {
+                return;
+            }
+
             transform.position = Input.mousePosition;
         }
 
@@ -86,7 +97,6 @@ namespace WizardWars
 
         #endregion
 
-
         #region Public Methods
 
         public void SetSpell(SpellStats value)
@@ -97,6 +107,13 @@ namespace WizardWars
         public SpellStats GetSpell()
         {
             return spell;
+        }
+
+        public void SetIsDraggable(Boolean input)
+        {
+            // set rune color based on if it is dragable
+            runeImage.GetComponent<Image>().color = input ? Color.white : Color.gray;
+            isDraggable = input;
         }
 
         #endregion

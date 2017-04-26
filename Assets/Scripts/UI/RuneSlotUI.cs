@@ -90,6 +90,7 @@ namespace WizardWars
             newSpellBar[index[1]] =  RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().GetId();
 
             PlayerPrefsX.SetIntArray(playerPrefIndex, newSpellBar);
+            GetComponentInParent<CollectionManager>().UpdateRunesIsDraggable();
         }
 
         #endregion
