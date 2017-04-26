@@ -55,7 +55,7 @@ namespace WizardWars
         /// </summary>
         public void CollectionClick()
         {
-            SceneManager.LoadScene("Collection");
+            SceneManager.LoadScene("Athenaeum");
         }
 
         #endregion
