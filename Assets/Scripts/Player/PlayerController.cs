@@ -75,13 +75,21 @@ namespace WizardWars
 
 
             // spell targetting state
-            if (casting)
+            if (true)
             {
-                if (Input.GetMouseButton(1))
+                if (Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log("CAST SPELL ONE");
-                    Debug.DrawRay(transform.position, (Input.mousePosition), Color.green);
-                    //spells[0].Activate(gameObject, null, director);
+
+                    Vector3 mousePos = Input.mousePosition;
+                    //mousePos.z = 10; // select distance = 10 units from the camera
+                    Ray ray = Camera.main.ScreenPointToRay(mousePos);
+                    RaycastHit hit = new RaycastHit();
+                    if (Physics.Raycast(ray, out hit, 100.0f))
+                    {
+                        Debug.DrawLine(transform.position, hit.point);
+                    }
+
+                    casting = false;
                 }
             }
         }
