@@ -40,7 +40,7 @@ namespace WizardWars
             else
             {
                 PhotonNetwork.room.IsOpen = false;
-                PhotonNetwork.LoadLevel("Test Scene");
+                PhotonNetwork.LoadLevel("dunn test scene");
             }
         }
 

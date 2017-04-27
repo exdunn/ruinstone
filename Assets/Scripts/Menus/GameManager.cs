@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour {
         {
             //Debug.Log("We are Instantiating LocalPlayer");
             // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-            PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+            PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity, 0);
         }
     }
 
@@ -64,7 +64,6 @@ public class GameManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("ASDFD");
             if (!gameMenu.activeSelf)
             {
                 gameMenu.SetActive(true);

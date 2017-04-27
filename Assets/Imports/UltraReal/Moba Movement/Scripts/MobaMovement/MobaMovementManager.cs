@@ -5,7 +5,7 @@ namespace UltraReal.MobaMovement
     ///<summary>
     ///This is the manager script for the Moba Movement system.  There should only be one in you scene.
     ///</summary>
-    public class MobaMovementManager : MonoBehaviour
+    public class MobaMovementManager : Photon.MonoBehaviour
     {
 
         #region Fields
@@ -162,8 +162,10 @@ namespace UltraReal.MobaMovement
         ///</summary>
         void Update()
         {
-          //  if(_targetMobaMover && _mobaCameraTrack)
-          //      _mobaCameraTrack.SetTarget(_targetMobaMover.transform);
+            //  if(_targetMobaMover && _mobaCameraTrack)
+            //      _mobaCameraTrack.SetTarget(_targetMobaMover.transform);
+
+
 
             if (_mobaInput != null && _mobaInput.GetMobaMoveButton())
             {
@@ -210,8 +212,6 @@ namespace UltraReal.MobaMovement
             if(mobaMover.gameObject.tag == "Player")
             {
                 _targetMobaMover = mobaMover;
-                if (_mobaCameraTrack)
-                    _mobaCameraTrack.SetTarget(_targetMobaMover.transform);
             }
         }
 

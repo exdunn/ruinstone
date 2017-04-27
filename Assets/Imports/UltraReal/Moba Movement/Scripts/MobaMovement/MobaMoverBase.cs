@@ -5,7 +5,7 @@ namespace UltraReal.MobaMovement
     ///<summary>
     ///Base Class for MoveMover.
     ///</summary>
-    public abstract class MobaMoverBase : MonoBehaviour
+    public abstract class MobaMoverBase : Photon.MonoBehaviour
     {
         public delegate void MoverHandler(MobaMoverBase mobaMover);
         public static event MoverHandler OnMoverAdded;

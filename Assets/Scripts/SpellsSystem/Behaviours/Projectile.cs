@@ -65,7 +65,7 @@ public class Projectile : Delivery {
         }
         if(caster && caster.GetComponent<WizardWars.PlayerController>() && other.gameObject.GetComponent<WizardWars.PlayerController>())
         {
-            if (caster.gameObject.GetComponent<WizardWars.PlayerController>().playerName == other.gameObject.GetComponent<WizardWars.PlayerController>().playerName)
+            if (caster.gameObject.GetComponent<WizardWars.PlayerController>().GetId() == other.gameObject.GetComponent<WizardWars.PlayerController>().GetId())
             {
                 return;
             }

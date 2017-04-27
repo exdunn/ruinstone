@@ -36,7 +36,7 @@ namespace WizardWars
         /// </summary>
         bool casting;
 
-        public string playerName;
+        int playerId;
 
         #endregion
 
@@ -45,7 +45,7 @@ namespace WizardWars
         // Use this for initialization
         void Start()
         {
-            playerName = PhotonNetwork.playerName;
+            playerId = PhotonNetwork.player.ID;
             GetComponent<Rigidbody>().freezeRotation = true;
         }
 
@@ -75,7 +75,6 @@ namespace WizardWars
             {
                 casting = true;
             }
-
 
             // spell targetting state
             if (true)
@@ -122,6 +121,11 @@ namespace WizardWars
         #endregion
 
         #region Public Methods
+
+        public int GetId()
+        {
+            return playerId;
+        }
 
         #endregion
 

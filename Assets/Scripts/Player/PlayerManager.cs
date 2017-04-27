@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UltraReal.SharedAssets.UnityStandardAssets;
 
 namespace WizardWars
 {
@@ -34,6 +34,8 @@ namespace WizardWars
 
         #region Private Variables
 
+        AutoCam _autoCam;
+
         #endregion
 
         #region MonoBehaviour Callbacks
@@ -63,13 +65,14 @@ namespace WizardWars
             deaths = 0;
             kills = 0;
 
-            CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
+            _autoCam = Camera.main.GetComponentInParent<AutoCam>();
 
-            if (_cameraWork != null)
+            if (_autoCam.GetComponent<AutoCam>() != null)
             {
                 if (photonView.isMine)
                 {
-                    _cameraWork.OnStartFollowing();
+                    Debug.Log("CAM");
+                    _autoCam.GetComponent<AutoCam>().SetTarget(transform);
                 }
             }
             else {
