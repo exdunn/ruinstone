@@ -23,7 +23,7 @@ public static class Utils {
     }
 
     public static GameObject CreateProjectile(GameObject prefab, Projectile proj, Transform parent, Vector3 position, Quaternion rotation) {
-        GameObject spawn = UnityEngine.Object.Instantiate<GameObject>(prefab, position, rotation, parent);
+        GameObject spawn = UnityEngine.Object.Instantiate<GameObject>(prefab, position, rotation);
         spawn = CopyProjectile(spawn, proj);
         return spawn;
     }

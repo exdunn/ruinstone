@@ -65,10 +65,13 @@ public class Projectile : Delivery {
         if(Done() || !_start) {
             return;
         }
-        if(other.tag == Types.TargetToString(_targetType)) {
-            if(other.gameObject.GetComponent<WizardWars.PlayerController>().GetId() == caster.GetComponent<WizardWars.PlayerController>().GetId()) {
+        if (other.tag == Types.TargetToString(_targetType))
+        {
+            if (other.gameObject.GetComponent<WizardWars.PlayerController>().GetId() == caster.GetComponent<WizardWars.PlayerController>().GetId())
+            {
                 return;
             }
+
             //Debug.Log("Collided with an enemy.");
             collided = true;
             //targets.Enqueue(other.gameObject);

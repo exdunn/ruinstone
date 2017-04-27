@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMover : Photon.MonoBehaviour {
+public class PlayerMoverNoPun : MonoBehaviour {
 
     Vector3 newPosition;
 
-    [SerializeField]
     GameObject[] spells;
     [SerializeField]
     GameObject[] spellPrefabs;
@@ -29,12 +28,13 @@ public class PlayerMover : Photon.MonoBehaviour {
         playerId = PhotonNetwork.player.ID;
         isCasting = false;
         newPosition = transform.position;
+        spells = new GameObject[spellPrefabs.Length];
 
         for (int i = 0; i < spellPrefabs.Length; ++i)
         {
-            //Debug.Log("Loaded Spell");
+            Debug.Log("Loaded Spell");
             spells[i] = Instantiate(spellPrefabs[0], transform.position, transform.rotation);
-            //Debug.Log("Spell: " + spells[i]);
+            Debug.Log("Spell: " + spells[i]);
         }
     }
 	
@@ -46,18 +46,12 @@ public class PlayerMover : Photon.MonoBehaviour {
         // move player when user presses RMB
         if (Input.GetMouseButtonDown(1))
         {
-            // if not the local player
-            if (!photonView.isMine)
-            {
-                return;
-            }
-
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit))
             {
-                GetComponent<PhotonView>().RPC("ReceivedMove", PhotonTargets.All, hit.point);
+                newPosition = hit.point;
             }
         }
 
@@ -88,12 +82,6 @@ public class PlayerMover : Photon.MonoBehaviour {
 
             }
         }
-    }
-
-    [PunRPC]
-    public void ReceivedMove(Vector3 movePos)
-    {
-        newPosition = movePos;
     }
 
     private void moveChar()
