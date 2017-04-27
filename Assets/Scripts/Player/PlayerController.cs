@@ -9,8 +9,8 @@ namespace WizardWars
 
         #region Public Variables
 
-        public Spell[] spells;
-
+        public GameObject[] spells;
+        
         #endregion
 
         #region Private Variables
@@ -36,6 +36,8 @@ namespace WizardWars
         /// </summary>
         bool casting;
 
+        public string playerName;
+
         #endregion
 
         #region MonoBehaviour CallBacks
@@ -43,6 +45,7 @@ namespace WizardWars
         // Use this for initialization
         void Start()
         {
+            playerName = PhotonNetwork.playerName;
             GetComponent<Rigidbody>().freezeRotation = true;
         }
 
@@ -87,9 +90,12 @@ namespace WizardWars
                     if (Physics.Raycast(ray, out hit, 100.0f))
                     {
                         Debug.DrawLine(transform.position, hit.point);
+                        GameObject newSpell = Instantiate(spells[0], transform.position, transform.rotation);
+                        newSpell.GetComponent<Spell>().Activate(gameObject, null, -(transform.position - hit.point));
                     }
 
                     casting = false;
+                    
                 }
             }
         }

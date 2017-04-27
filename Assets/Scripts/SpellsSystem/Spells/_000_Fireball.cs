@@ -6,7 +6,8 @@ using System.Collections;
 public class _000_Fireball : Spell {
     private Projectile _projectile;
     private GameObject _spawn;
-    void Start() {
+    private int i = 0;
+    void Awake() {
         if(_delivery == null) {
             Debug.Log("There must be a delivery method!");
         }
@@ -17,6 +18,8 @@ public class _000_Fireball : Spell {
             Debug.Log("The spawned projectile must have a rigidbody");
         }
         _projectile = _delivery as Projectile;
+        Debug.Log(i++);
+        Debug.Log("projectile: " + _projectile);
         //Set up Projectile's rigidbody
         //_projectile._rigidbody = _spawnPrefab.GetComponent<Rigidbody>();
     }
@@ -33,6 +36,8 @@ public class _000_Fireball : Spell {
     }
 
     protected override IEnumerator CoActivate(GameObject caster, GameObject target, Transform point) {
+        Debug.Log(i++);
+        Debug.Log("proje: " + _projectile);
         //Spawn projectile
         _spawn = Utils.CreateProjectile(_spawnPrefab, _projectile, this.transform, caster.transform.position, Quaternion.identity);
         Projectile proj = _spawn.GetComponent<Projectile>();
