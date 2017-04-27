@@ -12,7 +12,7 @@ public class Projectile : Delivery {
     public bool collided { get; set; }
     public bool outOfRange { get; set; }
     public bool atLoc { get; set; }
-    public Transform origin { get; set; }
+    public Vector3 origin { get; set; }
     public Vector3 direction {
         get {
             return dir.normalized;
@@ -24,7 +24,9 @@ public class Projectile : Delivery {
     }
     public float distance {
         get {
-            return Vector3.Distance(origin.position, this.transform.position);
+            Debug.Log("Access origin in DISTANCE");
+            Debug.Log("origin in DISTANCE: " + origin);
+            return Vector3.Distance(origin, this.transform.position);
         }
     }
 
@@ -61,7 +63,7 @@ public class Projectile : Delivery {
         if(Done()) {
             return;
         }
-        if(caster.gameObject.GetComponent<WizardWars.PlayerController>() && other.gameObject.GetComponent<WizardWars.PlayerController>())
+        if(caster && caster.GetComponent<WizardWars.PlayerController>() && other.gameObject.GetComponent<WizardWars.PlayerController>())
         {
             if (caster.gameObject.GetComponent<WizardWars.PlayerController>().playerName == other.gameObject.GetComponent<WizardWars.PlayerController>().playerName)
             {
@@ -110,13 +112,15 @@ public class Projectile : Delivery {
         if(point == null) { //Direction is given, go in direction to max range point
             //Debug.Log("Point is null");
             point = Utils.CreateNewTransform(Vector3.zero);
-            point.position = origin.position + (direction.normalized * _range);
+            Debug.Log("Access origin in EFFECT when setting point position");
+            point.position = origin + (direction.normalized * _range);
         }
         else { //Direction is not given, but position is given. The direction is the difference between points
-            direction = (point.position - origin.position).normalized;
+            Debug.Log("Access origin in EFFECT when setting direction");
+            direction = (point.position - origin).normalized;
         }
         Debug.Log("POINT: " + point.position);
-        Debug.Log("ORIGIN: " + origin.position);
+        Debug.Log("ORIGIN: " + origin);
         Vector3 force = direction.normalized * _speed;
         Debug.Log("Force: " + force);
         _rigidbody.velocity = force;
@@ -127,7 +131,8 @@ public class Projectile : Delivery {
         //_rigidbody = GetComponent<Rigidbody>();
         collided = false;
         outOfRange = false;
-        origin = this.transform;
+        Debug.Log("Access origin in INIT");
+        origin = this.transform.position;
         //targets = new Queue<GameObject>();
 
         _areaType = Types.Area.LINEAR;
