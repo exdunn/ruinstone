@@ -24,8 +24,8 @@ public class Projectile : Delivery {
     }
     public float distance {
         get {
-            Debug.Log("Access origin in DISTANCE");
-            Debug.Log("origin in DISTANCE: " + origin);
+            //Debug.Log("Access origin in DISTANCE");
+            //Debug.Log("origin in DISTANCE: " + origin);
             return Vector3.Distance(origin, this.transform.position);
         }
     }
@@ -33,6 +33,8 @@ public class Projectile : Delivery {
     public Rigidbody _rigidbody;
 
     private Vector3 dir;
+
+    private bool _start = false;
 
     void Start() {
         Init();
@@ -57,21 +59,17 @@ public class Projectile : Delivery {
     }
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log("Collided with " + other);
-        Debug.Log("Tag: " + other.tag);
+        //Debug.Log("Collided with " + other);
+        //Debug.Log("Tag: " + other.tag);
         //Debug.Log("First check: " + (Done()));
-        if(Done()) {
+        if(Done() || !_start) {
             return;
         }
-        if(caster && caster.GetComponent<WizardWars.PlayerController>() && other.gameObject.GetComponent<WizardWars.PlayerController>())
-        {
-            if (caster.gameObject.GetComponent<WizardWars.PlayerController>().GetId() == other.gameObject.GetComponent<WizardWars.PlayerController>().GetId())
-            {
+        if(other.tag == Types.TargetToString(_targetType)) {
+            if(other.gameObject.GetComponent<WizardWars.PlayerController>().GetId() == caster.GetComponent<WizardWars.PlayerController>().GetId()) {
                 return;
             }
-        }
-        if(other.tag == Types.TargetToString(_targetType)) {
-            Debug.Log("Collided with an enemy.");
+            //Debug.Log("Collided with an enemy.");
             collided = true;
             //targets.Enqueue(other.gameObject);
             collidedTarget = other.gameObject;
@@ -80,14 +78,15 @@ public class Projectile : Delivery {
     }
 
     public bool Done() {
-        Debug.Log("Collided, OutOfRange, AtLoc: " + collided + ", " + outOfRange + ", " + atLoc);
+        //Debug.Log("Collided, OutOfRange, AtLoc: " + collided + ", " + outOfRange + ", " + atLoc);
         return collided && !_pass || outOfRange || atLoc;
     }
 
     public override void DoEffect(GameObject caster, GameObject target, Transform point) {
         this.point = point;
-        //this.caster = caster;
-        //this.target = target;
+        this.caster = caster;
+        this.target = target;
+        _start = true;
         Effect();
     }
 
@@ -98,13 +97,15 @@ public class Projectile : Delivery {
     }
 
     protected override void Finish() {
+        //Debug.Log("Finishing...");
+        //Debug.Log("Destroying: " + _rigidbody.gameObject);
         _rigidbody.velocity *= 0;
         isDone = true;
         Destroy(_rigidbody.gameObject);
     }
 
     protected override void Effect() {
-        Debug.Log("Moving");
+        //Debug.Log("Moving");
         //Either the direction is given, but the destination is not
         //OR the destination is given, but the direction is not
 
@@ -112,26 +113,26 @@ public class Projectile : Delivery {
         if(point == null) { //Direction is given, go in direction to max range point
             //Debug.Log("Point is null");
             point = Utils.CreateNewTransform(Vector3.zero);
-            Debug.Log("Access origin in EFFECT when setting point position");
+            //Debug.Log("Access origin in EFFECT when setting point position");
             point.position = origin + (direction.normalized * _range);
         }
         else { //Direction is not given, but position is given. The direction is the difference between points
-            Debug.Log("Access origin in EFFECT when setting direction");
+            //Debug.Log("Access origin in EFFECT when setting direction");
             direction = (point.position - origin).normalized;
         }
-        Debug.Log("POINT: " + point.position);
-        Debug.Log("ORIGIN: " + origin);
+        //Debug.Log("POINT: " + point.position);
+        //Debug.Log("ORIGIN: " + origin);
         Vector3 force = direction.normalized * _speed;
-        Debug.Log("Force: " + force);
+        //Debug.Log("Force: " + force);
         _rigidbody.velocity = force;
-        Debug.Log("Target: " + point.position);
+        //Debug.Log("Target: " + point.position);
     }
 
     public void Init() {
         //_rigidbody = GetComponent<Rigidbody>();
         collided = false;
         outOfRange = false;
-        Debug.Log("Access origin in INIT");
+        //Debug.Log("Access origin in INIT");
         origin = this.transform.position;
         //targets = new Queue<GameObject>();
 

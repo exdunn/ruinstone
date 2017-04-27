@@ -9,6 +9,7 @@ namespace WizardWars
 
         #region Public Variables
 
+        public GameObject[] spellPrefabs;
         public GameObject[] spells;
         
         #endregion
@@ -45,8 +46,14 @@ namespace WizardWars
         // Use this for initialization
         void Start()
         {
+            spells = new GameObject[spellPrefabs.Length];
             playerId = PhotonNetwork.player.ID;
             GetComponent<Rigidbody>().freezeRotation = true;
+            for(int i = 0; i < spellPrefabs.Length; ++i) {
+                //Debug.Log("Loaded Spell");
+                spells[i] = Instantiate(spellPrefabs[0], transform.position, transform.rotation);
+                //Debug.Log("Spell: " + spells[i]);
+            }
         }
 
         /// <summary>
@@ -77,11 +84,13 @@ namespace WizardWars
             }
 
             // spell targetting state
-            if (true)
+            bool canSpell = spells[0].GetComponent<Spell>().isCastable;
+            Debug.Log("Castable: " + canSpell);
+            if (canSpell)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-
+                    
                     Vector3 mousePos = Input.mousePosition;
                     //mousePos.z = 10; // select distance = 10 units from the camera
                     Ray ray = Camera.main.ScreenPointToRay(mousePos);
@@ -89,8 +98,9 @@ namespace WizardWars
                     if (Physics.Raycast(ray, out hit, 100.0f))
                     {
                         Debug.DrawLine(transform.position, hit.point);
-                        GameObject newSpell = Instantiate(spells[0], transform.position, transform.rotation);
-                        newSpell.GetComponent<Spell>().Activate(gameObject, null, -(transform.position - hit.point));
+                        //GameObject newSpell = Instantiate(spells[0], transform.position, transform.rotation);
+                        spells[0].GetComponent<Spell>().Activate(gameObject, null, -(transform.position - hit.point));
+                        
                     }
 
                     casting = false;

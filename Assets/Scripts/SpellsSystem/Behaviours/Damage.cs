@@ -21,9 +21,9 @@ public class Damage : Payload {
 
     protected override void Effect() {
         if(_area == 0) {
-            Debug.Log("Did damage.");
+            //Debug.Log("Did damage.");
             if(target == null) {
-                Debug.Log("Target is null when it should not be. Did you forget to load up target from a previous module?");
+                //Debug.Log("Target is null when it should not be. Did you forget to load up target from a previous module?");
                 //Do nothing, since there is no target
             }
             else {
@@ -52,6 +52,7 @@ public class Damage : Payload {
 
     protected override void Finish() {
         isDone = true;
+        _internal = 0f;
     }
 
     private void DoEffect(GameObject t) {

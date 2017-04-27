@@ -31,8 +31,8 @@ public static class Utils {
     public static GameObject CopyProjectile(GameObject spawn, Projectile projectile) {
         spawn.AddComponent<Projectile>();
         Projectile proj = spawn.GetComponent<Projectile>();
-        Debug.Log("Proj is " + proj);
-        Debug.Log("Projectile is " + projectile);
+        //Debug.Log("Proj is " + proj);
+        //Debug.Log("Projectile is " + projectile);
         proj._speed = projectile._speed;
         proj._range = projectile._range;
         proj.Init();

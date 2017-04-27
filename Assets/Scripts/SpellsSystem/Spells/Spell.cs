@@ -29,6 +29,8 @@ public abstract class Spell : MonoBehaviour {
     protected abstract IEnumerator CoActivate(GameObject caster, GameObject target, Transform point);
 
     protected void GoOnCooldown() {
+        Debug.Log("Going on cooldown");
+        _internal = 0f;
         isCastable = false;
         StartCoroutine(Cooldown());
     }
