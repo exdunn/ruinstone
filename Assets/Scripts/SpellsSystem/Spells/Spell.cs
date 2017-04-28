@@ -26,7 +26,7 @@ public abstract class Spell : MonoBehaviour {
 
     public abstract void Activate(GameObject caster, GameObject target, Vector3 point);
     public abstract void Finish();
-    protected abstract IEnumerator CoActivate(GameObject caster, GameObject target, Transform point);
+    protected abstract IEnumerator CoActivate(GameObject caster, GameObject target, Vector3 point);
 
     protected void GoOnCooldown() {
         Debug.Log("Going on cooldown");

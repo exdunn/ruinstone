@@ -5,7 +5,7 @@ using System.Collections;
 
 public class Direct : Delivery {
     //Does nothing, or sets target to target
-    public override void DoEffect(GameObject caster, GameObject target, Transform point) {
+    public override void DoEffect(GameObject caster, GameObject target, Vector3 point) {
         Finish();
     }
 

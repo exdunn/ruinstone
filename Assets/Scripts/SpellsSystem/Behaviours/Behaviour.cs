@@ -22,13 +22,13 @@ public abstract class Behaviour : MonoBehaviour {
     public bool isDone { get; set; }
     public GameObject caster { get; set; }
     public GameObject target { get; set; }
-    public Transform point { get; set; }
+    public Vector3 point { get; set; }
 
     void Start() {
         isDone = false;
     }
 
-    public abstract void DoEffect(GameObject caster, GameObject target, Transform point);
+    public abstract void DoEffect(GameObject caster, GameObject target, Vector3 point);
 
     protected abstract void Effect();
     protected abstract IEnumerator DuraEffect();

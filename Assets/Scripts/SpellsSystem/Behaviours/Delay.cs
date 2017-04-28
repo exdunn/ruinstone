@@ -11,7 +11,7 @@ public class Delay : Behaviour {
         _targetType = Types.Target.SELF;
     }
 
-    public override void DoEffect(GameObject caster, GameObject target, Transform point) {
+    public override void DoEffect(GameObject caster, GameObject target, Vector3 point) {
         StartCoroutine(DuraEffect());
     }
 

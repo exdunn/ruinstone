@@ -32,9 +32,7 @@ public class PlayerMoverNoPun : MonoBehaviour {
 
         for (int i = 0; i < spellPrefabs.Length; ++i)
         {
-            Debug.Log("Loaded Spell");
             spells[i] = Instantiate(spellPrefabs[0], transform.position, transform.rotation);
-            Debug.Log("Spell: " + spells[i]);
         }
     }
 	
@@ -63,7 +61,6 @@ public class PlayerMoverNoPun : MonoBehaviour {
 
         // spell targetting state
         bool canSpell = spells[0].GetComponent<Spell>().isCastable;
-        Debug.Log("Castable: " + canSpell);
         if (true)
         {
             if (Input.GetMouseButtonDown(0))

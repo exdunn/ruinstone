@@ -24,19 +24,20 @@ public static class Utils {
 
     public static GameObject CreateProjectile(GameObject prefab, Projectile proj, Transform parent, Vector3 position, Quaternion rotation) {
         GameObject spawn = UnityEngine.Object.Instantiate<GameObject>(prefab, position, rotation);
-        spawn = CopyProjectile(spawn, proj);
+        //spawn = CopyProjectile(spawn, proj);
         return spawn;
     }
 
     public static GameObject CopyProjectile(GameObject spawn, Projectile projectile) {
-        spawn.AddComponent<Projectile>();
         Projectile proj = spawn.GetComponent<Projectile>();
         //Debug.Log("Proj is " + proj);
         //Debug.Log("Projectile is " + projectile);
         proj._speed = projectile._speed;
         proj._range = projectile._range;
         proj.Init();
-        proj._rigidbody = spawn.GetComponent<Rigidbody>();
+        //proj._rigidbody = spawn.GetComponent<Rigidbody>();
+        //proj.transf = spawn.transform.GetChild(0).gameObject;
+        //proj.transf.transform.position = new Vector3(0,1.5f,0);
         return spawn;
     }
 }

@@ -9,7 +9,7 @@ public class Disrupt : Payload {
         _abilityType = Types.Ability.DISRUPT;
     }
 
-    public override void DoEffect(GameObject caster, GameObject target, Transform point) {
+    public override void DoEffect(GameObject caster, GameObject target, Vector3 point) {
         this.caster = caster;
         this.target = target;
         this.point = point;
@@ -26,7 +26,7 @@ public class Disrupt : Payload {
             //Do stuff to the target
         }
         else if(_area > 0) {
-            List<GameObject> targets = Utils.GetAll(_targetType, point.position, _area);
+            List<GameObject> targets = Utils.GetAll(_targetType, point, _area);
             for(int i = 0; i < targets.Count; ++i) {
                 //Do stuff to the target
             }

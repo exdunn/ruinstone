@@ -27,9 +27,9 @@ public class _000_Fireball : Spell {
 
     public override void Activate(GameObject caster, GameObject target, Vector3 point) {
         isActive = true;
-        Transform temp = Utils.CreateNewTransform(point);
-        StartCoroutine(CoActivate(caster, target, temp));
-        Destroy(temp);
+        //Transform temp = Utils.CreateNewTransform(point);
+        StartCoroutine(CoActivate(caster, target, point));
+        //Destroy(/*temp*/);
         GoOnCooldown();
     }
 
@@ -37,17 +37,17 @@ public class _000_Fireball : Spell {
         isDone = true;
     }
 
-    protected override IEnumerator CoActivate(GameObject caster, GameObject target, Transform point) {
+    protected override IEnumerator CoActivate(GameObject caster, GameObject target, Vector3 point) {
         //Debug.Log(i++);
         //Debug.Log("proje: " + _projectile);
         //Spawn projectile
-        _spawn = Utils.CreateProjectile(_spawnPrefab, _projectile, this.transform, caster.transform.position, Quaternion.identity);
+        _spawn = Utils.CreateProjectile(_spawnPrefab, _projectile, this.transform, caster.transform.position + new Vector3(0,0.5f,0), Quaternion.identity);
         Projectile proj = _spawn.GetComponent<Projectile>();
         //Move projectile
-        proj.direction = (point.position - caster.transform.position).normalized;
+        proj.direction = (point - caster.transform.position).normalized;
         //Debug.Log("Activating Projectile");
         //Debug.Log("Caster: " + caster);
-        proj.DoEffect(caster, target, null);
+        proj.DoEffect(caster, target, proj.direction);
 
         //GameObject t; Transform p;
         while(_spawn != null && !proj.isDone) {
