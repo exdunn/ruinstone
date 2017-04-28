@@ -71,7 +71,7 @@ public class PlayerMoverNoPun : MonoBehaviour {
                 {
                     Debug.DrawLine(transform.position, hit.point, Color.red);
                     //GameObject newSpell = Instantiate(spells[0], transform.position, transform.rotation);
-                    spells[0].GetComponent<Spell>().Activate(gameObject, null, hit.point - transform.position);
+                    spells[0].GetComponent<Spell>().Activate(gameObject, null, hit.point);
 
                 }
 

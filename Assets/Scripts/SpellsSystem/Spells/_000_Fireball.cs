@@ -44,10 +44,11 @@ public class _000_Fireball : Spell {
         _spawn = Utils.CreateProjectile(_spawnPrefab, _projectile, this.transform, caster.transform.position + new Vector3(0,0.5f,0), Quaternion.identity);
         Projectile proj = _spawn.GetComponent<Projectile>();
         //Move projectile
-        proj.direction = (point - caster.transform.position).normalized;
+        //proj.direction = (point - caster.transform.position).normalized;
         //Debug.Log("Activating Projectile");
         //Debug.Log("Caster: " + caster);
-        proj.DoEffect(caster, target, proj.direction);
+        //Debug.Log("Dir: " + point);
+        proj.DoEffect(caster, target, point);
 
         //GameObject t; Transform p;
         while(_spawn != null && !proj.isDone) {

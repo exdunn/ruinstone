@@ -3,11 +3,11 @@ using System.Collections;
 using System;
 
 public class Projectile : Delivery {
-    public const float THRESHOLD = 0.05f;
+    public const float THRESHOLD = 0.0005f;
 
     public float _speed = 0f;
 
-    public bool _givenDir = false;
+    public bool _usesDir = false;
 
     public GameObject collidedTarget { get; set; }
     public Vector3 collidedLoc { get; set; }
@@ -38,6 +38,8 @@ public class Projectile : Delivery {
     private bool _move = false;
     private bool _moving = false;
 
+    private bool debugged = false;
+
     void Start() {
         Init();
     }
@@ -52,12 +54,12 @@ public class Projectile : Delivery {
             return;
         }
 
-        if(_move) {
-            //Debug.Log(this);
-            //Debug.Log("Current: " + this.transform.position);
-            //Debug.Log("Origin: " + origin);
-            //Debug.Log("Point: " + point);
-            //Debug.Log("Direction: " + direction);
+        if(_move) {   
+            if(!debugged) {
+                Debug.Log("C,O,P,D: " + this.transform.position + "; " + origin + "; " + point + "; " + direction);
+                debugged = true;
+            }
+            point = new Vector3(point.x, origin.y, point.z);
             this.transform.position = Vector3.MoveTowards(this.transform.position, point, _speed * Time.deltaTime);
 
             if(Vector3.Distance(this.transform.position, point) <= THRESHOLD) {
@@ -92,6 +94,7 @@ public class Projectile : Delivery {
         this.point = point;
         this.caster = caster;
         this.target = target;
+        origin = caster.transform.position;
         Effect();
         _start = true;
     }
@@ -113,15 +116,18 @@ public class Projectile : Delivery {
     }
 
     private bool Done() {
+        //Debug.Log("C, O, L: " + collided + "; " + outOfRange + "; " + atLoc);
         return collided || outOfRange || atLoc;
     }
 
     private void SetPoint() {
-        if(_givenDir) {
-            point = origin + (direction.normalized * _range) + new Vector3(0,1,0);
+        if(_usesDir) { //Calculate direction, and max range point
+            direction = point - origin;
+            point = origin + (direction * _range);
+            //point.Set(point.x, 1, point.z);
         }
-        else {
-            direction = (point - origin).normalized;
+        else { //Point = point
+            direction = point - origin;
         }
     }
 
