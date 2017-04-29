@@ -67,7 +67,7 @@ public class PlayerMover : Photon.MonoBehaviour {
 
         // spell targetting state
         bool canSpell = spells[0].GetComponent<Spell>().isCastable;
-        Debug.Log("Castable: " + canSpell);
+        //Debug.Log("Castable: " + canSpell);
         if (true)
         {
             if (Input.GetMouseButtonDown(0))

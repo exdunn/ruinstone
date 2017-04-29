@@ -77,17 +77,19 @@ public class Projectile : Delivery {
     // Note that trigger events are only sent if one of the colliders also has a rigid body attached
     // Set to kinematic to ignore physics
     void OnTriggerEnter(Collider other) {
+        Debug.Log("start: " + _start);
         if(Done() || !_start) {
             return;
         }
 
-        //Debug.Log("other: " + other.gameObject.name);
+        Debug.Log("other: " + other.gameObject.name);
         if (other.tag == Types.TargetToString(_targetType)) {
 
             //Debug.Log("caster id: " + caster.GetComponent<WizardWars.PlayerManager>().playerId);
             //Debug.Log("other id: " + other.GetComponent<WizardWars.PlayerManager>().playerId);
-
+            Debug.Log("Got Player object");
             if (other.gameObject.GetComponent<WizardWars.PlayerManager>().playerId == caster.GetComponent<WizardWars.PlayerManager>().playerId) {
+                Debug.Log("Same Ids. No target.");
                 return;
             }
             
@@ -106,6 +108,10 @@ public class Projectile : Delivery {
         _start = true;
     }
 
+    public void Die() {
+        Destroy(this.gameObject);
+    }
+
     protected override IEnumerator DuraEffect() {
         throw new NotImplementedException();
     }
@@ -119,7 +125,7 @@ public class Projectile : Delivery {
         Debug.Log("Finish");
         _move = false;
         isDone = true;
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
     }
 
     private bool Done() {

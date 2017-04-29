@@ -55,14 +55,15 @@ public class _000_Fireball : Spell {
 
         //GameObject t; Transform p;
         while(_spawn != null && !proj.isDone) {
-            
-            target = proj.collidedTarget;
-            Debug.Log("proj: " + proj);
-            Debug.Log("proj.collidedTarget: " + proj.collidedTarget);
-            point = proj.collidedLoc;
+            //Debug.Log("Target in loop: " + target);
             yield return null;
         }
-
+        target = proj.collidedTarget;
+        point = proj.collidedLoc;
+        //Debug.Log("Proj Target: " + proj.collidedTarget);
+        //Debug.Log("Target: " + target);
+        proj.Die();
+        //Debug.Log("Target2: " + target);
 
         //Destroy the projectile
         //Destroy(_spawn);
