@@ -9,7 +9,7 @@ public class Projectile : Delivery {
 
     public bool _usesDir = false;
 
-    public GameObject collidedTarget { get; set; }
+    public GameObject collidedTarget;
     public Vector3 collidedLoc { get; set; }
     public bool collided { get; set; }
     public bool outOfRange { get; set; }
@@ -74,16 +74,23 @@ public class Projectile : Delivery {
         }
     }
 
+    // Note that trigger events are only sent if one of the colliders also has a rigid body attached
+    // Set to kinematic to ignore physics
     void OnTriggerEnter(Collider other) {
         if(Done() || !_start) {
             return;
         }
 
-        if(other.tag == Types.TargetToString(_targetType)) {
-            if(other.gameObject.GetComponent<WizardWars.PlayerController>().GetId() == caster.GetComponent<WizardWars.PlayerController>().GetId()) {
+        //Debug.Log("other: " + other.gameObject.name);
+        if (other.tag == Types.TargetToString(_targetType)) {
+
+            //Debug.Log("caster id: " + caster.GetComponent<WizardWars.PlayerManager>().playerId);
+            //Debug.Log("other id: " + other.GetComponent<WizardWars.PlayerManager>().playerId);
+
+            if (other.gameObject.GetComponent<WizardWars.PlayerManager>().playerId == caster.GetComponent<WizardWars.PlayerManager>().playerId) {
                 return;
             }
-
+            
             collided = true;
             collidedTarget = other.gameObject;
             collidedLoc = other.gameObject.transform.position;

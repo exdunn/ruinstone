@@ -6,7 +6,6 @@ public class PlayerMover : Photon.MonoBehaviour {
 
     Vector3 newPosition;
 
-    [SerializeField]
     GameObject[] spells;
     [SerializeField]
     GameObject[] spellPrefabs;
@@ -21,14 +20,13 @@ public class PlayerMover : Photon.MonoBehaviour {
     GameObject graphics;
 
     bool isCasting;
-    int playerId;
 
     // Use this for initialization
     void Start ()
     {
-        playerId = PhotonNetwork.player.ID;
         isCasting = false;
         newPosition = transform.position;
+        spells = new GameObject[spellPrefabs.Length];
 
         for (int i = 0; i < spellPrefabs.Length; ++i)
         {
@@ -74,13 +72,18 @@ public class PlayerMover : Photon.MonoBehaviour {
         {
             if (Input.GetMouseButtonDown(0))
             {
+                if (!photonView.isMine)
+                {
+                    return;
+                }
+
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
                 {
                     Debug.DrawLine(transform.position, hit.point, Color.red);
                     //GameObject newSpell = Instantiate(spells[0], transform.position, transform.rotation);
-                    spells[0].GetComponent<Spell>().Activate(gameObject, null, hit.point - transform.position);
+                    spells[0].GetComponent<Spell>().Activate(gameObject, null, hit.point);
 
                 }
 
@@ -89,6 +92,7 @@ public class PlayerMover : Photon.MonoBehaviour {
             }
         }
     }
+
 
     [PunRPC]
     public void ReceivedMove(Vector3 movePos)
@@ -101,6 +105,8 @@ public class PlayerMover : Photon.MonoBehaviour {
         if (Vector3.Distance(newPosition, transform.position) > walkRange)
         {
             transform.position = Vector3.MoveTowards(transform.position, newPosition, speed * Time.deltaTime);
+
+            // update player rotation
             Quaternion lookRotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
             graphics.transform.rotation = Quaternion.Slerp(lookRotation, graphics.transform.rotation, rotationSpeed);
 

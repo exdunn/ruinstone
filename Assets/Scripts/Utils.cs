@@ -22,8 +22,9 @@ public static class Utils {
         return all;
     }
 
-    public static GameObject CreateProjectile(GameObject prefab, Projectile proj, Transform parent, Vector3 position, Quaternion rotation) {
-        GameObject spawn = UnityEngine.Object.Instantiate<GameObject>(prefab, position, rotation);
+    public static GameObject CreateProjectile(string prefab, Projectile proj, Transform parent, Vector3 position, Quaternion rotation) {
+        // PhotonNetwork API doc-api.photonengine.com/en/pun/current/class_photon_network.html#a843d9f62d28ab123c83291c1e6bb857d
+        GameObject spawn = PhotonNetwork.Instantiate(prefab, position, rotation, 0);
         //spawn = CopyProjectile(spawn, proj);
         return spawn;
     }

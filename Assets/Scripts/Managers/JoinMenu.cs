@@ -117,20 +117,10 @@ namespace WizardWars
 
         #region Photon.PunBehaviour CallBacks
 
-        public override void OnConnectedToPhoton()
-        {
-            Debug.Log("Connected to Photon");
-        }
-
         public override void OnConnectedToMaster()
         {
             Debug.Log("Connected to Master");
             PhotonNetwork.JoinLobby();
-        }
-
-        public override void OnJoinedLobby()
-        {
-            Debug.Log("Joined lobby");
         }
 
         public override void OnReceivedRoomListUpdate()

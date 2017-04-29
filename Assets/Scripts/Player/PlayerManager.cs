@@ -30,6 +30,11 @@ namespace WizardWars
         [Tooltip("The number of times the player has died this round")]
         public int deaths;
 
+        public int playerId
+        {
+            get; set;
+        }
+
         #endregion
 
         #region Private Variables
@@ -50,7 +55,7 @@ namespace WizardWars
             // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
             if (photonView.isMine)
             {
-                PlayerManager.LocalPlayerInstance = this.gameObject;
+                LocalPlayerInstance = this.gameObject;
             }
             // #Critical
             // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
@@ -101,6 +106,7 @@ namespace WizardWars
         /// <param name="damage"></param>
         public void UpdateHealth(float damage)
         {
+            Debug.Log("2");
             health += damage; 
 
             if (health >= maxHealth)
@@ -172,7 +178,7 @@ namespace WizardWars
 
         #region Private Methods
 
-
+        
 
         #endregion
 

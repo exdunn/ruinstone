@@ -41,7 +41,10 @@ public class _000_Fireball : Spell {
         //Debug.Log(i++);
         //Debug.Log("proje: " + _projectile);
         //Spawn projectile
-        _spawn = Utils.CreateProjectile(_spawnPrefab, _projectile, this.transform, caster.transform.position + new Vector3(0,0.5f,0), Quaternion.identity);
+
+        // PhotonNetwork.Instantiate takes string name of the prefab as a parameter
+        // prefab must be inside the resources folder
+        _spawn = Utils.CreateProjectile("Spells/"+_spawnPrefab.name, _projectile, this.transform, caster.transform.position + new Vector3(0,0.5f,0), Quaternion.identity);
         Projectile proj = _spawn.GetComponent<Projectile>();
         //Move projectile
         //proj.direction = (point - caster.transform.position).normalized;
@@ -52,7 +55,10 @@ public class _000_Fireball : Spell {
 
         //GameObject t; Transform p;
         while(_spawn != null && !proj.isDone) {
+            
             target = proj.collidedTarget;
+            Debug.Log("proj: " + proj);
+            Debug.Log("proj.collidedTarget: " + proj.collidedTarget);
             point = proj.collidedLoc;
             yield return null;
         }
