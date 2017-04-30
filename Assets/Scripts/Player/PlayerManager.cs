@@ -12,9 +12,6 @@ namespace WizardWars
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
 
-        [Tooltip("UI element that displays player's current health")]
-        public GameObject healthGlobe;
-
         // Leave variables public for now for testing purposes
         // Should be private in production version
 
@@ -83,6 +80,11 @@ namespace WizardWars
             else {
                 Debug.LogError("<Color=Red><a>Missing</a></Color> CameraWork Component on playerPrefab.", this);
             }
+
+            if (photonView.isMine)
+            {
+                GameObject.FindGameObjectWithTag("Player UI").GetComponent<PlayerUI>().SetTarget(this);
+            }
         }
 
         /// <summary>
@@ -118,8 +120,14 @@ namespace WizardWars
                 health = 0;
             }
 
-            // update heatlh bar
-            healthGlobe.GetComponent<HealthGlobe>().SetFill(health / maxHealth);
+            GetComponent<PhotonView>().RPC("SendCurHealth", PhotonTargets.All, health);
+        }
+
+        [PunRPC]
+        public void SendCurHealth(float curHealth)
+        {
+            Debug.Log("curHealth: " + curHealth);
+            health = curHealth;
         }
         
         /// <summary>

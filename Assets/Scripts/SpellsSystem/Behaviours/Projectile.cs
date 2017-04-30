@@ -109,7 +109,7 @@ public class Projectile : Delivery {
     }
 
     public void Die() {
-        Destroy(this.gameObject);
+        PhotonNetwork.Destroy(this.gameObject);
     }
 
     protected override IEnumerator DuraEffect() {

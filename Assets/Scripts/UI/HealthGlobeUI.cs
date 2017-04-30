@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+
 namespace WizardWars
 {
-    public class HealthGlobe : MonoBehaviour
+    public class HealthGlobeUI : MonoBehaviour
         , IPointerEnterHandler
         , IPointerExitHandler
     {
