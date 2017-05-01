@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace WizardWars
@@ -19,9 +20,14 @@ namespace WizardWars
         /// </summary>
         public GameObject playersPanel;
 
+        public GameObject spellsPanel;
+
         #endregion
 
         #region Private Variables
+
+        SpellSlotUI[] spellSlots;
+        SpellStats[] library;
 
         #endregion
 
@@ -44,6 +50,35 @@ namespace WizardWars
             }
         }
 
+        public void PresetClick()
+        {
+            int index = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<PresetSelectButton>().index;
+            int[] spellList = new int[GlobalVariable.DECKSIZE];
+
+            switch(index)
+            {
+                case 1:
+                    spellList = PlayerPrefsX.GetIntArray("Preset1");
+                    break;
+                case 2:
+                    spellList = PlayerPrefsX.GetIntArray("Preset2");
+                    break;
+                case 3:
+                    spellList = PlayerPrefsX.GetIntArray("Preset3");
+                    break;
+                case 4:
+                    spellList = PlayerPrefsX.GetIntArray("Preset4");
+                    break;
+                default:
+                    break;
+            }
+
+            for (int i = 0; i < spellList.Length; i++)
+            {
+                spellSlots[i].spellIcon.GetComponent<Image>().sprite = library[spellList[i]].GetIconSprite();
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -51,6 +86,8 @@ namespace WizardWars
         // Use this for initialization
         void Start()
         {
+            library = GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>();
+            spellSlots = GetComponentsInChildren<SpellSlotUI>();
             InstantiatePlayerLabels();
         }
 
@@ -59,31 +96,16 @@ namespace WizardWars
         /// </summary>
         void InstantiatePlayerLabels()
         {
-            // destroy all children of playersPanel
-            foreach(Transform child in playersPanel.GetComponentInChildren<Transform>())
-            {
-                GameObject.Destroy(child.gameObject);
-            }
-
             // get list of players in the room
             PhotonPlayer[] players = PhotonNetwork.playerList;
-            Debug.Log("# of players: " + players.Length);
 
             // instantiate player label for each room in roomList
-            int i = 0;
             foreach (PhotonPlayer player in players)
             {
-                Transform parentTransform = playersPanel.transform;
-
-                // instantiate label prefab
-                GameObject newPlayerLabel = Instantiate(labelPrefab, parentTransform.position, parentTransform.rotation, parentTransform);
-                newPlayerLabel.GetComponent<PlayerLabel>().SetNameLabel(player.NickName);
-                
-                // set position of instantiated label
-                float height = newPlayerLabel.GetComponent<RectTransform>().rect.height;
-                newPlayerLabel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -(height / 2.0f) + -height * i);
-
-                i++;
+                //Debug.Log("Player: " + player.NickName + "id: " + player.ID);
+                 // instantiate label prefab
+                GameObject newPlayerLabel = Instantiate(labelPrefab, playersPanel.transform.position, playersPanel.transform.rotation, playersPanel.transform);
+                newPlayerLabel.GetComponent<PlayerLabel>().nameText.text = player.NickName;
             }
         }
 
@@ -105,8 +127,8 @@ namespace WizardWars
 
         public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
         {
-            Debug.Log("OnPhotonPlayerConnected() called");
-            InstantiatePlayerLabels();
+            GameObject newPlayerLabel = Instantiate(labelPrefab, playersPanel.transform.position, playersPanel.transform.rotation, playersPanel.transform);
+            newPlayerLabel.GetComponent<PlayerLabel>().nameText.text = newPlayer.NickName;
         }
 
         #endregion

@@ -108,7 +108,6 @@ namespace WizardWars
         /// <param name="damage"></param>
         public void UpdateHealth(float damage)
         {
-            Debug.Log("2");
             health += damage; 
 
             if (health >= maxHealth)
@@ -123,10 +122,13 @@ namespace WizardWars
             GetComponent<PhotonView>().RPC("SendCurHealth", PhotonTargets.All, health);
         }
 
+        /// <summary>
+        /// Update photon view of player's health
+        /// </summary>
+        /// <param name="curHealth"></param>
         [PunRPC]
         public void SendCurHealth(float curHealth)
         {
-            Debug.Log("curHealth: " + curHealth);
             health = curHealth;
         }
         

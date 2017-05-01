@@ -10,11 +10,6 @@ namespace WizardWars
     {
         #region Public Variables
 
-        /// <summary>
-        /// The PUN loglevel. 
-        /// </summary>
-        public PhotonLogLevel Loglevel = PhotonLogLevel.Informational;
-
         [Tooltip("The Ui Panel to let the user enter game name, connect and play")]
         public GameObject contentPanel;
         [Tooltip("The UI Label to inform the user that the connection is in progress")]
@@ -117,10 +112,6 @@ namespace WizardWars
         /// </summary>
         void Awake()
         {
-            // #NotImportant
-            // Force Full LogLevel
-            PhotonNetwork.logLevel = Loglevel;
-
             // #Critical
             // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
             PhotonNetwork.automaticallySyncScene = true;
@@ -163,7 +154,7 @@ namespace WizardWars
                 // we don't want to do anything.
                 if (isConnecting)
                 {
-                    Debug.Log("game name: " + gameName);
+                    // Debug.Log("game name: " + gameName);
                     PhotonNetwork.CreateRoom(gameName, new RoomOptions() {
                         MaxPlayers = maxPlayersPerRoom,
                         IsOpen= true

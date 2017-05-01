@@ -17,6 +17,8 @@ namespace WizardWars
         public static string AETHERTOOLTIP = "The enigmatic force that binds the universe.  Students of the Aether specialize in hindering and debuffing their enemies. \n\n <color=#ff00ffff>Plasma Orb, Void Walk, Entropic Decay</color>";
 
         public static int DECKSIZE = 4;
-        public static int DECKCOUNT = 5;
+        public static int DECKCOUNT = 4;
+
+        public static string CHATAPPID = "77dc77e8-5f97-4b06-a20a-298e46c49dd8";
     }
 }

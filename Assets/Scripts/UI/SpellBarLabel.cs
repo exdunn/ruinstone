@@ -7,14 +7,14 @@ using System;
 
 namespace WizardWars
 {
-    public class SpellBarLabel : Photon.PunBehaviour
+    public class SpellBarLabel : Photon.MonoBehaviour
         , IPointerEnterHandler
         , IPointerExitHandler
         , IPointerClickHandler
     {
         #region Public Variables
 
-        public GameObject text;
+        Text text;
 
         #endregion
 
@@ -33,17 +33,21 @@ namespace WizardWars
         // Use this for initialization
         void Start()
         {
-            text.GetComponent<Text>().text = PlayerPrefsX.GetStringArray("SpellBarNames")[index];
+            text = GetComponentInChildren<Text>();
+            text.text = PlayerPrefsX.GetStringArray("SpellBarNames")[0];
+            photonView.RPC("PhotonLabelChange", PhotonTargets.All, text.text);
         }
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("name: " + PhotonNetwork.playerName);
-            if (GetComponentInParent<PlayerLabel>().nameLabel.text != PlayerPrefs.GetString("PlayerName"))
+            Debug.Log("id: " + PhotonNetwork.player.ID);
+            Debug.Log("parent id: " + GetComponentInParent<PlayerLabel>().playerId);
+            Debug.Log("Photon view: " + photonView.instantiationId);
+
+            if (PhotonNetwork.player.ID != GetComponentInParent<PlayerLabel>().playerId)
             {
                 return;
             }
-
             if (index < GlobalVariable.DECKCOUNT - 1)
             {
                 index++;
@@ -52,7 +56,8 @@ namespace WizardWars
             {
                 index = 0;
             }
-            text.GetComponent<Text>().text = PlayerPrefsX.GetStringArray("SpellBarNames")[index];
+            text.text = PlayerPrefsX.GetStringArray("SpellBarNames")[index];
+            photonView.RPC("PhotonLabelChange", PhotonTargets.All, text.text);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -63,6 +68,13 @@ namespace WizardWars
         public void OnPointerExit(PointerEventData eventData)
         {
             text.GetComponent<Text>().color = Color.black;
+        }
+
+        [PunRPC]
+        public void PhotonLabelChange (string value)
+        {
+            
+            text.text = value;
         }
 
         #endregion

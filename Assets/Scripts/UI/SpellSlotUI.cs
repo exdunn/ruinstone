@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 namespace WizardWars
 {
-    public class RuneSlotUI : MonoBehaviour
+    public class SpellSlotUI : MonoBehaviour
         , IPointerEnterHandler
         , IPointerExitHandler
         , IDropHandler
@@ -39,14 +39,11 @@ namespace WizardWars
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            background.GetComponent<Image>().sprite = spriteNormal;
-            background.GetComponent<Image>().SetNativeSize();
+
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            background.GetComponent<Image>().sprite = spriteHighlighted;
-            background.GetComponent<Image>().SetNativeSize();
 
             UpdateTooltip();
         }
@@ -62,23 +59,19 @@ namespace WizardWars
             switch (index[0])
             {
                 case 0:
-                    playerPrefIndex = "SpellListOne";
+                    playerPrefIndex = "Preset1";
                     break;
 
                 case 1:
-                    playerPrefIndex = "SpellListTwo";
+                    playerPrefIndex = "Preset2";
                     break;
 
                 case 2:
-                    playerPrefIndex = "SpellListThree";
+                    playerPrefIndex = "Preset3";
                     break;
 
                 case 3:
-                    playerPrefIndex = "SpellListFour";
-                    break;
-
-                case 4:
-                    playerPrefIndex = "SpellListFive";
+                    playerPrefIndex = "Preset4";
                     break;
 
                 default:
@@ -122,6 +115,11 @@ namespace WizardWars
         /// </summary>
         private void UpdateTooltip()
         {
+            if (!GetComponentInParent<AthenaeumManager>())
+            {
+                return;
+            }
+
             // Search spell library for spell with spellId and use it to set the tooltip
             GetComponentInParent<AthenaeumManager>().UpdateTooltip(GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>()[spellId]);
         }

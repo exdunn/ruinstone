@@ -5,48 +5,29 @@ using UnityEngine.UI;
 
 namespace WizardWars
 {
-    public class PlayerLabel : MonoBehaviour
+    public class PlayerLabel : Photon.MonoBehaviour
     {
         #region Public Variables
 
-        /// <summary>
-        /// Text element that displays the game name 
-        /// </summary>
-        public Text nameLabel;
-
-        /// <summary>
-        /// Text element that displays the game mode
-        /// </summary>
-        public Text teamLabel;
+        public Text nameText;
 
         #endregion
 
         #region Private Variables
+
+        public int playerId
+        {
+            get; set;
+        }
 
         #endregion
 
 
         #region MonoBehaviour CallBacks
 
-
         #endregion
 
         #region Public Methods
-
-        /// <summary>
-        /// Set nameLabel to given string
-        /// </summary>
-        public void SetNameLabel(string value)
-        {
-            if (!(value.Equals("") || value.Equals(null)))
-            {
-                nameLabel.text = value;
-            }
-            else
-            {
-                nameLabel.text = "Player";
-            }
-        }
 
         #endregion
 
