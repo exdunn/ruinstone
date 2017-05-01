@@ -53,35 +53,44 @@ namespace WizardWars
         public void PresetClick()
         {
             int index = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<PresetSelectButton>().index;
-            int[] spellList = new int[GlobalVariable.DECKSIZE];
+            int[] spellIds = new int[GlobalVariable.DECKSIZE];
 
             switch(index)
             {
                 case 1:
-                    spellList = PlayerPrefsX.GetIntArray("Preset1");
+                    spellIds = PlayerPrefsX.GetIntArray("Preset1");
                     break;
                 case 2:
-                    spellList = PlayerPrefsX.GetIntArray("Preset2");
+                    spellIds = PlayerPrefsX.GetIntArray("Preset2");
                     break;
                 case 3:
-                    spellList = PlayerPrefsX.GetIntArray("Preset3");
+                    spellIds = PlayerPrefsX.GetIntArray("Preset3");
                     break;
                 case 4:
-                    spellList = PlayerPrefsX.GetIntArray("Preset4");
+                    spellIds = PlayerPrefsX.GetIntArray("Preset4");
                     break;
                 default:
                     break;
             }
 
-            for (int i = 0; i < spellList.Length; i++)
-            {
-                spellSlots[i].spellIcon.GetComponent<Image>().sprite = library[spellList[i]].GetIconSprite();
-            }
+            SetSpellIcons(spellIds);
         }
 
         #endregion
 
         #region Private Methods
+
+        /// <summary>
+        /// Set the spell icons to match the selected preset
+        /// </summary>
+        /// <param name="spellIds"></param>
+        private void SetSpellIcons(int[] spellIds)
+        {
+            for (int i = 0; i < spellIds.Length; i++)
+            {
+                spellSlots[i].spellIcon.GetComponent<Image>().sprite = library[spellIds[i]].GetIconSprite();
+            }
+        }
 
         // Use this for initialization
         void Start()
@@ -89,6 +98,7 @@ namespace WizardWars
             library = GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>();
             spellSlots = GetComponentsInChildren<SpellSlotUI>();
             InstantiatePlayerLabels();
+            SetSpellIcons(PlayerPrefsX.GetIntArray("Preset1"));
         }
 
         /// <summary>

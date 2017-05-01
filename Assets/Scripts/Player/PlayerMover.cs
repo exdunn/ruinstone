@@ -17,7 +17,7 @@ public class PlayerMover : Photon.MonoBehaviour {
     [SerializeField]
     float rotationSpeed;
     [SerializeField]
-    GameObject graphics;
+    GameObject playerModel;
 
     bool isCasting;
 
@@ -68,7 +68,7 @@ public class PlayerMover : Photon.MonoBehaviour {
         // spell targetting state
         bool canSpell = spells[0].GetComponent<Spell>().isCastable;
         //Debug.Log("Castable: " + canSpell);
-        if (true)
+        if (canSpell)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -82,13 +82,15 @@ public class PlayerMover : Photon.MonoBehaviour {
                 if (Physics.Raycast(ray, out hit))
                 {
                     Debug.DrawLine(transform.position, hit.point, Color.red);
-                    //GameObject newSpell = Instantiate(spells[0], transform.position, transform.rotation);
                     spells[0].GetComponent<Spell>().Activate(gameObject, null, hit.point);
 
+                    // make player look at target of spell
+                    playerModel.transform.LookAt(hit.point);
+                    // if player is moving, stop moving
+                    GetComponent<PhotonView>().RPC("ReceivedMove", PhotonTargets.All, transform.position);
                 }
 
                 isCasting = false;
-
             }
         }
     }
@@ -108,7 +110,7 @@ public class PlayerMover : Photon.MonoBehaviour {
 
             // update player rotation
             Quaternion lookRotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
-            graphics.transform.rotation = Quaternion.Slerp(lookRotation, graphics.transform.rotation, rotationSpeed);
+            playerModel.transform.rotation = Quaternion.Slerp(lookRotation, playerModel.transform.rotation, rotationSpeed);
 
             Debug.DrawLine(transform.position, newPosition, Color.red);
         }

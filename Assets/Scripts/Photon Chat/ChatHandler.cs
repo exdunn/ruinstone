@@ -20,6 +20,7 @@ namespace WizardWars
         // Use this for initialization
         void Awake()
         {
+            DontDestroyOnLoad(gameObject);
             chatClient = new ChatClient(this);
             chatClient.ChatRegion = "US";
             authValues = new ExitGames.Client.Photon.Chat.AuthenticationValues();
