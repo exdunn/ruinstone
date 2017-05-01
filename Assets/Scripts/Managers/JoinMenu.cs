@@ -46,7 +46,10 @@ namespace WizardWars
         /// Name of the selected room.
         /// Default is an empty string
         /// </summary>
-        string roomName;
+        public string roomName
+        {
+            get; set;
+        }
 
         #endregion
 
@@ -63,14 +66,6 @@ namespace WizardWars
             {
                 PhotonNetwork.JoinRoom(roomName);
             }
-        }
-
-        /// <summary>
-        /// Set roomName to value
-        /// </summary>
-        public void SetRoomName(string value)
-        {
-            roomName = value;
         }
 
         #endregion
@@ -127,11 +122,9 @@ namespace WizardWars
         {
             // get list of existing PUN rooms
             RoomInfo[] roomList = PhotonNetwork.GetRoomList();
-            roomListLabel.text = "Number of Rooms: " + roomList.Length;
             Debug.Log("Number of Rooms: " + roomList.Length);
 
             // instantiate player label for each room in roomList
-            int i = 0;
             foreach (RoomInfo room in roomList)
             {
                 if (room.IsOpen)
@@ -139,13 +132,8 @@ namespace WizardWars
                     Transform parentTransform = gameListPanel.transform;
                     GameObject newLobbyLabel = Instantiate(lobbyPrefab, new Vector3(0, 0, 0), parentTransform.rotation, parentTransform);
                     newLobbyLabel.GetComponent<LobbyLabel>().SetNameLabel(room.Name);
-
-                    // set position of instantiated label to top of the panel
-                    float height = newLobbyLabel.GetComponent<RectTransform>().rect.height;
-                    newLobbyLabel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -height / 2);
-                    i++;
+                    newLobbyLabel.GetComponent<LobbyLabel>().SetPlayersLabel(room.PlayerCount + "/" + room.MaxPlayers + " Players");
                 }
-                
             }
         }
 
