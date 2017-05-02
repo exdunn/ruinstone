@@ -39,7 +39,7 @@ namespace WizardWars
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (background.GetComponent<Image>().sprite != null)
+            if (spriteHighlighted != null)
             {
                 background.GetComponent<Image>().sprite = spriteNormal;
                 background.GetComponent<Image>().SetNativeSize();
@@ -48,7 +48,7 @@ namespace WizardWars
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (background.GetComponent<Image>().sprite != null)
+            if (spriteHighlighted != null)
             {
                 background.GetComponent<Image>().sprite = spriteHighlighted;
                 background.GetComponent<Image>().SetNativeSize();

@@ -11,6 +11,11 @@ namespace WizardWars
 
         public Text nameText;
 
+        public int playerNum
+        {
+            get; set;
+        }
+
         #endregion
 
         #region Private Variables

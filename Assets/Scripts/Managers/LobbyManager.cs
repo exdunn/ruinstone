@@ -125,7 +125,15 @@ namespace WizardWars
 
         public override void OnPhotonPlayerDisconnected(PhotonPlayer player)
         {
-            Debug.Log("OnPhotonPlayerDisconnected() called");
+            PlayerLabel[] playerLabels = GetComponentsInChildren<PlayerLabel>();
+
+            foreach (PlayerLabel label in playerLabels)
+            {
+                if (player.ID == label.playerNum)
+                {
+                    Destroy(label.gameObject);
+                }
+            }
         }
 
         public override void OnMasterClientSwitched(PhotonPlayer player)
@@ -139,7 +147,9 @@ namespace WizardWars
         {
             GameObject newPlayerLabel = Instantiate(labelPrefab, playersPanel.transform.position, playersPanel.transform.rotation, playersPanel.transform);
             newPlayerLabel.GetComponent<PlayerLabel>().nameText.text = newPlayer.NickName;
+            newPlayerLabel.GetComponent<PlayerLabel>().playerNum = newPlayer.ID;
         }
+
 
         #endregion
 
