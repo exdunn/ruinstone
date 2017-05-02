@@ -17,12 +17,7 @@ namespace WizardWars
         /// </summary>
         /// 
         public GameObject[] spellBarButtons;
-
-        /// <summary>
-        /// runes that make up the player's current spell bar
-        /// </summary>
-        public GameObject[] runeSlots;
-
+   
         /// <summary>
         /// panel that displays information about the highlighted spell
         /// </summary>
@@ -48,6 +43,11 @@ namespace WizardWars
         #region Private Variables
 
         /// <summary>
+        /// runes that make up the player's current spell bar
+        /// </summary>
+        SpellSlotUI[] spellSlots;
+
+        /// <summary>
         /// list of runes in rune grid
         /// </summary>
         List<GameObject> runes;
@@ -69,10 +69,11 @@ namespace WizardWars
         {
             library = GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>();
             runeSize = runePrefab.GetComponent<RectTransform>().rect.size;
+            spellSlots = GetComponentsInChildren<SpellSlotUI>();
 
             InstantiateRunes();
-            SpellBar1Click();
             UpdateButtonLabels();
+            SetSpellIcons(1, PlayerPrefsX.GetIntArray("Preset1"));
         }
 
         void Update()
@@ -90,59 +91,30 @@ namespace WizardWars
             SceneManager.LoadScene("Main Menu");
         }
 
-        public void SpellBar1Click()
+        public void PresetClick()
         {
-            int[] spellIds = PlayerPrefsX.GetIntArray("Preset1");
-          
-            for (int i = 0; i < spellIds.Length; i++)
+            int index = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<PresetSelectButton>().index;
+            int[] spellIds = new int[GlobalVariable.DECKSIZE];
+
+            switch (index)
             {
-                runeSlots[i].GetComponent<SpellSlotUI>().SetSpellId(spellIds[i]);
-                runeSlots[i].GetComponent<SpellSlotUI>().SetIndex(0, i);
-                runeSlots[i].GetComponent<SpellSlotUI>().spellIcon.GetComponent<Image>().sprite = library[spellIds[i]].GetIconSprite();
+                case 1:
+                    spellIds = PlayerPrefsX.GetIntArray("Preset1");
+                    break;
+                case 2:
+                    spellIds = PlayerPrefsX.GetIntArray("Preset2");
+                    break;
+                case 3:
+                    spellIds = PlayerPrefsX.GetIntArray("Preset3");
+                    break;
+                case 4:
+                    spellIds = PlayerPrefsX.GetIntArray("Preset4");
+                    break;
+                default:
+                    break;
             }
-            UpdateButtonLabels();
-            UpdateRunesIsDraggable();
-        }
 
-        public void SpellBar2Click()
-        {
-            int[] spellIds = PlayerPrefsX.GetIntArray("Preset2");
-
-            for (int i = 0; i < spellIds.Length; i++)
-            {
-                runeSlots[i].GetComponent<SpellSlotUI>().SetSpellId(spellIds[i]);
-                runeSlots[i].GetComponent<SpellSlotUI>().SetIndex(1, i);
-                runeSlots[i].GetComponent<SpellSlotUI>().spellIcon.GetComponent<Image>().sprite = library[spellIds[i]].GetIconSprite();
-            }
-            UpdateButtonLabels();
-            UpdateRunesIsDraggable();
-        }
-
-        public void SpellBar3Click()
-        {
-            int[] spellIds = PlayerPrefsX.GetIntArray("Preset3");
-
-            for (int i = 0; i < spellIds.Length; i++)
-            {
-                runeSlots[i].GetComponent<SpellSlotUI>().SetSpellId(spellIds[i]);
-                runeSlots[i].GetComponent<SpellSlotUI>().SetIndex(2, i);
-                runeSlots[i].GetComponent<SpellSlotUI>().spellIcon.GetComponent<Image>().sprite = library[spellIds[i]].GetIconSprite();
-            }
-            UpdateButtonLabels();
-            UpdateRunesIsDraggable();
-        }
-
-        public void SpellBar4Click()
-        {
-            int[] spellIds = PlayerPrefsX.GetIntArray("Preset4");
-
-            for (int i = 0; i < spellIds.Length; i++)
-            {
-                runeSlots[i].GetComponent<SpellSlotUI>().SetSpellId(spellIds[i]);
-                runeSlots[i].GetComponent<SpellSlotUI>().SetIndex(3, i);
-                runeSlots[i].GetComponent<SpellSlotUI>().spellIcon.GetComponent<Image>().sprite = library[spellIds[i]].GetIconSprite();
-            }
-            UpdateButtonLabels();
+            SetSpellIcons(index, spellIds);
             UpdateRunesIsDraggable();
         }
 
@@ -204,7 +176,7 @@ namespace WizardWars
         /// </summary>
         public void UpdateRunesIsDraggable()
         {
-            int[] currentSpells = runeSlots.Select(x => x.GetComponent<SpellSlotUI>().GetSpellId()).ToArray();
+            int[] currentSpells = spellSlots.Select(x => x.GetComponent<SpellSlotUI>().GetSpellId()).ToArray();
 
             foreach (GameObject rune in runes)
             {
@@ -226,13 +198,27 @@ namespace WizardWars
 
 
         /// <summary>
+        /// Set the spell icons to match the selected preset
+        /// </summary>
+        /// <param name="spellIds"></param>
+        private void SetSpellIcons(int index, int[] spellIds)
+        {
+            for (int i = 0; i < spellIds.Length; i++)
+            {
+                spellSlots[i].SetIndex(index, i);
+                spellSlots[i].SetSpellId(spellIds[i]);
+                spellSlots[i].spellIcon.GetComponent<Image>().sprite = library[spellIds[i]].GetIconSprite();
+            }
+        }
+
+        /// <summary>
         /// set text of spell bar buttons to their serialized name
         /// </summary>
         private void UpdateButtonLabels()
         {
             for (int i = 0; i < GlobalVariable.DECKCOUNT; i++)
             {
-                spellBarButtons[i].GetComponent<ButtonUI>().SetText(PlayerPrefsX.GetStringArray("SpellBarNames")[i]);
+                spellBarButtons[i].GetComponentInChildren<Text>().text = PlayerPrefsX.GetStringArray("SpellBarNames")[i];
             }
         }
 

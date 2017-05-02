@@ -1,0 +1,593 @@
+fileFormatVersion: 2
+guid: 12f1b4ce338aa8644b9c1803758c5d56
+timeCreated: 1493747873
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: book21
+    100002: book22
+    100004: book23
+    100006: book24
+    100008: book25
+    100010: book26
+    100012: book38
+    100014: book39
+    100016: book40
+    100018: book41
+    100020: book44
+    100022: book45
+    100024: book46
+    100026: book47
+    100028: book48
+    100030: book49
+    100032: book50
+    100034: book51
+    100036: book52
+    100038: book53
+    100040: book54
+    100042: book55
+    100044: book59
+    100046: book60
+    100048: book61
+    100050: book62
+    100052: book63
+    100054: book64
+    100056: book65
+    100058: book66
+    100060: book67
+    100062: book68
+    100064: book70
+    100066: book71
+    100068: book72
+    100070: book73
+    100072: book74
+    100074: book75
+    100076: book76
+    100078: book77
+    100080: book78
+    100082: book79
+    100084: book80
+    100086: book81
+    100088: book82
+    100090: book83
+    100092: book84
+    100094: book85
+    100096: book86
+    100098: book87
+    100100: book88
+    100102: book89
+    100104: book90
+    100106: book92
+    100108: book93
+    100110: book93 1
+    100112: book93 2
+    100114: book93 3
+    100116: book93 4
+    100118: book94
+    100120: book94 1
+    100122: book94 2
+    100124: book94 3
+    100126: book94 4
+    100128: book95
+    100130: book95 1
+    100132: book95 2
+    100134: book95 3
+    100136: book95 4
+    100138: book96
+    100140: book96 1
+    100142: book96 2
+    100144: book96 3
+    100146: book96 4
+    100148: book_fire1
+    100150: book_ice1
+    100152: book_lightning1
+    100154: bookcase
+    100156: bookcase 1
+    100158: bookstack
+    100160: bookstack1
+    100162: bookstack2
+    100164: bookstack3
+    100166: bookstack4
+    100168: bottom_bookshelf
+    100170: candle1
+    100172: candle1 1
+    100174: candle2
+    100176: candle3
+    100178: candle4
+    100180: candlestick
+    100182: candlestick1
+    100184: candlestick_tall
+    100186: candlestick_tall 1
+    100188: carpet
+    100190: chair
+    100192: floor
+    100194: floor1
+    100196: floor2
+    100198: floor3
+    100200: floor4
+    100202: middle_bookshelf
+    100204: mug
+    100206: openBook
+    100208: pillar
+    100210: table
+    100212: table_scene
+    100214: //RootNode
+    100216: top_bookshelf
+    100218: wall1
+    100220: wall1_window
+    100222: walls
+    400000: book21
+    400002: book22
+    400004: book23
+    400006: book24
+    400008: book25
+    400010: book26
+    400012: book38
+    400014: book39
+    400016: book40
+    400018: book41
+    400020: book44
+    400022: book45
+    400024: book46
+    400026: book47
+    400028: book48
+    400030: book49
+    400032: book50
+    400034: book51
+    400036: book52
+    400038: book53
+    400040: book54
+    400042: book55
+    400044: book59
+    400046: book60
+    400048: book61
+    400050: book62
+    400052: book63
+    400054: book64
+    400056: book65
+    400058: book66
+    400060: book67
+    400062: book68
+    400064: book70
+    400066: book71
+    400068: book72
+    400070: book73
+    400072: book74
+    400074: book75
+    400076: book76
+    400078: book77
+    400080: book78
+    400082: book79
+    400084: book80
+    400086: book81
+    400088: book82
+    400090: book83
+    400092: book84
+    400094: book85
+    400096: book86
+    400098: book87
+    400100: book88
+    400102: book89
+    400104: book90
+    400106: book92
+    400108: book93
+    400110: book93 1
+    400112: book93 2
+    400114: book93 3
+    400116: book93 4
+    400118: book94
+    400120: book94 1
+    400122: book94 2
+    400124: book94 3
+    400126: book94 4
+    400128: book95
+    400130: book95 1
+    400132: book95 2
+    400134: book95 3
+    400136: book95 4
+    400138: book96
+    400140: book96 1
+    400142: book96 2
+    400144: book96 3
+    400146: book96 4
+    400148: book_fire1
+    400150: book_ice1
+    400152: book_lightning1
+    400154: bookcase
+    400156: bookcase 1
+    400158: bookstack
+    400160: bookstack1
+    400162: bookstack2
+    400164: bookstack3
+    400166: bookstack4
+    400168: bottom_bookshelf
+    400170: candle1
+    400172: candle1 1
+    400174: candle2
+    400176: candle3
+    400178: candle4
+    400180: candlestick
+    400182: candlestick1
+    400184: candlestick_tall
+    400186: candlestick_tall 1
+    400188: carpet
+    400190: chair
+    400192: floor
+    400194: floor1
+    400196: floor2
+    400198: floor3
+    400200: floor4
+    400202: middle_bookshelf
+    400204: mug
+    400206: openBook
+    400208: pillar
+    400210: table
+    400212: table_scene
+    400214: //RootNode
+    400216: top_bookshelf
+    400218: wall1
+    400220: wall1_window
+    400222: walls
+    2300000: book21
+    2300002: book22
+    2300004: book23
+    2300006: book24
+    2300008: book25
+    2300010: book26
+    2300012: book38
+    2300014: book39
+    2300016: book40
+    2300018: book41
+    2300020: book44
+    2300022: book45
+    2300024: book46
+    2300026: book47
+    2300028: book48
+    2300030: book49
+    2300032: book50
+    2300034: book51
+    2300036: book52
+    2300038: book53
+    2300040: book54
+    2300042: book55
+    2300044: book59
+    2300046: book60
+    2300048: book61
+    2300050: book62
+    2300052: book63
+    2300054: book64
+    2300056: book65
+    2300058: book66
+    2300060: book67
+    2300062: book68
+    2300064: book70
+    2300066: book71
+    2300068: book72
+    2300070: book73
+    2300072: book74
+    2300074: book75
+    2300076: book76
+    2300078: book77
+    2300080: book78
+    2300082: book79
+    2300084: book80
+    2300086: book81
+    2300088: book82
+    2300090: book83
+    2300092: book84
+    2300094: book85
+    2300096: book86
+    2300098: book87
+    2300100: book88
+    2300102: book89
+    2300104: book90
+    2300106: book92
+    2300108: book93
+    2300110: book93 1
+    2300112: book93 2
+    2300114: book93 3
+    2300116: book93 4
+    2300118: book94
+    2300120: book94 1
+    2300122: book94 2
+    2300124: book94 3
+    2300126: book94 4
+    2300128: book95
+    2300130: book95 1
+    2300132: book95 2
+    2300134: book95 3
+    2300136: book95 4
+    2300138: book96
+    2300140: book96 1
+    2300142: book96 2
+    2300144: book96 3
+    2300146: book96 4
+    2300148: book_fire1
+    2300150: book_ice1
+    2300152: book_lightning1
+    2300154: bookcase 1
+    2300156: candle1
+    2300158: candle1 1
+    2300160: candle2
+    2300162: candle3
+    2300164: candle4
+    2300166: candlestick_tall
+    2300168: candlestick_tall 1
+    2300170: carpet
+    2300172: chair
+    2300174: floor1
+    2300176: floor2
+    2300178: floor3
+    2300180: floor4
+    2300182: mug
+    2300184: openBook
+    2300186: pillar
+    2300188: table
+    2300190: wall1
+    2300192: wall1_window
+    3300000: book21
+    3300002: book22
+    3300004: book23
+    3300006: book24
+    3300008: book25
+    3300010: book26
+    3300012: book38
+    3300014: book39
+    3300016: book40
+    3300018: book41
+    3300020: book44
+    3300022: book45
+    3300024: book46
+    3300026: book47
+    3300028: book48
+    3300030: book49
+    3300032: book50
+    3300034: book51
+    3300036: book52
+    3300038: book53
+    3300040: book54
+    3300042: book55
+    3300044: book59
+    3300046: book60
+    3300048: book61
+    3300050: book62
+    3300052: book63
+    3300054: book64
+    3300056: book65
+    3300058: book66
+    3300060: book67
+    3300062: book68
+    3300064: book70
+    3300066: book71
+    3300068: book72
+    3300070: book73
+    3300072: book74
+    3300074: book75
+    3300076: book76
+    3300078: book77
+    3300080: book78
+    3300082: book79
+    3300084: book80
+    3300086: book81
+    3300088: book82
+    3300090: book83
+    3300092: book84
+    3300094: book85
+    3300096: book86
+    3300098: book87
+    3300100: book88
+    3300102: book89
+    3300104: book90
+    3300106: book92
+    3300108: book93
+    3300110: book93 1
+    3300112: book93 2
+    3300114: book93 3
+    3300116: book93 4
+    3300118: book94
+    3300120: book94 1
+    3300122: book94 2
+    3300124: book94 3
+    3300126: book94 4
+    3300128: book95
+    3300130: book95 1
+    3300132: book95 2
+    3300134: book95 3
+    3300136: book95 4
+    3300138: book96
+    3300140: book96 1
+    3300142: book96 2
+    3300144: book96 3
+    3300146: book96 4
+    3300148: book_fire1
+    3300150: book_ice1
+    3300152: book_lightning1
+    3300154: bookcase 1
+    3300156: candle1
+    3300158: candle1 1
+    3300160: candle2
+    3300162: candle3
+    3300164: candle4
+    3300166: candlestick_tall
+    3300168: candlestick_tall 1
+    3300170: carpet
+    3300172: chair
+    3300174: floor1
+    3300176: floor2
+    3300178: floor3
+    3300180: floor4
+    3300182: mug
+    3300184: openBook
+    3300186: pillar
+    3300188: table
+    3300190: wall1
+    3300192: wall1_window
+    4300000: wall1
+    4300002: wall1_window
+    4300004: pillar
+    4300006: floor1
+    4300008: floor2
+    4300010: floor3
+    4300012: floor4
+    4300014: carpet
+    4300016: book96
+    4300018: book95
+    4300020: book94
+    4300022: book93
+    4300024: book96
+    4300026: book95
+    4300028: book94
+    4300030: book93
+    4300032: bookcase
+    4300034: book96
+    4300036: book95
+    4300038: book94
+    4300040: book93
+    4300042: book96
+    4300044: book95
+    4300046: book94
+    4300048: book93
+    4300050: book55
+    4300052: book54
+    4300054: book53
+    4300056: book52
+    4300058: book51
+    4300060: book50
+    4300062: book47
+    4300064: book48
+    4300066: book49
+    4300068: book46
+    4300070: book45
+    4300072: book24
+    4300074: book25
+    4300076: book26
+    4300078: book39
+    4300080: book40
+    4300082: book38
+    4300084: book41
+    4300086: book44
+    4300088: book_fire1
+    4300090: book75
+    4300092: book74
+    4300094: book73
+    4300096: book70
+    4300098: book71
+    4300100: book72
+    4300102: book67
+    4300104: book68
+    4300106: book63
+    4300108: book66
+    4300110: book65
+    4300112: book64
+    4300114: book59
+    4300116: book60
+    4300118: book61
+    4300120: book62
+    4300122: book21
+    4300124: book22
+    4300126: book23
+    4300128: book_ice1
+    4300130: book76
+    4300132: book77
+    4300134: book78
+    4300136: book79
+    4300138: book80
+    4300140: book81
+    4300142: book82
+    4300144: book83
+    4300146: book84
+    4300148: book85
+    4300150: book86
+    4300152: book87
+    4300154: book88
+    4300156: book89
+    4300158: book90
+    4300160: book_lightning1
+    4300162: book92
+    4300164: book96
+    4300166: book95
+    4300168: book94
+    4300170: book93
+    4300172: candlestick_tall
+    4300174: candle1
+    4300176: candle2
+    4300178: candle3
+    4300180: candle4
+    4300182: table
+    4300184: mug
+    4300186: candlestick_tall
+    4300188: candle1
+    4300190: openBook
+    4300192: chair
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

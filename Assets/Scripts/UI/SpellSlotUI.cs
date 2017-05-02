@@ -39,17 +39,31 @@ namespace WizardWars
 
         public void OnPointerExit(PointerEventData eventData)
         {
-
+            if (background.GetComponent<Image>().sprite != null)
+            {
+                background.GetComponent<Image>().sprite = spriteNormal;
+                background.GetComponent<Image>().SetNativeSize();
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (background.GetComponent<Image>().sprite != null)
+            {
+                background.GetComponent<Image>().sprite = spriteHighlighted;
+                background.GetComponent<Image>().SetNativeSize();
+            }
 
             UpdateTooltip();
         }
 
         public void OnDrop(PointerEventData eventData)
         {
+            if (RuneUI.itemBeingDragged == null)
+            {
+                return;
+            }
+
             spellIcon.GetComponent<Image>().sprite = RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().GetIconSprite();
             spellId = RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().GetId();
             UpdateTooltip();
@@ -58,19 +72,19 @@ namespace WizardWars
 
             switch (index[0])
             {
-                case 0:
+                case 1:
                     playerPrefIndex = "Preset1";
                     break;
 
-                case 1:
+                case 2:
                     playerPrefIndex = "Preset2";
                     break;
 
-                case 2:
+                case 3:
                     playerPrefIndex = "Preset3";
                     break;
 
-                case 3:
+                case 4:
                     playerPrefIndex = "Preset4";
                     break;
 
