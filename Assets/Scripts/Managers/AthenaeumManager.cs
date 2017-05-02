@@ -115,7 +115,6 @@ namespace WizardWars
             }
 
             SetSpellIcons(index, spellIds);
-            UpdateRunesIsDraggable();
         }
 
         /// <summary>
@@ -209,6 +208,7 @@ namespace WizardWars
                 spellSlots[i].SetSpellId(spellIds[i]);
                 spellSlots[i].spellIcon.GetComponent<Image>().sprite = library[spellIds[i]].GetIconSprite();
             }
+            UpdateRunesIsDraggable();
         }
 
         /// <summary>
