@@ -4,6 +4,8 @@ Obj/
 Build/
 UnityGenerated/
 /Assets/AssetStoreTools*
+test.exe
+test_data/
 
 # Visual Studio 2015 cache directory
 /.vs/

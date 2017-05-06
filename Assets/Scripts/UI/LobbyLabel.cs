@@ -85,12 +85,8 @@ namespace WizardWars
 
         public void OnPointerClick(PointerEventData data)
         {
-            GameObject joinMenu = GameObject.FindGameObjectWithTag("Join Menu");
-            Debug.Log("room name: " + GetComponent<LobbyLabel>().GetNameLabel());
-            joinMenu.GetComponent<JoinMenu>().roomName = GetComponent<LobbyLabel>().GetNameLabel();
-
-            Image im = GetComponent<Image>();
-            im.color = new Color32((byte)im.color.r, (byte)im.color.g, (byte)im.color.b, 100);
+            JoinMenu joinMenu = GameObject.Find("Join Menu").GetComponent<JoinMenu>();
+            joinMenu.LobbyLabelClick(transform.GetSiblingIndex(), nameLabel.text);
         }
 
         #endregion

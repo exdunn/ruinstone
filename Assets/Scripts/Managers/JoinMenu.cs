@@ -68,6 +68,20 @@ namespace WizardWars
             }
         }
 
+        public void LobbyLabelClick(int index, string roomName)
+        {
+            Image im;
+            foreach (Transform child in gameListPanel.transform)
+            {
+                im = child.gameObject.GetComponent<Image>();
+                im.color = new Color32(255, 255, 255, 100);
+            }
+
+            im = gameListPanel.transform.GetChild(index).GetComponent<Image>();
+            im.color = new Color32(255, 255, 255, 255);
+            this.roomName = roomName;
+        }
+
         #endregion
 
         #region Private Methods
@@ -110,7 +124,7 @@ namespace WizardWars
 
         #endregion
 
-        #region Photon.PunBehaviour CallBacks
+        #region Photon CallBacks
 
         public override void OnConnectedToMaster()
         {
@@ -122,7 +136,12 @@ namespace WizardWars
         {
             // get list of existing PUN rooms
             RoomInfo[] roomList = PhotonNetwork.GetRoomList();
-            Debug.Log("Number of Rooms: " + roomList.Length);
+
+            // destroy existing lobby labels
+            foreach (Transform child in gameListPanel.transform)
+            {
+                Destroy(child.gameObject);
+            }
 
             // instantiate player label for each room in roomList
             foreach (RoomInfo room in roomList)
