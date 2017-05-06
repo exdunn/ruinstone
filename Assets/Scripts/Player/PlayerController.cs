@@ -2,175 +2,132 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WizardWars
-{
-    public class PlayerController : Photon.MonoBehaviour
+public class PlayerController : Photon.MonoBehaviour {
+
+    Vector3 newPosition;
+
+    GameObject[] spells;
+    [SerializeField]
+    GameObject[] spellPrefabs;
+
+    [SerializeField]
+    float speed;
+    [SerializeField]
+    float walkRange;
+    [SerializeField]
+    float rotationSpeed;
+    [SerializeField]
+    GameObject playerModel;
+
+    public bool offlineMode;
+
+    bool isCasting;
+
+    // Use this for initialization
+    void Start ()
     {
-
-        #region Public Variables
-
-        public GameObject[] spellPrefabs;
-        public GameObject[] spells;
-        
-        #endregion
-
-        #region Private Variables
-
-        /// <summary>
-        /// Movement speed scalar
-        /// </summary>
-        float speed = 0.25f;
-
-        /// <summary>
-        /// Rotation speed scalar
-        /// </summary>
-        float rotationSpeed = 0.67f;
-
-        /// <summary>
-        /// Boolean that is true if right mouse button is down, else it is false.
-        /// Use for character rotation
-        /// </summary>
-        bool rightClicked;
-
-        /// <summary>
-        /// When true play is in the targetting state
-        /// </summary>
-        bool casting;
-
-        int playerId;
-
-        #endregion
-
-        #region MonoBehaviour CallBacks
-
-        // Use this for initialization
-        void Start()
+        if (offlineMode)
         {
-            spells = new GameObject[spellPrefabs.Length];
-            playerId = PhotonNetwork.player.ID;
-            GetComponent<Rigidbody>().freezeRotation = true;
-            for(int i = 0; i < spellPrefabs.Length; ++i) {
-                //Debug.Log("Loaded Spell");
-                spells[i] = Instantiate(spellPrefabs[0], transform.position, transform.rotation);
-                //Debug.Log("Spell: " + spells[i]);
-            }
+            PhotonNetwork.offlineMode = true;
         }
 
-        /// <summary>
-        /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
-        /// </summary>
-        void Update()
+        isCasting = false;
+        newPosition = transform.position;
+        spells = new GameObject[spellPrefabs.Length];
+
+        for (int i = 0; i < spellPrefabs.Length; ++i)
         {
-            if (photonView.isMine == false && PhotonNetwork.connected == true)
+            //Debug.Log("Loaded Spell");
+            spells[i] = Instantiate(spellPrefabs[0], transform.position, transform.rotation);
+            //Debug.Log("Spell: " + spells[i]);
+        }
+    }
+	
+	// Update is called once per frame
+	void Update () {
+
+        moveChar();
+
+        // move player when user presses RMB
+        if (Input.GetMouseButtonDown(1))
+        {
+            // if not the local player
+            if (!photonView.isMine)
             {
                 return;
             }
 
-            float moveX = Input.GetAxis("Horizontal");
-            float moveZ = Input.GetAxis("Vertical");
-            Rigidbody rb = GetComponent<Rigidbody>();
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            Vector3 position = transform.forward * moveZ + transform.right * moveX;
-            // movement based on WASD
-            rb.MovePosition(rb.transform.position + position * speed);
-
-            if (Input.GetMouseButton(1)) { rightClicked = true; }
-            if (Input.GetMouseButtonUp(1)) { rightClicked = false; }
-
-            // player casts spell one
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Physics.Raycast(ray, out hit))
             {
-                casting = true;
+                GetComponent<PhotonView>().RPC("ReceivedMove", PhotonTargets.All, hit.point);
             }
+        }
 
-            // spell targetting state
-            bool canSpell = spells[0].GetComponent<Spell>().isCastable;
-           
-            if (canSpell)
+        // enter targeting state when user presses spell button
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            isCasting = true;
+        }
+
+        // spell targetting state
+        bool canSpell = spells[0].GetComponent<Spell>().isCastable;
+        //Debug.Log("Castable: " + canSpell);
+        if (true)
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                if (Input.GetMouseButtonDown(0))
+                if (!photonView.isMine)
                 {
-                    
-                    Vector3 mousePos = Input.mousePosition;
-                    //mousePos.z = 10; // select distance = 10 units from the camera
-                    Ray ray = Camera.main.ScreenPointToRay(mousePos);
-                    RaycastHit hit = new RaycastHit();
-                    if (Physics.Raycast(ray, out hit, 100.0f))
-                    {
-                        Debug.DrawLine(transform.position, hit.point);
-                        //GameObject newSpell = Instantiate(spells[0], transform.position, transform.rotation);
-                        spells[0].GetComponent<Spell>().Activate(gameObject, null, -(transform.position - hit.point));
-                        
-                    }
-
-                    casting = false;
-                    
+                    return;
                 }
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    Debug.DrawLine(transform.position, hit.point, Color.red);
+                    spells[0].GetComponent<Spell>().Activate(gameObject, null, hit.point);
+
+                    // make player look at target of spell
+                    playerModel.transform.LookAt(hit.point);
+                    // if player is moving, stop moving
+                    GetComponent<PhotonView>().RPC("ReceivedMove", PhotonTargets.All, transform.position);
+                }
+
+                isCasting = false;
             }
         }
-
-        /// <summary>
-        /// LateUpdate is called every frame, if the Behaviour is enabled.
-        /// LateUpdate is called after all Update functions have been called.This is useful to order script execution. 
-        /// For example a follow camera should always be implemented in LateUpdate because it tracks objects that might have moved inside Update.
-        /// </summary>
-        void LateUpdate()
-        {
-            float rotation = Input.GetAxis("Rotation Axis");
-            Rigidbody rb = GetComponent<Rigidbody>();
-
-            if (rightClicked && rotation != 0)
-            {
-                Vector3 rotationY = new Vector3(0f, rotation, 0f);
-                rotationY = rotationY * rotationSpeed;
-                Quaternion deltaRotation = Quaternion.Euler(rotationY);
-                rb.MoveRotation(rb.rotation * deltaRotation);
-            }
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        public int GetId()
-        {
-            return playerId;
-        }
-
-        #endregion
-
-        #region Private Methods
-        
-        /// <summary>
-        /// When player casts spell
-        /// </summary>
-        /// <param name="spell"></param>
-        private void CastSpell(int spell)
-        {
-            Debug.Log("CAST SPELL " + spell);
-
-            // if spell is projectile
-            if (true)
-            {
-                // enter targetting state
-                //display targetting reticule
-
-            }
-            // if spell is ground
-            else if (true)
-            {
-                // enter targetting state
-                // display ground AoE indicator
-
-            }
-            // if spell is self
-            else if (true)
-            {
-                // cast the spell
-            }
-        }
-
-        #endregion
-
     }
+
+    #region PUN RPC
+
+    [PunRPC]
+    public void ReceivedMove(Vector3 movePos)
+    {
+        newPosition = movePos;
+    }
+
+    #endregion
+
+    #region private methods
+
+    private void moveChar()
+    {
+        if (Vector3.Distance(newPosition, transform.position) > walkRange)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, newPosition, speed * Time.deltaTime);
+
+            // update player rotation
+            Quaternion lookRotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
+            playerModel.transform.rotation = Quaternion.Slerp(lookRotation, playerModel.transform.rotation, rotationSpeed);
+
+            Debug.DrawLine(transform.position, newPosition, Color.red);
+        }
+    }
+
+    #endregion
+    
 }

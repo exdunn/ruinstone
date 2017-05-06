@@ -52,9 +52,8 @@ public class _000_Fireball : Spell {
         //Debug.Log("Caster: " + caster);
         //Debug.Log("Dir: " + point);
         proj.DoEffect(caster, target, point);
-
         //GameObject t; Transform p;
-        while(_spawn != null && !proj.isDone) {
+        while (_spawn != null && !proj.isDone) {
             //Debug.Log("Target in loop: " + target);
             yield return null;
         }

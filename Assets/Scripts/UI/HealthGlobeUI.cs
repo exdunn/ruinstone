@@ -15,7 +15,7 @@ namespace WizardWars
         /// <summary>
         /// Tooltip that shows current health out of max health and displays when the user hovers over health globe
         /// </summary>
-        GameObject tooltip;
+        public GameObject tooltip;
 
         /// <summary>
         /// empty health globe that fills up as the user takes damage
@@ -30,7 +30,6 @@ namespace WizardWars
         void Start()
         {
             fill = transform.GetChild(0).gameObject;
-            tooltip = transform.GetChild(1).gameObject;
         }
 
         // Update is called once per frame

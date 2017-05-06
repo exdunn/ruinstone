@@ -7,13 +7,18 @@ using System;
 
 namespace WizardWars
 {
-    public class SpellGlobe : MonoBehaviour
+    public class SpellUI : MonoBehaviour
         , IPointerEnterHandler
         , IPointerExitHandler
     {
 
 
         #region Public Variables
+
+        /// <summary>
+        /// A tooltip info panel that pops up when the player hovers over the spell globe
+        /// </summary>
+        public GameObject tooltip;
 
         #endregion
 
@@ -31,14 +36,14 @@ namespace WizardWars
         private GameObject fill;
 
         /// <summary>
-        /// A tooltip info panel that pops up when the player hovers over the spell globe
-        /// </summary>
-        private GameObject tooltip;
-
-        /// <summary>
         /// Timer that starts when a player uses the spell and resets when cooldownTimer equals the spell's cooldown
         /// </summary>
         private float cooldownTimer;
+
+        public SpellStats spell
+        {
+            get; set;
+        }
 
         #endregion
 
@@ -49,7 +54,6 @@ namespace WizardWars
 
             icon = transform.GetChild(0).gameObject;
             fill = transform.GetChild(1).gameObject;
-            tooltip = transform.GetChild(2).gameObject;
 
 	    }
 	
@@ -59,8 +63,7 @@ namespace WizardWars
             // set fill to display remaining cooldown
             fill.GetComponent<Image>().fillAmount = cooldownTimer;
 
-
-	    }
+        }
 
         #endregion
 
@@ -76,38 +79,17 @@ namespace WizardWars
             icon.GetComponent<Image>().sprite = sprite;
         }
 
-        /// <summary>
-        /// Set the name text in tooltip
-        /// </summary>
-        /// <param name="name"></param>
-        public void SetTooltipName(string name)
-        {
-            if (!name.Equals("") && !name.Equals(null))
-            { 
-                tooltip.transform.GetChild(0).gameObject.GetComponent<Text>().text = name;
-            }
-        }
-
-        /// <summary>
-        /// Set the desciption text in tooltip
-        /// </summary>
-        /// <param description="description"></param>
-        public void SetTooltipDescription(string description)
-        {
-            if (!description.Equals("") && !description.Equals(null))
-            {
-                tooltip.transform.GetChild(0).gameObject.GetComponent<Text>().text = description;
-            }
-        }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             tooltip.SetActive(true);
+            tooltip.GetComponent<Tooltip>().ParseSpellStats(spell);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             tooltip.SetActive(false);
+            tooltip.GetComponent<Tooltip>().ParseSpellStats(spell);
         }
 
         #endregion

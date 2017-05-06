@@ -25,7 +25,18 @@ namespace WizardWars
         public int kills;
 
         [Tooltip("The number of times the player has died this round")]
-        public int deaths;
+        public int deaths;   
+
+        #endregion
+
+        #region Private Variables
+
+        AutoCam _autoCam;
+
+        SpellStats[] library;
+
+        GameObject gameManager;
+        GameObject playerUI;
 
         public int playerId
         {
@@ -34,18 +45,8 @@ namespace WizardWars
 
         #endregion
 
-        #region Private Variables
-
-        AutoCam _autoCam;
-
-        #endregion
-
         #region MonoBehaviour Callbacks
 
-
-        /// <summary>
-        /// MonoBehaviour method called on GameObject by Unity during early initialization phase.
-        /// </summary>
         void Awake()
         {
             // #Important
@@ -59,44 +60,46 @@ namespace WizardWars
             DontDestroyOnLoad(this.gameObject);
         }
 
-        /// <summary>
-        /// MonoBehaviour method called on GameObject by Unity during initialization phase.
-        /// </summary>
         void Start()
         {
             deaths = 0;
             kills = 0;
 
-            _autoCam = Camera.main.GetComponentInParent<AutoCam>();
+            // set local gameManager
+            gameManager = GameObject.Find("GameManager");
 
-            if (_autoCam.GetComponent<AutoCam>() != null)
-            {
-                if (photonView.isMine)
-                {
-                    Debug.Log("CAM");
-                    _autoCam.GetComponent<AutoCam>().SetTarget(transform);
-                }
-            }
-            else {
-                Debug.LogError("<Color=Red><a>Missing</a></Color> CameraWork Component on playerPrefab.", this);
-            }
+            // attach camera to player
+            _autoCam = Camera.main.GetComponentInParent<AutoCam>();
 
             if (photonView.isMine)
             {
-                GameObject.FindGameObjectWithTag("Player UI").GetComponent<PlayerUI>().SetTarget(this);
+                if (_autoCam.GetComponent<AutoCam>() != null)
+                {
+                    _autoCam.GetComponent<AutoCam>().SetTarget(transform);
+                }
+                else
+                {
+                    Debug.LogError("<Color=Red><a>Missing</a></Color> CameraWork Component on playerPrefab.", this);
+                }
+
+                // set local playerUI
+                GameObject.Find("Canvas/PlayerUI").GetComponent<PlayerUI>().SetTarget(this);
             }
         }
 
-        /// <summary>
-        /// MonoBehaviour method called on GameObject by Unity on every frame.
-        /// </summary>
         void Update()
         {
-            if (health <= 0)
+            if (health == 0)
             {
-                Debug.Log("Player has died");
+
+
+                // player death anim
+                GetComponent<PhotonView>().RPC("ReceivedDieAnim", PhotonTargets.All, true);
+
+                // tell game manager player is dead
+                gameManager.GetComponent<GameManager>().PlayerDie(playerId);
             }
-        }
+        } 
 
         #endregion
 
@@ -119,19 +122,9 @@ namespace WizardWars
                 health = 0;
             }
 
-            GetComponent<PhotonView>().RPC("SendCurHealth", PhotonTargets.All, health);
+            GetComponent<PhotonView>().RPC("ReceivedUpdateHealth", PhotonTargets.All, health);
         }
 
-        /// <summary>
-        /// Update photon view of player's health
-        /// </summary>
-        /// <param name="curHealth"></param>
-        [PunRPC]
-        public void SendCurHealth(float curHealth)
-        {
-            health = curHealth;
-        }
-        
         /// <summary>
         /// update number of kills player has
         /// </summary>
@@ -186,9 +179,29 @@ namespace WizardWars
 
         #endregion
 
+        #region PUN RPC
+
+        /// <summary>
+        /// Update photon view of player's health
+        /// </summary>
+        /// <param name="curHealth"></param>
+        [PunRPC]
+        public void ReceivedUpdateHealth(float newHealth)
+        {
+            health = newHealth;
+        }
+
+        [PunRPC]
+        public void ReceivedDieAnim(bool die)
+        {
+            GetComponent<Animator>().SetBool("dead", die);
+        }
+
+        #endregion
+
         #region Private Methods
 
-        
+
 
         #endregion
 

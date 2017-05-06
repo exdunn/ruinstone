@@ -36,14 +36,12 @@ namespace WizardWars
         {
             unmaskedParent = GameObject.FindGameObjectWithTag("Rune Panel").transform;
             startParent = transform.parent;
-        }
-
-        
+        }      
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             runeImage.GetComponent<Image>().sprite = spell.GetHighlightedRuneSprite();
-            GetComponentInParent<AthenaeumManager>().UpdateTooltip(spell);
+            GetComponentInParent<AthenaeumManager>().tooltip.GetComponent<Tooltip>().ParseSpellStats(spell);
         }
 
         public void OnPointerExit(PointerEventData eventData)

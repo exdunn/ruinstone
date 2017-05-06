@@ -135,7 +135,7 @@ namespace WizardWars
             }
 
             // Search spell library for spell with spellId and use it to set the tooltip
-            GetComponentInParent<AthenaeumManager>().UpdateTooltip(GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>()[spellId]);
+            GetComponentInParent<AthenaeumManager>().tooltip.GetComponent<Tooltip>().ParseSpellStats(GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>()[spellId]);
         }
 
         #endregion

@@ -74,6 +74,7 @@ namespace WizardWars
             }
 
             SetSpellIcons(spellIds);
+            PlayerPrefsX.SetIntArray("CurPreset", spellIds);
         }
 
         #endregion
