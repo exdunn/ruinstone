@@ -65,6 +65,11 @@ namespace WizardWars
             deaths = 0;
             kills = 0;
 
+            if (photonView.isMine)
+            {
+                GetComponent<PhotonView>().RPC("BroadcastPlayerId", PhotonTargets.All, playerId);
+            }
+
             // set local gameManager
             gameManager = GameObject.Find("GameManager");
 
@@ -91,7 +96,6 @@ namespace WizardWars
         {
             if (health == 0)
             {
-
 
                 // player death anim
                 GetComponent<PhotonView>().RPC("ReceivedDieAnim", PhotonTargets.All, true);
@@ -195,6 +199,14 @@ namespace WizardWars
         public void ReceivedDieAnim(bool die)
         {
             GetComponent<Animator>().SetBool("dead", die);
+        }
+
+        // Set the player ID in everyone else's view
+        [PunRPC]
+        public void BroadcastPlayerId(int id)
+        {
+            Debug.Log("broadcastplayerid called");
+            playerId = id;
         }
 
         #endregion

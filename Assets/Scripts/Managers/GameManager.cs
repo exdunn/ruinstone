@@ -33,16 +33,10 @@ namespace WizardWars
             get; set;
         }
 
-
-        /// <summary>
-        /// Status of players
-        /// If true then the player at index i is alive
-        /// If false then the player at index i is dead
-        /// </summary>
-        public bool[] playerStatus
-        {
-            get; set;
-        }
+        // dictionary that keeps track of players alive/dead
+        // key => player ID
+        // value => true = alive and false = dead
+        Dictionary<int, bool> playerStatus;
 
         public GameObject[] spawnPoints;
 
@@ -69,13 +63,14 @@ namespace WizardWars
 
         public void PlayerDie(int playerId)
         {
-            if (playerId < 0 || playerId >= playerStatus.Length)
+            if (!playerStatus.ContainsKey(playerId))
             {
-                Debug.Log("PLAYER INDEX " + playerId + " OUT OF RANGE");
+                Debug.Log("Cannot find key " + playerId);
+                return;
             }
 
             playerStatus[playerId] = false;
-            Debug.Log("PLAYER " + playerId + "HAS DIED");
+            Debug.Log("PLAYER " + playerId + " HAS DIED");
             //GetComponent<PhotonView>().RPC("ReceivedPlayerDeath", PhotonTargets.All, playerId);
         }
 
@@ -86,11 +81,12 @@ namespace WizardWars
         // Use this for initialization
         void Start()
         {
+            playerStatus = new Dictionary<int, bool>();
+
             // initialize all players to alive
-            playerStatus = new bool[PhotonNetwork.room.PlayerCount];
-            for (int i = 0; i < playerStatus.Length; i++)
+            foreach (PhotonPlayer player in PhotonNetwork.playerList)
             {
-                playerStatus[i] = true;
+                playerStatus[(int)player.CustomProperties["ID"]] = true;
             }
 
             if (playerPrefab == null)
@@ -102,8 +98,10 @@ namespace WizardWars
                 Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform;
                 // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
                 GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint.position, spawnPoint.rotation, 0);
-                newPlayer.GetComponent<PlayerManager>().playerId = PhotonNetwork.player.ID;
                 newPlayer.GetComponent<PlayerControllerV2>().enabled = true;
+                newPlayer.GetComponent<PlayerManager>().playerId = (int)PhotonNetwork.player.CustomProperties["ID"];
+                Debug.Log("PLAYER ID: " + (int)PhotonNetwork.player.CustomProperties["ID"]);
+                
                 //Debug.Log("player id: " + PhotonNetwork.player.ID);
             }
         }
@@ -128,13 +126,13 @@ namespace WizardWars
 
             // if there is one remaining player alive game is over
             // surviving player is declared the winner
-            if (playerStatus.Count(c => true) == 1)
+            if (playerStatus.Count(item => item.Value == true) == 1)
             {
-                int winner = System.Array.IndexOf(playerStatus, true);
+                int winner = playerStatus.FirstOrDefault(x => x.Value == true).Key;
                 Debug.Log("THE WINNER IS PLAYER " + winner);
             }
             // less than one player remaining means the game is a draw
-            else if (playerStatus.Count(c => true) < 1)
+            else if (playerStatus.Count(item => item.Value == true) < 1)
             {
                 Debug.Log("NO REMAINING PLAYERS, GAME IS A DRAW");
             }
@@ -147,13 +145,14 @@ namespace WizardWars
         [PunRPC]
         public void ReceivedPlayerDeath(int playerId)
         {
-            if (playerId < 0 || playerId >= playerStatus.Length)
+            if (!playerStatus.ContainsKey(playerId))
             {
-                Debug.Log("PLAYER INDEX " + playerId + " OUT OF RANGE");
+                Debug.LogError(playerId + " does not exist in playerStatus");
+                return;
             }
 
             playerStatus[playerId] = false;
-            Debug.Log("PLAYER " + playerId + "HAS DIED");
+            Debug.Log("PLAYER " + playerId + " HAS DIED");
         }
 
 

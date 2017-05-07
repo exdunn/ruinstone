@@ -38,6 +38,8 @@ namespace WizardWars
         /// </summary>
         public void StartClick()
         {
+            AssignIds();
+
             if (!PhotonNetwork.isMasterClient)
             {
                 Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
@@ -92,6 +94,29 @@ namespace WizardWars
                 spellSlots[i].spellIcon.GetComponent<Image>().sprite = library[spellIds[i]].GetIconSprite();
             }
         }
+
+        private void AssignIds()
+        {
+            List<int> duplicates = new List<int>();
+
+            foreach (PhotonPlayer player in PhotonNetwork.playerList)
+            {
+                int randomId = Random.Range(0, 255);
+
+                while (duplicates.Contains(randomId))
+                {
+                    randomId = Random.Range(0, 255);
+                }
+
+                duplicates.Add(randomId);
+                ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable() { { "ID", randomId } };
+                player.SetCustomProperties(hash);
+            }          
+        }
+
+        #endregion
+
+        #region monobehaviour callbacks
 
         // Use this for initialization
         void Start()
@@ -150,7 +175,6 @@ namespace WizardWars
             newPlayerLabel.GetComponent<PlayerLabel>().nameText.text = newPlayer.NickName;
             newPlayerLabel.GetComponent<PlayerLabel>().playerNum = newPlayer.ID;
         }
-
 
         #endregion
 

@@ -156,6 +156,11 @@ namespace WizardWars
             }
         }
 
+        public override void OnJoinedRoom()
+        {
+            Debug.Log("JOINED ROOM");
+        }
+
         public override void OnPhotonJoinRoomFailed(object[] codeAndMsg)
         {
             popUpWindow.GetComponent<PopUpWindow>().Show(codeAndMsg[1].ToString());

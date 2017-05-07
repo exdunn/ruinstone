@@ -178,7 +178,6 @@ namespace WizardWars
         public override void OnJoinedRoom()
         {
             Debug.Log("DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
-
             PhotonNetwork.LoadLevel("Lobby");
         }
 

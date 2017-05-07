@@ -56,7 +56,7 @@ public class Projectile : Delivery {
 
         if(_move) {   
             if(!debugged) {
-                Debug.Log("C,O,P,D: " + this.transform.position + "; " + origin + "; " + point + "; " + direction);
+                //sDebug.Log("C,O,P,D: " + this.transform.position + "; " + origin + "; " + point + "; " + direction);
                 debugged = true;
             }
             point = new Vector3(point.x, origin.y, point.z);
@@ -85,8 +85,8 @@ public class Projectile : Delivery {
         Debug.Log("other: " + other.gameObject.name);
         if (other.tag == Types.TargetToString(_targetType)) {
 
-            //Debug.Log("caster id: " + caster.GetComponent<WizardWars.PlayerManager>().playerId);
-            //Debug.Log("other id: " + other.GetComponent<WizardWars.PlayerManager>().playerId);
+            Debug.Log("caster id: " + caster.GetComponent<WizardWars.PlayerManager>().playerId);
+            Debug.Log("other id: " + other.GetComponent<WizardWars.PlayerManager>().playerId);
             Debug.Log("Got Player object");
             if (other.gameObject.GetComponent<WizardWars.PlayerManager>().playerId == caster.GetComponent<WizardWars.PlayerManager>().playerId) {
                 Debug.Log("Same Ids. No target.");
