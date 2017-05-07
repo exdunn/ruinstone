@@ -20,14 +20,25 @@ namespace WizardWars
 
         bool isCasting = false;
 
+        int curSpell = 0;
+
+        [Tooltip("List of spells the player can use")]
         [SerializeField]
         GameObject[] spellPrefabs;
+
+        [Tooltip("Movement speed of the player")]
         [SerializeField]
         float speed;
+
+        [Tooltip("Minimum range that the player will move to")]
         [SerializeField]
         float walkRange;
+
+        [Tooltip("Rotation speed of the player")]
         [SerializeField]
         float rotationSpeed;
+
+        [Tooltip("Model of the player")]
         [SerializeField]
         GameObject playerModel;
 
@@ -45,7 +56,7 @@ namespace WizardWars
             for (int i = 0; i < spellPrefabs.Length; ++i)
             {
                 //Debug.Log("Loaded Spell");
-                spells[i] = Instantiate(spellPrefabs[0], transform.position, transform.rotation);
+                spells[i] = Instantiate(spellPrefabs[i], transform.position, transform.rotation);
                 //Debug.Log("Spell: " + spells[i]);
             }
         }
@@ -72,13 +83,19 @@ namespace WizardWars
             // enter targeting state when user presses spell button
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
+                curSpell = 0;
+                isCasting = true;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                curSpell = 1;
                 isCasting = true;
             }
 
             // spell targetting state
             bool canSpell = spells[0].GetComponent<Spell>().isCastable;
             //Debug.Log("Castable: " + canSpell);
-            if (true)
+            if (isCasting)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -87,7 +104,7 @@ namespace WizardWars
                     if (Physics.Raycast(ray, out hit))
                     {
                         Debug.DrawLine(transform.position, hit.point, Color.red);
-                        spells[0].GetComponent<Spell>().Activate(gameObject, null, hit.point);
+                        spells[curSpell].GetComponent<Spell>().Activate(gameObject, null, hit.point);
 
                         // make player look at target of spell
                         playerModel.transform.LookAt(hit.point);

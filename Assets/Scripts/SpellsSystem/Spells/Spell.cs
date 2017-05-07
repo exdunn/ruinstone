@@ -9,7 +9,7 @@ public abstract class Spell : MonoBehaviour {
     public Behaviour[] _behaviours;
     public GameObject _spawnPrefab;
 
-    public float _recharge = 0f;
+    public float _cooldown = 0f;
 
     public bool isDone { get; set; }
     public bool isActive { get; set; }
@@ -36,7 +36,7 @@ public abstract class Spell : MonoBehaviour {
     }
     
     private IEnumerator Cooldown() {
-        while(_internal <= _recharge) {
+        while(_internal <= _cooldown) {
             yield return new WaitForSeconds(TICK);
             _internal += TICK;
         }
