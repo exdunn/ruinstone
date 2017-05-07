@@ -3,7 +3,6 @@ using System.Collections;
 
 public abstract class Spell : MonoBehaviour {
     public const float TICK = 1f;
-    public SpellStats _stats;
 
     public Delivery _delivery;
     public Behaviour[] _behaviours;
