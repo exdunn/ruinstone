@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace WizardWars
 {
@@ -63,6 +64,24 @@ namespace WizardWars
             userTab.SetActive(false);
             controlsTab.SetActive(false);
             soundTab.SetActive(true);
+        }
+
+        public void SetVolume(float value)
+        {
+            AudioListener.volume = value;
+        }
+
+        public void ToggleMusic(bool state)
+        {
+            AudioSource theme = GameObject.Find("RuinStone Theme").GetComponent<AudioSource>();
+
+            if (theme == null)
+            {
+                Debug.LogError("Cannot find audio source");
+                return;
+            }
+
+            theme.enabled = state;
         }
 
         #endregion
