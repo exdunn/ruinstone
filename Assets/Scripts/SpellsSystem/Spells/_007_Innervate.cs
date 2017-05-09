@@ -2,10 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using WizardWars;
 
 public class _007_Innervate : Spell {
 
     private GameObject _spawn;
+    public int _status;
+
     //private int i = 0;
     void Awake() {
         if(_delivery == null) {
@@ -14,9 +17,18 @@ public class _007_Innervate : Spell {
     }
 
     public override void Activate(GameObject caster, GameObject target, Vector3 point) {
-        isActive = true;
+
+        //isActive = true;
+        //PlayerManager player = caster.GetComponent<PlayerManager>();
+        //if(player == null) {
+        //    //Error
+        //    Debug.Log("The caster isn't a player.");
+        //    return;
+        //}
+        ////player.AddStatus(_status);
+        //isActive = false;
         //Transform temp = Utils.CreateNewTransform(point);
-        StartCoroutine(CoActivate(caster, target, point));
+        //StartCoroutine(CoActivate(caster, target, point));
         //Destroy(/*temp*/);
         GoOnCooldown();
     }
@@ -33,6 +45,7 @@ public class _007_Innervate : Spell {
                 yield return null;
             }
         }
+        yield return null;
         isActive = false;
     }
 }
