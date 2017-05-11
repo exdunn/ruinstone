@@ -103,11 +103,37 @@ namespace WizardWars
                 // tell game manager player is dead
                 gameManager.GetComponent<GameManager>().PlayerDie(playerId);
             }
+
+            //Check the list for finished statuses
+            //For each finished status, call Remove Status on it
         } 
 
         #endregion
 
         #region Public Methods
+
+        public void AddStatus(int status) {
+            //Create Instance of Status
+            //Call Status's Apply
+            //Add Status to List
+        }
+
+        public void RemoveStatus(int status) {
+            //Call Status's Unapply
+            //Remvoe Status from List
+        }
+
+        public void SetCrowdControl(int crowdControl, bool toggle) {
+            //Toggle the specified crowd control to whatever
+        }
+
+        public void ForceMove(float magnitude, Vector3 direction) {
+            //Push the player in some direction
+        }
+
+        public void Teleport(Vector3 point) {
+            //Change the position of the player to point
+        }
 
         /// <summary>
         /// Update current health of the player
