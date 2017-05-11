@@ -93,7 +93,7 @@ namespace WizardWars
             }
 
             // spell targetting state
-            bool canSpell = spells[0].GetComponent<Spell>().isCastable;
+            //bool canSpell = spells[0].GetComponent<Spell>().isCastable;
             //Debug.Log("Castable: " + canSpell);
             if (isCasting)
             {

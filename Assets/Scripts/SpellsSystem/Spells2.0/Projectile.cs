@@ -30,6 +30,7 @@ namespace SpellSystem {
 
 
         void Start() {
+
             isStarting = false;
             isDone = false;
             isDoingEffect = false;
@@ -113,7 +114,9 @@ namespace SpellSystem {
         protected void SetTargetAndDirection() {
             //If we only have direction, calculate the max range as the target point
             //If we only have target point, calculate the direction
-            if(_areaType == Types.Area.LINEAR) {
+            Debug.Log("stats: " + _stats);
+            if (_areaType == Types.Area.LINEAR) {
+                
                 direction = target - origin; //The direction is the difference between where the user clicked and where the user is
                 target = origin + (direction * _stats.GetRange()); //The actual target is the max range position in the set direction
             }
