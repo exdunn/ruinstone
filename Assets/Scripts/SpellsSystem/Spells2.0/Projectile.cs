@@ -123,7 +123,7 @@ namespace SpellSystem {
             if (_areaType == Types.Area.LINEAR) {
                 
                 direction = target - origin; //The direction is the difference between where the user clicked and where the user is
-                target = origin + (direction * _stats.GetRange()); //The actual target is the max range position in the set direction
+                target = origin + (direction.normalized * _stats.GetRange()); //The actual target is the max range position in the set direction
             }
             else {
                 direction = target - origin; //Since the target is actually where the user clicked. No need for more
