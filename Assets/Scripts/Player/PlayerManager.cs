@@ -43,6 +43,11 @@ namespace WizardWars
             get; set;
         }
 
+        public int lives
+        {
+            get; set;
+        }
+
         #endregion
 
         #region MonoBehaviour Callbacks

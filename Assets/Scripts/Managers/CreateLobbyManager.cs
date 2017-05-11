@@ -87,12 +87,7 @@ namespace WizardWars
                 Hashtable setValue = new Hashtable();
                 setValue.Add("l", lives);
 
-                RoomOptions ro = new RoomOptions();
-                ro.MaxPlayers = maxPlayersPerRoom;
-                ro.CustomRoomPropertiesForLobby = new string[] { "l" };
-                ro.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "l", lives } };
-
-                PhotonNetwork.CreateRoom(gameName, ro, null);
+                PhotonNetwork.CreateRoom(gameName, new RoomOptions { MaxPlayers = maxPlayersPerRoom }, null);
                 
             }
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
@@ -189,6 +184,10 @@ namespace WizardWars
 
         public override void OnJoinedRoom()
         {
+            ExitGames.Client.Photon.Hashtable customProp = new ExitGames.Client.Photon.Hashtable();
+            customProp.Add("l", lives);
+
+            PhotonNetwork.room.SetCustomProperties(customProp);
             Debug.Log("DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
             PhotonNetwork.LoadLevel("Lobby");
         }

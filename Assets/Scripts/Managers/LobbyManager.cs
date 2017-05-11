@@ -121,7 +121,7 @@ namespace WizardWars
         // Use this for initialization
         void Start()
         {
-            Debug.Log("lives: " + PhotonNetwork.room.CustomProperties['l']);
+            Debug.Log("lives: " + PhotonNetwork.room.CustomProperties["l"]);
 
             library = GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>();
             spellSlots = GetComponentsInChildren<SpellSlotUI>();

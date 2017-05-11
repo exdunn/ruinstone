@@ -21,6 +21,12 @@ namespace WizardWars
         void Awake()
         {
             DontDestroyOnLoad(gameObject);
+
+            if (FindObjectsOfType(GetType()).Length > 1)
+            {
+                Destroy(gameObject);
+            }
+
             chatClient = new ChatClient(this);
             chatClient.ChatRegion = "US";
             authValues = new ExitGames.Client.Photon.Chat.AuthenticationValues();
@@ -52,6 +58,9 @@ namespace WizardWars
             {
                 return;
             }
+
+            chatPanel.GetComponentInChildren<UnityEngine.UI.InputField>().text = "";
+
             Debug.Log("Chat message send");
             chatClient.PublishMessage(curChannel, text);
         }

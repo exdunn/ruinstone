@@ -30,13 +30,7 @@ namespace WizardWars
         {
             index++;
             
-            
-
             GameObject newMessage = Instantiate(messagePrefab, chatWindow.transform);
-
-            Debug.Log("chat window: " + chatWindow.GetComponent<RectTransform>().rect.height);
-            Debug.Log("message height: " + index * chatWindow.GetComponent<GridLayoutGroup>().cellSize.y);
-
             if ((index * chatWindow.GetComponent<GridLayoutGroup>().cellSize.y) > chatWindow.GetComponent<RectTransform>().rect.height)
             {
                 Destroy(chatWindow.transform.GetChild(0).gameObject);
