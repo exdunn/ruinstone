@@ -50,6 +50,31 @@ namespace WizardWars
 
         #endregion
 
+        #region player stats
+
+        public float moveSpeedModifier
+        {
+            get;set;
+        }
+
+        public float damageModifier
+        {
+            get;set;
+        }
+
+        public float damageReceivedModifier
+        {
+            get;set;
+        }
+
+        public float cooldownReduction
+        {
+            get;set;
+        }
+
+        #endregion
+
+
         #region MonoBehaviour Callbacks
 
         void Awake()
@@ -60,9 +85,16 @@ namespace WizardWars
             {
                 LocalPlayerInstance = this.gameObject;
             }
+
+            // set all stats to 1
+            moveSpeedModifier = 1;
+            damageModifier = 1;
+            damageReceivedModifier = 1;
+            cooldownReduction = 1;
+
             // #Critical
             // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
-            DontDestroyOnLoad(this.gameObject);
+            // DontDestroyOnLoad(this.gameObject);
         }
 
         void Start()
