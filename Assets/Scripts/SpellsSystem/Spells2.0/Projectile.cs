@@ -21,13 +21,21 @@ namespace SpellSystem {
         protected GameObject caster { get; set; }
         protected Vector3 origin { get; set; }
         protected Vector3 target { get; set; }
-        protected Vector3 direction { get; set; }
+        protected Vector3 direction {
+            get {
+                return _dir.normalized;
+            }
+            set {
+                _dir = value.normalized;
+            }
+        }
         protected float distance {
             get {
                 return Vector3.Distance(origin, this.transform.position);
             }
         }
 
+        private Vector3 _dir;
 
         void Awake() {
             Debug.Log("Start");

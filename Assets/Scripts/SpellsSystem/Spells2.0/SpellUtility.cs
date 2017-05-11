@@ -20,8 +20,10 @@ namespace SpellSystem {
             }
             return player;
         }
-        public static GameObject SpawnProjectile(string prefab, Transform parent, Vector3 position, Quaternion rotation) {
-            return PhotonNetwork.Instantiate(prefab, position, rotation, 0);
+        public static GameObject SpawnProjectile(string prefab, Transform parent, Vector3 position, Quaternion rotation, float radius) {
+            GameObject projectile = PhotonNetwork.Instantiate(prefab, position, rotation, 0);
+            projectile.GetComponent<SphereCollider>().radius = radius;
+            return projectile;
         }
         /* Damage */
         public static void Damage(GameObject target, float damage) {
