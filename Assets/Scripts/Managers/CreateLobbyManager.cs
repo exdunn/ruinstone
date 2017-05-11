@@ -17,9 +17,11 @@ namespace WizardWars
         [Tooltip("The pop up window that displays status messages to the player")]
         public GameObject popUpWindow;
         [Tooltip("Slider that controls the max number of players")]
-        public GameObject maxPlayerSlider;
+        public GameObject playerSlider;
+        [Tooltip("Slider that controls the number of lives")]
+        public GameObject livesSlider;
         [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
-        public byte maxPlayersPerRoom = 4;
+        public byte maxPlayers = 4;
 
         #endregion
 
@@ -55,14 +57,21 @@ namespace WizardWars
 
         public void SetMaxPlayers()
         {
-            maxPlayersPerRoom = (byte)maxPlayerSlider.GetComponent<Slider>().value;
-            maxPlayerSlider.GetComponentInChildren<Text>().text = string.Format("{0:N0}", maxPlayerSlider.GetComponent<Slider>().value);
-            Debug.Log("max: " + maxPlayersPerRoom);
+            maxPlayers = (byte)playerSlider.GetComponent<Slider>().value;
+            
+            Debug.Log("max: " + maxPlayers);
+        }
+
+        public void SetPlayers(float value)
+        {
+            maxPlayers = (byte)value;
+            playerSlider.GetComponentInChildren<Text>().text = string.Format("{0:N0}", maxPlayers);
         }
 
         public void SetLives(float value)
         {
             lives = value;
+            livesSlider.GetComponentInChildren<Text>().text = string.Format("{0:N0}", lives);
         }
 
         /// <summary>
@@ -87,7 +96,7 @@ namespace WizardWars
                 Hashtable setValue = new Hashtable();
                 setValue.Add("l", lives);
 
-                PhotonNetwork.CreateRoom(gameName, new RoomOptions { MaxPlayers = maxPlayersPerRoom }, null);
+                PhotonNetwork.CreateRoom(gameName, new RoomOptions { MaxPlayers = maxPlayers }, null);
                 
             }
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
@@ -131,6 +140,9 @@ namespace WizardWars
         {
             nameInputField = GetComponent<InputField>();
 
+            livesSlider.GetComponentInChildren<Text>().text = string.Format("{0:N0}", lives);
+            playerSlider.GetComponentInChildren<Text>().text = string.Format("{0:N0}", maxPlayers);
+
             progressLabel.SetActive(false);
             contentPanel.SetActive(true);
         }
@@ -163,7 +175,7 @@ namespace WizardWars
                 {
                     // Debug.Log("game name: " + gameName);
                     PhotonNetwork.CreateRoom(gameName, new RoomOptions() {
-                        MaxPlayers = maxPlayersPerRoom,
+                        MaxPlayers = maxPlayers,
                         IsOpen= true
                     }, null);
                 }
