@@ -29,8 +29,8 @@ namespace SpellSystem {
         }
 
 
-        void Start() {
-
+        void Awake() {
+            Debug.Log("Start");
             isStarting = false;
             isDone = false;
             isDoingEffect = false;
@@ -41,7 +41,10 @@ namespace SpellSystem {
         }
 
         void Update() {
+            Debug.Log("isStarting: " + isStarting);
+            Debug.Log("isDone: " + isDone);
             if(!isStarting || isDone) {
+                
                 return;
             }
 
@@ -96,7 +99,9 @@ namespace SpellSystem {
             this.caster = caster;
             origin = caster.transform.position;
             SetTargetAndDirection();
+            Debug.Log("Starting is True now");
             isStarting = true;
+            Debug.Log("isStarting: " + isStarting);
         }
 
         protected bool IsReadyToFinish() {
