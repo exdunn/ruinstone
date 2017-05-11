@@ -24,8 +24,10 @@ namespace SpellSystem
         //Question: Should this be a coroutine?
         public abstract void Cast(GameObject caster, GameObject target, Vector3 point);
 
-        protected IEnumerator Cooldown()
+        protected IEnumerator Cooldown(GameObject caster)
         {
+            //float cd = _stats.GetCooldown() - (_stats.GetCooldown() * caster's cdr)
+            //cd = cd if cd >= 0 else 0
             while(_cooldownTimer <= _stats.GetCooldown())
             {
                 yield return new WaitForSeconds(SpellUtility.TICK);

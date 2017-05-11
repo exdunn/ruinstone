@@ -21,7 +21,7 @@ namespace SpellSystem {
             GameObject proj = SpellUtility.SpawnProjectile("Spells/" + spawn, this.transform, spawnPos, Quaternion.identity, _stats.GetRadius());
             proj.GetComponent<Projectile>()._stats = _stats;
             proj.GetComponent<Projectile>().Move(caster, point);
-            StartCoroutine(Cooldown());
+            StartCoroutine(Cooldown(caster));
         }
     }
 }
