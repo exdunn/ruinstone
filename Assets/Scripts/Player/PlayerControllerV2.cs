@@ -104,7 +104,7 @@ namespace WizardWars
                     if (Physics.Raycast(ray, out hit))
                     {
                         Debug.DrawLine(transform.position, hit.point, Color.red);
-                        spells[curSpell].GetComponent<Spell>().Activate(gameObject, null, hit.point);
+                        spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, null, hit.point);
 
                         // make player look at target of spell
                         playerModel.transform.LookAt(hit.point);

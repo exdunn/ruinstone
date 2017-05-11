@@ -18,10 +18,6 @@ namespace WizardWars
         public GameObject popUpWindow;
         [Tooltip("Slider that controls the max number of players")]
         public GameObject maxPlayerSlider;
-
-        /// <summary>
-        /// The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created.
-        /// </summary>   
         [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
         public byte maxPlayersPerRoom = 4;
 
@@ -51,6 +47,8 @@ namespace WizardWars
         /// </summary>
         bool isConnecting;
 
+        float lives = 1f;
+
         #endregion
 
         #region Public Methods
@@ -60,6 +58,11 @@ namespace WizardWars
             maxPlayersPerRoom = (byte)maxPlayerSlider.GetComponent<Slider>().value;
             maxPlayerSlider.GetComponentInChildren<Text>().text = string.Format("{0:N0}", maxPlayerSlider.GetComponent<Slider>().value);
             Debug.Log("max: " + maxPlayersPerRoom);
+        }
+
+        public void SetLives(float value)
+        {
+            lives = value;
         }
 
         /// <summary>
@@ -80,7 +83,16 @@ namespace WizardWars
             {
                 Debug.Log("Photon is already connected... creating new room");
                 Debug.Log("game name: " + gameName);
-                PhotonNetwork.CreateRoom(gameName, new RoomOptions() { MaxPlayers = maxPlayersPerRoom }, null);
+
+                Hashtable setValue = new Hashtable();
+                setValue.Add("l", lives);
+
+                RoomOptions ro = new RoomOptions();
+                ro.MaxPlayers = maxPlayersPerRoom;
+                ro.CustomRoomPropertiesForLobby = new string[] { "l" };
+                ro.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "l", lives } };
+
+                PhotonNetwork.CreateRoom(gameName, ro, null);
                 
             }
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
