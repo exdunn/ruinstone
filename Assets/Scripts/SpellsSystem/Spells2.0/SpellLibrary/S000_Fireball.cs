@@ -15,7 +15,7 @@ namespace SpellSystem {
                 return;
             }
             isCastable = false;
-            GameObject proj = SpellUtility.SpawnProjectile("Spells/" + spawn, this.transform, caster.transform.position, Quaternion.identity);
+            GameObject proj = SpellUtility.SpawnProjectile("Spells/" + spawn, this.transform, caster.transform.position, Quaternion.identity, _stats.GetRadius());
             proj.GetComponent<Projectile>()._stats = _stats;
             proj.GetComponent<Projectile>().Move(caster, point);
             StartCoroutine(Cooldown());
