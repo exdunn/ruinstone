@@ -6,22 +6,32 @@ using System.Collections;
 using WizardWars;
 namespace SpellSystem {
     public class U000_Innervate : Status {
-
+        public float _moveSpeedBonus;
+        public float _cooldownReduction;
         public override void Activate(GameObject target) {
             if(isStarting) {
                 return;
             }
             isStarting = true;
             _timer = 0f;
-            //Increase movement speed
-            
+            PlayerManager player = target.GetComponent<PlayerManager>();
+            if(!player) {
+                return;
+            }
+            player.moveSpeedModifier += _moveSpeedBonus;
+            player.cooldownReduction += _cooldownReduction;
 
             StartCoroutine(Run());
-            
         }
 
         public override void Deactivate(GameObject target) {
             //Undo the movement speed change
+            PlayerManager player = target.GetComponent<PlayerManager>();
+            if(!player) {
+                return;
+            }
+            player.moveSpeedModifier -= _moveSpeedBonus;
+            player.cooldownReduction -= _cooldownReduction;
         }
 
         protected override IEnumerator Run() {
