@@ -74,7 +74,6 @@ namespace WizardWars
 
         #endregion
 
-
         #region MonoBehaviour Callbacks
 
         void Awake()
@@ -131,15 +130,7 @@ namespace WizardWars
 
         void Update()
         {
-            if (health == 0)
-            {
-
-                // player death anim
-                GetComponent<PhotonView>().RPC("ReceivedDieAnim", PhotonTargets.All, true);
-
-                // tell game manager player is dead
-                gameManager.GetComponent<GameManager>().PlayerDie(playerId);
-            }
+            
 
             //Check the list for finished statuses
             //For each finished status, call Remove Status on it
@@ -190,6 +181,16 @@ namespace WizardWars
             }
 
             GetComponent<PhotonView>().RPC("ReceivedUpdateHealth", PhotonTargets.All, health);
+
+            if (health == 0)
+            {
+
+                // player death anim
+                GetComponent<PhotonView>().RPC("ReceivedDieAnim", PhotonTargets.All, true);
+
+                // tell game manager player is dead
+                gameManager.GetComponent<GameManager>().PlayerDie(playerId);
+            }
         }
 
         /// <summary>

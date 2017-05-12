@@ -91,6 +91,11 @@ namespace WizardWars
                 curSpell = 1;
                 isCasting = true;
             }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                curSpell = 2;
+                isCasting = true;
+            }
 
             // spell targetting state
             //bool canSpell = spells[0].GetComponent<Spell>().isCastable;
