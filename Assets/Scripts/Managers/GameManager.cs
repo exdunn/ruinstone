@@ -63,6 +63,7 @@ namespace WizardWars
 
         public void PlayerDie(int playerId)
         {
+            // cannot find dying player
             if (!playerStatus.ContainsKey(playerId))
             {
                 Debug.Log("Cannot find key " + playerId);
@@ -110,14 +111,15 @@ namespace WizardWars
             }
             else
             {
+                // pick a random spawn location
                 Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform;
+
                 // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
                 GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint.position, spawnPoint.rotation, 0);
                 newPlayer.GetComponent<PlayerControllerV2>().enabled = true;
                 newPlayer.GetComponent<PlayerManager>().playerId = (int)PhotonNetwork.player.CustomProperties["ID"];
-                Debug.Log("PLAYER ID: " + (int)PhotonNetwork.player.CustomProperties["ID"]);
                 
-                //Debug.Log("player id: " + PhotonNetwork.player.ID);
+                // Debug.Log("PLAYER ID: " + (int)PhotonNetwork.player.CustomProperties["ID"]);
             }
         }
 

@@ -37,6 +37,7 @@ namespace WizardWars
 
         GameObject gameManager;
         GameObject playerUI;
+        GameObject[] spawnPoints;
 
         public int playerId
         {
@@ -72,6 +73,11 @@ namespace WizardWars
             get;set;
         }
 
+        public bool dead
+        {
+            get; set;
+        }
+
         #endregion
 
         #region MonoBehaviour Callbacks
@@ -100,11 +106,15 @@ namespace WizardWars
         {
             deaths = 0;
             kills = 0;
+            dead = false;
 
             if (photonView.isMine)
             {
                 GetComponent<PhotonView>().RPC("BroadcastPlayerId", PhotonTargets.All, playerId);
             }
+
+            // set up spawn points
+            spawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
 
             // set local gameManager
             gameManager = GameObject.Find("GameManager");
@@ -163,6 +173,16 @@ namespace WizardWars
             //Change the position of the player to point
         }
 
+        public void Respawn()
+        {
+            if (lives <= 0)
+            {
+                Debug.Log("Player has no more lives");
+                return;
+            }
+            StartCoroutine(RespawnTimer());
+        }
+
         /// <summary>
         /// Update current health of the player
         /// </summary>
@@ -180,17 +200,7 @@ namespace WizardWars
                 health = 0;
             }
 
-            GetComponent<PhotonView>().RPC("ReceivedUpdateHealth", PhotonTargets.All, health);
-
-            if (health == 0)
-            {
-
-                // player death anim
-                GetComponent<PhotonView>().RPC("ReceivedDieAnim", PhotonTargets.All, true);
-
-                // tell game manager player is dead
-                gameManager.GetComponent<GameManager>().PlayerDie(playerId);
-            }
+            GetComponent<PhotonView>().RPC("ReceivedUpdateHealth", PhotonTargets.All, health);    
         }
 
         /// <summary>
@@ -204,6 +214,25 @@ namespace WizardWars
             if (kills < 0)
             {
                 kills = 0;
+            }
+        }
+
+        /// <summary>
+        /// update number of kills player has
+        /// </summary>
+        /// <param name="update"></param>
+        public void UpdateLives(int update)
+        {
+            lives += update;
+
+            if (lives < 0)
+            {
+                lives = 0;
+            }
+
+            if (lives == 0)
+            {
+                // tell game manager player has no more lives
             }
         }
 
@@ -257,8 +286,25 @@ namespace WizardWars
         public void ReceivedUpdateHealth(float newHealth)
         {
             health = newHealth;
+
+            if (health == 0)
+            {
+                Debug.Log("player has died!");
+
+                dead = true;
+
+                // player death anim
+                GetComponent<PhotonView>().RPC("ReceivedDieAnim", PhotonTargets.All, true);
+
+                // respawn player
+                Respawn();
+
+                // tell game manager player is dead
+                gameManager.GetComponent<GameManager>().PlayerDie(playerId);
+            }
         }
 
+        // Play death animation
         [PunRPC]
         public void ReceivedDieAnim(bool die)
         {
@@ -273,11 +319,31 @@ namespace WizardWars
             playerId = id;
         }
 
+        // Teleport player to position
+        [PunRPC]
+        public void TeleportPlayer(Vector3 pos)
+        {
+            GetComponent<PlayerControllerV2>().newPosition = pos;
+            transform.position = pos;
+        }
+
         #endregion
 
         #region Private Methods
 
+        IEnumerator RespawnTimer()
+        {
+            yield return new WaitForSeconds(3f);
+            
+            // pick a random spawn location
+            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform;
 
+            // teleport player to spawn point
+            transform.position = spawnPoint.position;
+            GetComponent<PhotonView>().RPC("TeleportPlayer", PhotonTargets.All, spawnPoint.position);
+
+            dead = false;
+        }
 
         #endregion
 

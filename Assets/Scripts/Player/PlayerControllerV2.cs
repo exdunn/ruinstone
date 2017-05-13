@@ -14,12 +14,17 @@ namespace WizardWars
 
         #region private variables 
 
-        Vector3 newPosition;
+        // position of mouse click that player moves to
+        public Vector3 newPosition
+        {
+            get; set;
+        }
 
         GameObject[] spells;
 
         bool isCasting = false;
 
+        // index of spell being targeted
         int curSpell = 0;
 
         [Tooltip("List of spells the player can use")]
@@ -64,6 +69,12 @@ namespace WizardWars
         // Update is called once per frame
         void Update()
         {
+            // if player is dead then return
+            if (GetComponent<PlayerManager>().dead)
+            {
+                return;
+            }
+
             moveChar();
 
             // move player when user presses RMB
@@ -140,6 +151,7 @@ namespace WizardWars
 
                 // update player rotation
                 Quaternion lookRotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
+                lookRotation = new Quaternion(0, lookRotation.y, 0, lookRotation.w);
                 playerModel.transform.rotation = Quaternion.Slerp(lookRotation, playerModel.transform.rotation, rotationSpeed);
 
                 Debug.DrawLine(transform.position, newPosition, Color.red);
