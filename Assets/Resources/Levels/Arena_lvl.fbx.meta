@@ -11,25 +11,32 @@ ModelImporter:
     100006: main_platform
     100008: trapdoor_1
     100010: trapdoor_2
+    100012: center_platform 1
+    100014: center_platform 2
     400000: //RootNode
     400002: center_platform
     400004: center_platform1
     400006: main_platform
     400008: trapdoor_1
     400010: trapdoor_2
+    400012: center_platform 1
+    400014: center_platform 2
     2300000: center_platform1
     2300002: main_platform
     2300004: trapdoor_1
     2300006: trapdoor_2
+    2300008: center_platform 2
     3300000: center_platform1
     3300002: main_platform
     3300004: trapdoor_1
     3300006: trapdoor_2
+    3300008: center_platform 2
     4300000: main_platform
     4300002: trapdoor_1
     4300004: trapdoor_2
     4300006: center_platform1
-    7400000: Take 001
+    4300008: center_platform
+    7400000: Trapdoor Open Anim
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -41,8 +48,6 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -53,7 +58,49 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Trapdoor Open Anim
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 45
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: center_platform
+        weight: 1
+      - path: center_platform/center_platform 1
+        weight: 1
+      - path: center_platform/center_platform 1/center_platform 2
+        weight: 1
+      - path: center_platform/trapdoor_1
+        weight: 1
+      - path: center_platform/trapdoor_2
+        weight: 1
+      - path: main_platform
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
