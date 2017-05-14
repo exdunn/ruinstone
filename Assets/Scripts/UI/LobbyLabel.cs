@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 namespace WizardWars
 {
     public class LobbyLabel : MonoBehaviour
         , IPointerClickHandler
+        , IPointerEnterHandler
+        , IPointerExitHandler
     {
         #region Public Variables
 
@@ -24,6 +27,11 @@ namespace WizardWars
         #endregion
 
         #region Private Variables
+
+        public bool clicked
+        {
+            get; set;
+        }
 
         #endregion
 
@@ -87,6 +95,21 @@ namespace WizardWars
         {
             JoinMenu joinMenu = GameObject.Find("Join Menu").GetComponent<JoinMenu>();
             joinMenu.LobbyLabelClick(transform.GetSiblingIndex(), nameLabel.text);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (clicked)
+            {
+                return;
+            }
+
+            GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            GetComponent<Image>().color = new Color32(255, 255, 255, 200);
         }
 
         #endregion

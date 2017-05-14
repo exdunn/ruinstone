@@ -74,11 +74,13 @@ namespace WizardWars
             foreach (Transform child in gameListPanel.transform)
             {
                 im = child.gameObject.GetComponent<Image>();
-                im.color = new Color32(255, 255, 255, 100);
+                im.color = new Color32((byte)im.color.r, 255, 255, 0);
+                child.gameObject.GetComponent<LobbyLabel>().clicked = false;
             }
 
             im = gameListPanel.transform.GetChild(index).GetComponent<Image>();
-            im.color = new Color32(255, 255, 255, 255);
+            gameListPanel.GetComponentsInChildren<LobbyLabel>()[index].clicked = true;
+            im.color = new Color32(255, 255, 255, 200);
             this.roomName = roomName;
         }
 
