@@ -37,6 +37,7 @@ namespace WizardWars
 
         GameObject gameManager;
         GameObject playerUI;
+        GameObject message;
         GameObject[] spawnPoints;
 
         public int playerId
@@ -118,6 +119,11 @@ namespace WizardWars
 
             // set local gameManager
             gameManager = GameObject.Find("GameManager");
+            lives = gameManager.GetComponent<GameManager>().lives;
+
+            // set canvas message
+            message = GameObject.Find("Canvas/Display Message");
+            Debug.Log("MESSAGE " + message);
 
             // attach camera to player
             _autoCam = Camera.main.GetComponentInParent<AutoCam>();
@@ -137,14 +143,6 @@ namespace WizardWars
                 GameObject.Find("Canvas/PlayerUI").GetComponent<PlayerUI>().SetTarget(this);
             }
         }
-
-        void Update()
-        {
-            
-
-            //Check the list for finished statuses
-            //For each finished status, call Remove Status on it
-        } 
 
         #endregion
 
@@ -197,7 +195,14 @@ namespace WizardWars
             }
             else if (health < 0)
             {
+                
+
                 health = 0;
+            }
+            Debug.Log("player ui " + playerUI);
+            if (playerUI != null)
+            {
+                playerUI.GetComponent<PlayerUI>().DisplayMessage("Respawning...");
             }
 
             GetComponent<PhotonView>().RPC("ReceivedUpdateHealth", PhotonTargets.All, health);    
@@ -333,6 +338,12 @@ namespace WizardWars
 
         IEnumerator RespawnTimer()
         {
+            if (message != null)
+            {
+                Debug.Log("Displaying Message");
+                message.GetComponentInChildren<UnityEngine.UI.Text>().text = "Respawning...";
+            }
+            
             yield return new WaitForSeconds(3f);
             
             // pick a random spawn location

@@ -49,8 +49,8 @@ namespace SpellSystem {
         }
 
         void Update() {
-            Debug.Log("isStarting: " + isStarting);
-            Debug.Log("isDone: " + isDone);
+            //Debug.Log("isStarting: " + isStarting);
+            //Debug.Log("isDone: " + isDone);
             if(!isStarting || isDone) {
                 
                 return;

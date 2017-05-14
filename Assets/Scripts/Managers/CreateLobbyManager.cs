@@ -94,7 +94,7 @@ namespace WizardWars
                 Debug.Log("game name: " + gameName);
 
                 Hashtable setValue = new Hashtable();
-                setValue.Add("l", lives);
+                setValue.Add("l", (int)lives);
 
                 PhotonNetwork.CreateRoom(gameName, new RoomOptions { MaxPlayers = maxPlayers }, null);
                 

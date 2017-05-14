@@ -19,16 +19,16 @@ namespace WizardWars
         /// </summary>
         public GameObject gameMenu;
 
-        public GameObject myText;
-
         #endregion
 
         #region Private Variables
 
-        /// <summary>
-        /// true if the game is over, false if not over
-        /// </summary>
         public bool gameOver
+        {
+            get; set;
+        }
+
+        public int lives
         {
             get; set;
         }
@@ -44,10 +44,10 @@ namespace WizardWars
 
         #region Public Methods
 
-    /// <summary>
-    /// Takes player back to main menu
-    /// </summary>
-    public void LeaveClick()
+        /// <summary>
+        /// Takes player back to main menu
+        /// </summary>
+        public void LeaveClick()
         {
             PhotonNetwork.Disconnect();
             SceneManager.LoadScene(0);
@@ -118,8 +118,7 @@ namespace WizardWars
                 GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint.position, spawnPoint.rotation, 0);
                 newPlayer.GetComponent<PlayerControllerV2>().enabled = true;
                 newPlayer.GetComponent<PlayerManager>().playerId = (int)PhotonNetwork.player.CustomProperties["ID"];
-                
-                // Debug.Log("PLAYER ID: " + (int)PhotonNetwork.player.CustomProperties["ID"]);
+                lives = System.Convert.ToInt32(PhotonNetwork.room.CustomProperties["l"]);          
             }
         }
 

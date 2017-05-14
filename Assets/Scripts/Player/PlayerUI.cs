@@ -13,20 +13,10 @@ namespace WizardWars
             get; set;
         }
 
-        /// <summary>
-        /// spell UI components for each spell the player current has equipped
-        /// </summary>
         SpellUI[] spells;
-
-        /// <summary>
-        /// health glboe ui component which displays player's current hp
-        /// </summary>
-        public HealthGlobeUI healthGlobe;
-
-        /// <summary>
-        /// list of spells including stats and sprites
-        /// </summary>
         SpellStats[] library;
+        public HealthGlobeUI healthGlobe;
+        
 
         // Use this for initialization
         void Start()
@@ -57,6 +47,10 @@ namespace WizardWars
             }
         }
 
+        /// <summary>
+        /// attaches local player to playerUI
+        /// </summary>
+        /// <param name="player"></param>
         public void SetTarget(PlayerManager player)
         {
             if (player == null)
