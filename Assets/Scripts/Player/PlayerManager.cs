@@ -199,11 +199,6 @@ namespace WizardWars
 
                 health = 0;
             }
-            Debug.Log("player ui " + playerUI);
-            if (playerUI != null)
-            {
-                playerUI.GetComponent<PlayerUI>().DisplayMessage("Respawning...");
-            }
 
             GetComponent<PhotonView>().RPC("ReceivedUpdateHealth", PhotonTargets.All, health);    
         }
