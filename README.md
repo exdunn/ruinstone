@@ -7,7 +7,7 @@ and selecting four unique abilities.  To play the game, either create or join a 
 game.
 
 
-![alt text](https://raw.github.com/exdunn/ruinstone/tree/master/Assets/Screen%20Shots/gameplay.png)
+![alt text](https://github.com/exdunn/ruinstone/tree/master/Assets/Screen%20Shots/gameplay.png)
 
 
 *********************************************** CREDITS ****************************************************
