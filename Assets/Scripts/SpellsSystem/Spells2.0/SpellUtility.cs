@@ -94,14 +94,14 @@ namespace SpellSystem {
             }
         }
         /* Status */
-        public static void Status(GameObject target, int status) {
+        public static void Status(GameObject target, Status status) {
             PlayerManager player = CheckAndGetPlayer(target);
             if(!player) {
                 return;
             }
             player.AddStatus(status);
         }
-        public static IEnumerator StatusOverTime(GameObject target, int status, float duration) {
+        public static IEnumerator StatusOverTime(GameObject target, Status status, float duration) {
             float timer = 0f;
             PlayerManager player = CheckAndGetPlayer(target);
             if(!player) {
@@ -113,13 +113,13 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        public static void AreaStatus(Types.Target type, Vector3 center, float radius, int status) {
+        public static void AreaStatus(Types.Target type, Vector3 center, float radius, Status status) {
             List<GameObject> targets = Utils.GetAll(type, center, radius);
             for(int i = 0; i < targets.Count; ++i) {
                 Status(targets[i], status);
             }
         }
-        public static IEnumerator AreaStatusOverTime(Types.Target type, Vector3 center, float radius, int status, float duration) {
+        public static IEnumerator AreaStatusOverTime(Types.Target type, Vector3 center, float radius, Status status, float duration) {
             float timer = 0f;
             while(timer < duration) {
                 AreaStatus(type, center, radius, status);

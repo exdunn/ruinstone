@@ -8,12 +8,14 @@ namespace SpellSystem {
     public class U000_Innervate : Status {
         public float _moveSpeedBonus;
         public float _cooldownReduction;
-        public override void Activate(GameObject target) {
+        public override void Activate(GameObject target, int where) {
             if(isStarting) {
                 return;
             }
             isStarting = true;
             _timer = 0f;
+            this.target = target;
+            this.where = where;
             PlayerManager player = target.GetComponent<PlayerManager>();
             if(!player) {
                 return;

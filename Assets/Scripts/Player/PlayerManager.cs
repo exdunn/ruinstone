@@ -35,6 +35,8 @@ namespace WizardWars
 
         SpellStats[] library;
 
+        List<Status> _statuses;
+
         GameObject gameManager;
         GameObject playerUI;
         GameObject message;
@@ -153,15 +155,19 @@ namespace WizardWars
 
         #region Public Methods
 
-        public void AddStatus(int status) {
+        public void AddStatus(Status status) {
             //Create Instance of Status
             //Call Status's Apply
             //Add Status to List
+            status.Activate(this.gameObject, _statuses.Count);
+            _statuses.Add(status);
         }
 
-        public void RemoveStatus(int status) {
+        public void RemoveStatus(int where) {
             //Call Status's Unapply
             //Remvoe Status from List
+            _statuses[where].Deactivate(this.gameObject);
+            _statuses.RemoveAt(where);
         }
 
         public void SetCrowdControl(int crowdControl, bool toggle) {
