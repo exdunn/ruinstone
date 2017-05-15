@@ -50,6 +50,11 @@ namespace WizardWars
             get; set;
         }
 
+        public int spawnIndex
+        {
+            get; set;
+        }
+
         #endregion
 
         #region player stats
@@ -178,6 +183,7 @@ namespace WizardWars
                 Debug.Log("Player has no more lives");
                 return;
             }
+
             StartCoroutine(RespawnTimer());
         }
 
@@ -300,7 +306,11 @@ namespace WizardWars
                 Respawn();
 
                 // tell game manager player is dead
-                gameManager.GetComponent<GameManager>().PlayerDie(playerId);
+                if (lives == 0)
+                {
+                    gameManager.GetComponent<GameManager>().PlayerEliminated(playerId);
+                }
+                
             }
         }
 
@@ -315,7 +325,6 @@ namespace WizardWars
         [PunRPC]
         public void BroadcastPlayerId(int id)
         {
-            Debug.Log("broadcastplayerid called");
             playerId = id;
         }
 
@@ -335,17 +344,30 @@ namespace WizardWars
         {
             if (message != null)
             {
-                Debug.Log("Displaying Message");
-                message.GetComponentInChildren<UnityEngine.UI.Text>().text = "Respawning...";
+                if (photonView.isMine)
+                {
+                    message.GetComponentInChildren<UnityEngine.UI.Text>().text = "Respawning...";
+                }
             }
             
             yield return new WaitForSeconds(3f);
-            
+
+            if (message != null)
+            {
+                if (photonView.isMine)
+                {
+                    message.GetComponentInChildren<UnityEngine.UI.Text>().text = "";
+                }
+            }
+
+            health = maxHealth;
+
             // pick a random spawn location
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform;
+            Transform spawnPoint = spawnPoints[spawnIndex].transform;
 
             // teleport player to spawn point
             transform.position = spawnPoint.position;
+            GetComponent<PlayerControllerV2>().newPosition = spawnPoint.position;
             GetComponent<PhotonView>().RPC("TeleportPlayer", PhotonTargets.All, spawnPoint.position);
 
             dead = false;

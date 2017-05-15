@@ -20,12 +20,12 @@ namespace WizardWars
         // Use this for initialization
         void Awake()
         {
-            DontDestroyOnLoad(gameObject);
+            /*DontDestroyOnLoad(gameObject);
 
             if (FindObjectsOfType(GetType()).Length > 1)
             {
                 Destroy(gameObject);
-            }
+            }*/
 
             chatClient = new ChatClient(this);
             chatClient.ChatRegion = "US";

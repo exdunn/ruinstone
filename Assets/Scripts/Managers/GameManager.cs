@@ -61,7 +61,7 @@ namespace WizardWars
             gameMenu.SetActive(false);
         }
 
-        public void PlayerDie(int playerId)
+        public void PlayerEliminated(int playerId)
         {
             // cannot find dying player
             if (!playerStatus.ContainsKey(playerId))
@@ -111,11 +111,18 @@ namespace WizardWars
             }
             else
             {
-                // pick a random spawn location
-                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform;
+                // assign a random spawn point to the player
+                int index = Random.Range(0, spawnPoints.Length);
+                while (spawnPoints[index].GetComponent<Spawn>().taken)
+                {
+                    index = Random.Range(0, spawnPoints.Length);
+                }
+                spawnPoints[index].GetComponent<Spawn>().taken = true;
+                Debug.Log("spawn index: " + index);
+                GetComponent<PhotonView>().RPC("UpdateSpawnPoint", PhotonTargets.All, index);
 
-                // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-                GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint.position, spawnPoint.rotation, 0);
+                // spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
+                GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoints[index].transform.position, spawnPoints[index].transform.rotation, 0);
                 newPlayer.GetComponent<PlayerControllerV2>().enabled = true;
                 newPlayer.GetComponent<PlayerManager>().playerId = (int)PhotonNetwork.player.CustomProperties["ID"];
                 lives = System.Convert.ToInt32(PhotonNetwork.room.CustomProperties["l"]);          
@@ -154,6 +161,12 @@ namespace WizardWars
 
             playerStatus[playerId] = false;
             Debug.Log("PLAYER " + playerId + " HAS DIED");
+        }
+
+        [PunRPC]
+        public void UpdateSpawnPoint(int index)
+        {
+            spawnPoints[index].GetComponent<Spawn>().taken = true;
         }
 
 
