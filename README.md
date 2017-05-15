@@ -1,8 +1,8 @@
 # ruinstone
 
-A fantasy, multiplayer online battle arena game.  Combat is fast-pace the objective is to be the last contestant standing. 
+A fantasy, multiplayer online battle arena game.  Combat is fast-paced and the objective is to be the last contestant standing. 
 Eliminate your enemies with destructive magic by reducing their health to 0.  A clean hit will knock the target back and
-knocking them off the map will result in a instant kill.  Players can create "spell bars" by navigating to the Athenaeum menu
+knocking them off the map will instantly eliminate them.  Players can create "spell bars" by navigating to the Athenaeum menu
 and selecting four unique abilities.  To play the game, either create or join a lobby and then wait for the host to start the
 game.
 
