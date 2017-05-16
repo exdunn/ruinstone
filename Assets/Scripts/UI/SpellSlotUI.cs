@@ -64,8 +64,8 @@ namespace WizardWars
                 return;
             }
 
-            spellIcon.GetComponent<Image>().sprite = RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().GetIconSprite();
-            spellId = RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().GetId();
+            spellIcon.GetComponent<Image>().sprite = RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().iconSprite;
+            spellId = RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().id;
             UpdateTooltip();
 
             string playerPrefIndex = "";
@@ -94,7 +94,7 @@ namespace WizardWars
 
             int[] newSpellBar = PlayerPrefsX.GetIntArray(playerPrefIndex);
             Debug.Log(index[0] + " " + index[1]);
-            newSpellBar[index[1]] =  RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().GetId();
+            newSpellBar[index[1]] =  RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().id;
 
             PlayerPrefsX.SetIntArray(playerPrefIndex, newSpellBar);
             GetComponentInParent<AthenaeumManager>().UpdateRunesIsDraggable();

@@ -91,7 +91,7 @@ namespace WizardWars
         {
             for (int i = 0; i < spellIds.Length; i++)
             {
-                spellSlots[i].spellIcon.GetComponent<Image>().sprite = library[spellIds[i]].GetIconSprite();
+                spellSlots[i].spellIcon.GetComponent<Image>().sprite = library[spellIds[i]].iconSprite;
             }
         }
 

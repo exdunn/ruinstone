@@ -13,7 +13,12 @@ namespace SpellSystem {
             if(!caster) {
                 Debug.Log("Caster is empty!");
             }
-            
+
+            if(!_status)
+            {
+                Debug.Log("_status is empty!");
+            }
+
             SpellUtility.Status(caster, _status);
             isCastable = false;
             StartCoroutine(Cooldown(caster));

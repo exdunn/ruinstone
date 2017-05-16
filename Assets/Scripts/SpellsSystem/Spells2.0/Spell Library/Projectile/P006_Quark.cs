@@ -10,7 +10,7 @@ namespace SpellSystem {
         }
 
         protected override void OnCollide(GameObject target) {
-            SpellUtility.Damage(target, _stats.GetDamage());
+            SpellUtility.Damage(target, _stats.damage);
             Dissipate();
         }
 

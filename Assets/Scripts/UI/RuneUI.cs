@@ -40,13 +40,13 @@ namespace WizardWars
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            runeImage.GetComponent<Image>().sprite = spell.GetHighlightedRuneSprite();
+            runeImage.GetComponent<Image>().sprite = spell.highlightedRuneSprite;
             GetComponentInParent<AthenaeumManager>().tooltip.GetComponent<Tooltip>().ParseSpellStats(spell);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            runeImage.GetComponent<Image>().sprite = spell.GetRuneSprite();
+            runeImage.GetComponent<Image>().sprite = spell.runeSprite;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -90,7 +90,7 @@ namespace WizardWars
             transform.parent = startParent;
 
             // grid layout uses the objects index to position it in the grid
-            GetComponent<RectTransform>().SetSiblingIndex(spell.GetId());
+            GetComponent<RectTransform>().SetSiblingIndex(spell.id);
 
             // set block raycast to true
             GetComponent<CanvasGroup>().blocksRaycasts = true;

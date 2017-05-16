@@ -62,7 +62,7 @@ namespace SpellSystem {
             }
 
             target = LevelPointToCaster(target, origin);
-            this.transform.position = Vector3.MoveTowards(this.transform.position, target, _stats.GetSpeed() * Time.deltaTime);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, target, _stats.speed * Time.deltaTime);
 
             if(Vector3.Distance(this.transform.position, target) <= THRESHOLD) {
                 atLocation = true;
@@ -72,7 +72,7 @@ namespace SpellSystem {
                 isDoingEffect = true;
                 OnLocation();
 
-                if (distance >= _stats.GetRange()) {
+                if (distance >= _stats.range) {
                     outOfRange = true;
                     if(isDoingEffect) {
                         return;
@@ -131,7 +131,7 @@ namespace SpellSystem {
             if (_areaType == Types.Area.LINEAR) {
                 
                 direction = target - origin; //The direction is the difference between where the user clicked and where the user is
-                target = origin + (direction.normalized * _stats.GetRange()); //The actual target is the max range position in the set direction
+                target = origin + (direction.normalized * _stats.range); //The actual target is the max range position in the set direction
             }
             else {
                 direction = target - origin; //Since the target is actually where the user clicked. No need for more

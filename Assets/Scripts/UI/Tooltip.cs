@@ -41,15 +41,15 @@ namespace WizardWars
         /// <param name="spell"></param>
         public void ParseSpellStats(SpellStats spell)
         {
-            title.GetComponent<Text>().text = spell.GetName();
+            title.GetComponent<Text>().text = spell.name;
             
-            string description = spell.GetDescription() + "\n";
-            description += spell.GetDamage() > 0 ? "\nDamage: " + spell.GetDamage() : "";
-            description += spell.GetCooldown() > 0 ? "\nCooldown: " + spell.GetCooldown() : "";
+            string description = spell.description + "\n";
+            description += spell.damage > 0 ? "\nDamage: " + spell.damage : "";
+            description += spell.cooldown > 0 ? "\nCooldown: " + spell.cooldown : "";
             //description += spell.GetRadius() > 0 ? "\nRadius: " + spell.GetRadius() : "";
             //description += spell.GetRange() > 0 ? "\nRange: " + spell.GetRange() : "";
             //description += spell.GetSpeed() > 0 ? "\nSpeed: " + spell.GetSpeed() : "";
-            description += spell.GetDuration() > 0 ? "\nDuration: " + spell.GetDuration() + "s" : "";
+            description += spell.duration > 0 ? "\nDuration: " + spell.duration + "s" : "";
             //description += spell.GetDelay() > 0 ? "\nDelay: " + spell.GetDelay() : "";
             body.GetComponent<Text>().text = description;
         }

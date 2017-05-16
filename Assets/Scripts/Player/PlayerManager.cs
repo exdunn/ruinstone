@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UltraReal.SharedAssets.UnityStandardAssets;
+using SpellSystem;
 
 namespace WizardWars
 {
@@ -115,6 +116,7 @@ namespace WizardWars
             deaths = 0;
             kills = 0;
             dead = false;
+            _statuses = new List<Status>();
 
             if (photonView.isMine)
             {
@@ -159,6 +161,9 @@ namespace WizardWars
             //Create Instance of Status
             //Call Status's Apply
             //Add Status to List
+
+            
+
             status.Activate(this.gameObject, _statuses.Count);
             _statuses.Add(status);
         }

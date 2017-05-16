@@ -31,7 +31,7 @@ namespace WizardWars
             for (int i = 0; i < spells.Length; i++)
             {
                 spells[i].spell = library[spellIds[i]];
-                spells[i].SetIcon(library[spellIds[i]].GetIconSprite());
+                spells[i].SetIcon(library[spellIds[i]].iconSprite);
             }
         } 
 

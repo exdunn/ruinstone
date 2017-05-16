@@ -161,7 +161,7 @@ namespace WizardWars
 
             foreach (GameObject rune in runes)
             {
-                int spellId = rune.GetComponent<RuneUI>().GetSpell().GetId();
+                int spellId = rune.GetComponent<RuneUI>().GetSpell().id;
                 if (currentSpells.Contains(spellId))
                 {
                     rune.GetComponent<RuneUI>().SetIsDraggable(false);
@@ -188,7 +188,7 @@ namespace WizardWars
             {
                 spellSlots[i].SetIndex(index, i);
                 spellSlots[i].SetSpellId(spellIds[i]);
-                spellSlots[i].spellIcon.GetComponent<Image>().sprite = library[spellIds[i]].GetIconSprite();
+                spellSlots[i].spellIcon.GetComponent<Image>().sprite = library[spellIds[i]].iconSprite;
             }
             UpdateRunesIsDraggable();
         }
@@ -228,7 +228,7 @@ namespace WizardWars
             {
                 GameObject newRune = Instantiate(runePrefab, runeGrid.transform.position, runeGrid.transform.rotation, runeGrid.transform);
                 newRune.GetComponent<RuneUI>().SetSpell(spell);
-                newRune.GetComponent<RuneUI>().runeImage.GetComponent<Image>().sprite = spell.GetRuneSprite();
+                newRune.GetComponent<RuneUI>().runeImage.GetComponent<Image>().sprite = spell.runeSprite;
                 runes.Add(newRune);
                 i++;
             }

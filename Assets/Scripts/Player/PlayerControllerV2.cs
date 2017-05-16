@@ -22,7 +22,7 @@ namespace WizardWars
 
         GameObject[] spells;
 
-        bool isCasting = false;
+        bool targetting = false;
 
         // index of spell being targeted
         int curSpell = 0;
@@ -95,24 +95,29 @@ namespace WizardWars
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 curSpell = 0;
-                isCasting = true;
+                targetting = true;
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 curSpell = 1;
-                isCasting = true;
+                targetting = true;
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            else if(Input.GetKeyDown(KeyCode.Alpha3))
             {
                 curSpell = 2;
-                isCasting = true;
+                targetting = true;
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                curSpell = 3;
+                spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0,0,0));
             }
 
             // spell targetting state
             //bool canSpell = spells[0].GetComponent<Spell>().isCastable;
             //Debug.Log("Castable: " + canSpell);
 
-            if (isCasting)
+            if (targetting)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -130,7 +135,7 @@ namespace WizardWars
                         newPosition = transform.position;
                     }
 
-                    isCasting = false;
+                    targetting = false;
                 }
             }
         }

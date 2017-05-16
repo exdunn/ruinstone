@@ -28,7 +28,7 @@ namespace SpellSystem
         {
             //float cd = _stats.GetCooldown() - (_stats.GetCooldown() * caster's cdr)
             //cd = cd if cd >= 0 else 0
-            while(_cooldownTimer <= _stats.GetCooldown())
+            while(_cooldownTimer <= _stats.cooldown)
             {
                 yield return new WaitForSeconds(SpellUtility.TICK);
                 _cooldownTimer += SpellUtility.TICK;

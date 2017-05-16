@@ -146,6 +146,12 @@ namespace WizardWars
             }
         }
 
+        void OnApplicationQuit()
+        {
+            Debug.Log("disconnecting from photon");
+            PhotonNetwork.Disconnect();
+        }
+
         #endregion
 
         #region PUN RPC
