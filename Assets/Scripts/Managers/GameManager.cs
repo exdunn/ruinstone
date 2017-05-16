@@ -111,15 +111,7 @@ namespace WizardWars
             }
             else
             {
-                // assign a random spawn point to the player
-                int index = Random.Range(0, spawnPoints.Length);
-                while (spawnPoints[index].GetComponent<Spawn>().taken)
-                {
-                    index = Random.Range(0, spawnPoints.Length);
-                }
-                spawnPoints[index].GetComponent<Spawn>().taken = true;
-                Debug.Log("spawn index: " + index);
-                GetComponent<PhotonView>().RPC("UpdateSpawnPoint", PhotonTargets.All, index);
+                int index = System.Convert.ToInt32(PhotonNetwork.player.CustomProperties["ID"]);
 
                 // spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
                 GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoints[index].transform.position, spawnPoints[index].transform.rotation, 0);

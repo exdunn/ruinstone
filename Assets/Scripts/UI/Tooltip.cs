@@ -41,7 +41,7 @@ namespace WizardWars
         /// <param name="spell"></param>
         public void ParseSpellStats(SpellStats spell)
         {
-            title.GetComponent<Text>().text = spell.name;
+            title.GetComponent<Text>().text = spell.spellName;
             
             string description = spell.description + "\n";
             description += spell.damage > 0 ? "\nDamage: " + spell.damage : "";

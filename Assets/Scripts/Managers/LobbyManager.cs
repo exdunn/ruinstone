@@ -99,17 +99,10 @@ namespace WizardWars
         {
             List<int> duplicates = new List<int>();
 
+            int i = 0;
             foreach (PhotonPlayer player in PhotonNetwork.playerList)
             {
-                int randomId = Random.Range(0, 255);
-
-                while (duplicates.Contains(randomId))
-                {
-                    randomId = Random.Range(0, 255);
-                }
-
-                duplicates.Add(randomId);
-                ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable() { { "ID", randomId } };
+                ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable() { { "ID", i++ } };
                 player.SetCustomProperties(hash);
             }          
         }

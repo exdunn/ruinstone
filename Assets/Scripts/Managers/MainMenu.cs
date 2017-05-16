@@ -85,7 +85,6 @@ namespace WizardWars
             AudioListener.volume = 0.5f;
             InitializePresets();
             PhotonNetwork.playerName = PlayerPrefs.GetString("PlayerName");
-
 	    }
     }
 
