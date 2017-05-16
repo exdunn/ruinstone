@@ -1,6 +1,7 @@
-﻿
-public static class Types {
-	public enum Area {
+﻿public static class Types
+{
+    public enum Area
+    {
         DEFAULT,
         DIRECT,
         LINEAR,
@@ -8,7 +9,8 @@ public static class Types {
         CENTER
     }
 
-    public enum Ability {
+    public enum Ability
+    {
         DEFAULT,
         DAMAGE,
         HEAL,
@@ -17,14 +19,17 @@ public static class Types {
         MISC
     }
 
-    public enum Target {
+    public enum Target
+    {
         DEFAULT,
         ENEMY,
         SELF
     }
 
-    public static string TargetToString(Target target) {
-        switch(target) {
+    public static string TargetToString(Target target)
+    {
+        switch (target)
+        {
             case Target.DEFAULT:
                 return "default";
             case Target.ENEMY:
