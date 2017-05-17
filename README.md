@@ -8,7 +8,7 @@ game.
 
 
 ![alt text](Assets/Screen%20Shots/main%20menu.png)
-![alt text](Assets/Screen%20Shots/athenaeum.png)
+![alt text](Assets/Screen%20Shots/collection.png)
 ![alt text](Assets/Screen%20Shots/gameplay.png)
 
 
