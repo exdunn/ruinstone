@@ -11,6 +11,7 @@ namespace SpellSystem {
 
         protected int where { get; set; }
         public bool isDone { get; set; }
+        public bool isEnd { get; set; }
         protected bool isStarting { get; set; }
         public float durationLeft {
             get {
@@ -21,15 +22,20 @@ namespace SpellSystem {
         protected GameObject target;
         void Awake() {
             isDone = false;
+            isEnd = false;
             isStarting = false;
         }
 
         void Update() {
-            if(!isStarting || isDone) {
+            Debug.Log(isDone +", " + isEnd + "," + isStarting);
+;            if(!isStarting || isDone) {
                 return;
             }
-            if(isDone) {
-                target.GetComponent<PlayerManager>().RemoveStatus(where);
+            if(isEnd) {
+                //target.GetComponent<PlayerManager>().RemoveStatus(where);
+                target.GetComponent<PlayerManager>().RemoveStatus(this);
+                isDone = true;
+                Photon.MonoBehaviour.Destroy(this.gameObject);
             }
         }
 

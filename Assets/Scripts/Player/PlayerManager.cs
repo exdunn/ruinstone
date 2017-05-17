@@ -100,11 +100,11 @@ namespace WizardWars
                 LocalPlayerInstance = this.gameObject;
             }
 
-            // set all stats to 1
+            // set all stats to 0
             moveSpeedModifier = 1;
             damageModifier = 1;
             damageReceivedModifier = 1;
-            cooldownReduction = 1;
+            cooldownReduction = 0;
 
             // #Critical
             // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
@@ -173,6 +173,12 @@ namespace WizardWars
             //Remvoe Status from List
             _statuses[where].Deactivate(this.gameObject);
             _statuses.RemoveAt(where);
+        }
+
+        public void RemoveStatus(Status status)
+        {
+            status.Deactivate(this.gameObject);
+            _statuses.Remove(status);
         }
 
         public void SetCrowdControl(int crowdControl, bool toggle) {

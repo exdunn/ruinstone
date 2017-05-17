@@ -150,15 +150,19 @@ namespace WizardWars
 
         private void moveChar()
         {
-            if (Vector3.Distance(newPosition, transform.position) > walkRange)
+            Vector3 d1 = new Vector3(newPosition.x, 0, newPosition.z);
+            Vector3 d2 = new Vector3(transform.position.x, 0, transform.position.z);
+            if (Vector3.Distance(d1, d2) > walkRange)
             {
-                transform.position = Vector3.MoveTowards(transform.position, newPosition, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, newPosition, speed * GetComponent<PlayerManager>().moveSpeedModifier * Time.deltaTime);
 
                 // update player rotation
                 Quaternion lookRotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
                 lookRotation = new Quaternion(0, lookRotation.y, 0, lookRotation.w);
-                playerModel.transform.rotation = Quaternion.Slerp(lookRotation, playerModel.transform.rotation, rotationSpeed);
-
+                if (Vector3.Distance(newPosition, transform.position) > 1f)
+                {
+                    playerModel.transform.rotation = Quaternion.Slerp(lookRotation, playerModel.transform.rotation, rotationSpeed);
+                }
                 Debug.DrawLine(transform.position, newPosition, Color.red);
             }
         }

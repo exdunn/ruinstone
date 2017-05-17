@@ -5,7 +5,7 @@ using System.Collections;
 
 using WizardWars;
 namespace SpellSystem {
-    public class U000_Innervate : Status {
+    public class U_Innervate : Status {
         public float _moveSpeedBonus;
         public float _cooldownReduction;
         public override void Activate(GameObject target, int where) {
@@ -41,7 +41,8 @@ namespace SpellSystem {
                 yield return new WaitForSeconds(SpellUtility.TICK);
                 _timer += SpellUtility.TICK;
             }
-            isDone = true;
+            Debug.Log("IS ENDING");
+            isEnd = true;
         }
     }
 }

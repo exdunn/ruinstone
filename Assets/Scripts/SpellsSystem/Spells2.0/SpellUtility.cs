@@ -94,13 +94,20 @@ namespace SpellSystem {
             }
         }
         /* Status */
-        public static void Status(GameObject target, Status status) {
+        public static void Status(String prefab, GameObject target) {
             PlayerManager player = CheckAndGetPlayer(target);
-            if(!player) {
+            Debug.Log("1");
+            if (!player) {
+                Debug.Log("2");
                 return;
+                
             }
-            player.AddStatus(status);
+            Debug.Log("3");
+            GameObject newStatus = PhotonNetwork.Instantiate(prefab, target.transform.position, target.transform.rotation, 0);
+            newStatus.transform.parent = target.transform;
+            player.AddStatus(newStatus.GetComponent<Status>());
         }
+
         public static IEnumerator StatusOverTime(GameObject target, Status status, float duration) {
             float timer = 0f;
             PlayerManager player = CheckAndGetPlayer(target);
@@ -113,16 +120,16 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        public static void AreaStatus(Types.Target type, Vector3 center, float radius, Status status) {
+        public static void AreaStatus(Types.Target type, Vector3 center, float radius, string prefab) {
             List<GameObject> targets = Utils.GetAll(type, center, radius);
             for(int i = 0; i < targets.Count; ++i) {
-                Status(targets[i], status);
+                Status(prefab, targets[i]);
             }
         }
-        public static IEnumerator AreaStatusOverTime(Types.Target type, Vector3 center, float radius, Status status, float duration) {
+        public static IEnumerator AreaStatusOverTime(Types.Target type, Vector3 center, float radius, string prefab, float duration) {
             float timer = 0f;
             while(timer < duration) {
-                AreaStatus(type, center, radius, status);
+                AreaStatus(type, center, radius, prefab);
                 yield return new WaitForSeconds(TICK);
                 timer += TICK;
             }
