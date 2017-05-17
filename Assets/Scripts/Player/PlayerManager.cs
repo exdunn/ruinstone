@@ -333,7 +333,7 @@ namespace WizardWars
         [PunRPC]
         public void ReceivedDieAnim(bool die)
         {
-            GetComponent<Animator>().SetBool("dead", die);
+            GetComponentInChildren<Animator>().SetBool("dead", die);
         }
 
         // Set the player ID in everyone else's view

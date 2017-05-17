@@ -156,6 +156,11 @@ namespace WizardWars
             Vector3 d2 = new Vector3(transform.position.x, 0, transform.position.z);
             if (Vector3.Distance(d1, d2) > walkRange)
             {
+                // play run animation
+                playerModel.GetComponent<Animator>().SetBool("moving", true);
+                GetComponent<PhotonView>().RPC("BroadcastMoveAnim", PhotonTargets.All, true);
+
+
                 transform.position = Vector3.MoveTowards(transform.position, newPosition, speed * GetComponent<PlayerManager>().moveSpeedModifier * Time.deltaTime);
 
                 // update player rotation
@@ -171,6 +176,25 @@ namespace WizardWars
                 // debug raycast
                 Debug.DrawLine(transform.position, newPosition, Color.red);
             }
+            else
+            {
+                playerModel.GetComponent<Animator>().SetBool("moving", false);
+                GetComponent<PhotonView>().RPC("BroadcastMoveAnim", PhotonTargets.All, false);
+            }
+        }
+
+        #endregion
+
+        #region PUN RPC
+
+        /// <summary>
+        /// broadcast to other players if the player is moving or not
+        /// </summary>
+        /// <param name="moving"></param>
+        [PunRPC]
+        public void BroadcastMoveAnim(bool moving)
+        {
+            playerModel.GetComponent<Animator>().SetBool("moving", moving);
         }
 
         #endregion
