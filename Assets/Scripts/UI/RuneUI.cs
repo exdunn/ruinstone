@@ -41,7 +41,7 @@ namespace WizardWars
         public void OnPointerEnter(PointerEventData eventData)
         {
             runeImage.GetComponent<Image>().sprite = spell.highlightedRuneSprite;
-            GetComponentInParent<AthenaeumManager>().tooltip.GetComponent<Tooltip>().ParseSpellStats(spell);
+            GetComponentInParent<CollectionManager>().tooltip.GetComponent<Tooltip>().ParseSpellStats(spell);
         }
 
         public void OnPointerExit(PointerEventData eventData)

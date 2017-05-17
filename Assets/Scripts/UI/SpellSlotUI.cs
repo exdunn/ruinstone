@@ -73,19 +73,19 @@ namespace WizardWars
             switch (index[0])
             {
                 case 1:
-                    playerPrefIndex = "Preset1";
+                    playerPrefIndex = "Spells1";
                     break;
 
                 case 2:
-                    playerPrefIndex = "Preset2";
+                    playerPrefIndex = "Spells2";
                     break;
 
                 case 3:
-                    playerPrefIndex = "Preset3";
+                    playerPrefIndex = "Spells3";
                     break;
 
                 case 4:
-                    playerPrefIndex = "Preset4";
+                    playerPrefIndex = "Spells4";
                     break;
 
                 default:
@@ -97,7 +97,7 @@ namespace WizardWars
             newSpellBar[index[1]] =  RuneUI.itemBeingDragged.GetComponent<RuneUI>().GetSpell().id;
 
             PlayerPrefsX.SetIntArray(playerPrefIndex, newSpellBar);
-            GetComponentInParent<AthenaeumManager>().UpdateRunesIsDraggable();
+            GetComponentInParent<CollectionManager>().UpdateRunesIsDraggable();
         }
 
         #endregion
@@ -129,13 +129,13 @@ namespace WizardWars
         /// </summary>
         private void UpdateTooltip()
         {
-            if (!GetComponentInParent<AthenaeumManager>())
+            if (!GetComponentInParent<CollectionManager>())
             {
                 return;
             }
 
             // Search spell library for spell with spellId and use it to set the tooltip
-            GetComponentInParent<AthenaeumManager>().tooltip.GetComponent<Tooltip>().ParseSpellStats(GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>()[spellId]);
+            GetComponentInParent<CollectionManager>().tooltip.GetComponent<Tooltip>().ParseSpellStats(GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>()[spellId]);
         }
 
         #endregion

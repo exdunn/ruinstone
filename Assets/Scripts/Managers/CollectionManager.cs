@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace WizardWars
 {
-    public class AthenaeumManager : MonoBehaviour
+    public class CollectionManager : MonoBehaviour
     {
 
         #region Public Variables
@@ -73,7 +73,7 @@ namespace WizardWars
 
             InstantiateRunes();
             UpdateButtonLabels();
-            SetSpellIcons(1, PlayerPrefsX.GetIntArray("Preset1"));
+            SetSpellIcons(1, PlayerPrefsX.GetIntArray("Spells1"));
         }
 
         void Update()
@@ -99,16 +99,16 @@ namespace WizardWars
             switch (index)
             {
                 case 1:
-                    spellIds = PlayerPrefsX.GetIntArray("Preset1");
+                    spellIds = PlayerPrefsX.GetIntArray("Spells1");
                     break;
                 case 2:
-                    spellIds = PlayerPrefsX.GetIntArray("Preset2");
+                    spellIds = PlayerPrefsX.GetIntArray("Spells2");
                     break;
                 case 3:
-                    spellIds = PlayerPrefsX.GetIntArray("Preset3");
+                    spellIds = PlayerPrefsX.GetIntArray("Spells3");
                     break;
                 case 4:
-                    spellIds = PlayerPrefsX.GetIntArray("Preset4");
+                    spellIds = PlayerPrefsX.GetIntArray("Spells4");
                     break;
                 default:
                     break;

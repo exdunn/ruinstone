@@ -55,7 +55,7 @@ namespace WizardWars
         /// </summary>
         public void CollectionClick()
         {
-            SceneManager.LoadScene("Athenaeum");
+            SceneManager.LoadScene("Spell Collection");
         }
 
         #endregion
@@ -67,12 +67,12 @@ namespace WizardWars
         /// </summary>
         private void InitializePresets()
         {
-            PlayerPrefsX.SetStringArray("SpellBarNames", new string[] { "Preset 1", "Preset 2", "Preset 3", "Preset 4", "Preset 5" });
+            PlayerPrefsX.SetStringArray("SpellBarNames", new string[] { "Spells 1", "Spells 2", "Spells 3", "Spells 4", "Spells 5" });
 
-            PlayerPrefsX.SetIntArray("Preset1", new int[] { 1, 2, 3, 4 });
-            PlayerPrefsX.SetIntArray("Preset2", new int[] { 2, 3, 4, 5 });
-            PlayerPrefsX.SetIntArray("Preset3", new int[] { 3, 4, 5, 6 });
-            PlayerPrefsX.SetIntArray("Preset4", new int[] { 5, 6, 7, 8 });
+            PlayerPrefsX.SetIntArray("Spells1", new int[] { 1, 2, 3, 4 });
+            PlayerPrefsX.SetIntArray("Spells2", new int[] { 2, 3, 4, 5 });
+            PlayerPrefsX.SetIntArray("Spells3", new int[] { 3, 4, 5, 6 });
+            PlayerPrefsX.SetIntArray("Spells4", new int[] { 5, 6, 7, 8 });
         }
 
         #endregion

@@ -26,7 +26,7 @@ namespace WizardWars
             library = GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>();
             spells = GetComponentsInChildren<SpellUI>();
 
-            int[] spellIds = PlayerPrefsX.GetIntArray("CurPreset");
+            int[] spellIds = PlayerPrefsX.GetIntArray("CurSpells");
 
             for (int i = 0; i < spells.Length; i++)
             {

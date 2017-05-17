@@ -52,7 +52,7 @@ namespace WizardWars
             }
         }
 
-        public void PresetClick()
+        public void SpellsClick()
         {
             int index = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<PresetSelectButton>().index;
             int[] spellIds = new int[GlobalVariable.DECKSIZE];
@@ -60,23 +60,23 @@ namespace WizardWars
             switch(index)
             {
                 case 1:
-                    spellIds = PlayerPrefsX.GetIntArray("Preset1");
+                    spellIds = PlayerPrefsX.GetIntArray("Spells1");
                     break;
                 case 2:
-                    spellIds = PlayerPrefsX.GetIntArray("Preset2");
+                    spellIds = PlayerPrefsX.GetIntArray("Spells2");
                     break;
                 case 3:
-                    spellIds = PlayerPrefsX.GetIntArray("Preset3");
+                    spellIds = PlayerPrefsX.GetIntArray("Spells3");
                     break;
                 case 4:
-                    spellIds = PlayerPrefsX.GetIntArray("Preset4");
+                    spellIds = PlayerPrefsX.GetIntArray("Spells4");
                     break;
                 default:
                     break;
             }
 
             SetSpellIcons(spellIds);
-            PlayerPrefsX.SetIntArray("CurPreset", spellIds);
+            PlayerPrefsX.SetIntArray("CurSpells", spellIds);
         }
 
         #endregion
@@ -119,7 +119,7 @@ namespace WizardWars
             library = GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>();
             spellSlots = GetComponentsInChildren<SpellSlotUI>();
             InstantiatePlayerLabels();
-            SetSpellIcons(PlayerPrefsX.GetIntArray("Preset1"));
+            SetSpellIcons(PlayerPrefsX.GetIntArray("Spells1"));
         }
 
         /// <summary>
