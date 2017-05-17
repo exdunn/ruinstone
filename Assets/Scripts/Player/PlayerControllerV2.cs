@@ -45,7 +45,7 @@ namespace WizardWars
 
         [Tooltip("Model of the player")]
         [SerializeField]
-        GameObject playerModel;
+        public GameObject playerModel;
 
         #endregion
 

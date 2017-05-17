@@ -131,6 +131,9 @@ namespace WizardWars
             message = GameObject.Find("Canvas/Display Message");
             Debug.Log("MESSAGE " + message);
 
+            // set robe color
+            GetComponent<PlayerControllerV2>().playerModel.GetComponent<Renderer>().materials[0].color = Color.red;
+
             // attach camera to player
             _autoCam = Camera.main.GetComponentInParent<AutoCam>();
 

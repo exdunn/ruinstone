@@ -8,16 +8,22 @@ namespace WizardWars
 {
     public class ControlsManager : MonoBehaviour {
 
+        enum RobeColor {
+            black, red, green, blue
+        };
+
         #region Public Variables
 
-        [Tooltip("Tab which displays user settings")]
         public GameObject userTab;
-
-        [Tooltip("Tab which displays input hotkeys")]
         public GameObject controlsTab;
-
-        [Tooltip("Tab which displays sound settings")]
         public GameObject soundTab;
+        public GameObject colorButton;
+
+        #endregion
+
+        #region private variables 
+
+        RobeColor rc = RobeColor.black;
 
         #endregion
 
@@ -64,6 +70,35 @@ namespace WizardWars
             userTab.SetActive(false);
             controlsTab.SetActive(false);
             soundTab.SetActive(true);
+        }
+
+        public void ColorClick()
+        {
+            switch (rc)
+            {
+                case RobeColor.black:
+                    colorButton.GetComponent<Image>().color = Color.red;
+                    PlayerPrefs.SetString("robe", "red");
+                    rc++;
+                    break;
+                case RobeColor.red:
+                    colorButton.GetComponent<Image>().color = Color.green;
+                    PlayerPrefs.SetString("robe", "green");
+                    rc++;
+                    break;
+                case RobeColor.green:
+                    colorButton.GetComponent<Image>().color = Color.blue;
+                    PlayerPrefs.SetString("robe", "blue");
+                    rc++;
+                    break;
+                case RobeColor.blue:
+                    colorButton.GetComponent<Image>().color = Color.black;
+                    PlayerPrefs.SetString("robe", "black");
+                    rc = 0;
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void SetVolume(float value)
