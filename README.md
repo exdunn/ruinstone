@@ -7,9 +7,9 @@ and selecting four unique abilities.  To play the game, either create or join a 
 game.
 
 
-![alt text](Assets/Screen%20Shots/main%20menu.png)
+![alt text](Assets/Screen%20Shots/main%20menu1.png)
 ![alt text](Assets/Screen%20Shots/collection.png)
-![alt text](Assets/Screen%20Shots/gameplay.png)
+![alt text](Assets/Screen%20Shots/gameplay1.png)
 
 
 *********************************************** CREDITS ****************************************************
