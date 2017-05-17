@@ -8,7 +8,6 @@ namespace SpellSystem
 {
     public abstract class Spell : MonoBehaviour
     {
-
         public SpellStats _stats;
         private float _cooldownTimer = 0f;
         private float _spellTimer = 0f;

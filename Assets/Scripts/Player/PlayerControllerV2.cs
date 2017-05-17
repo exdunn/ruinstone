@@ -78,7 +78,7 @@ namespace WizardWars
             moveChar();
 
             // move player when user presses RMB
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButton(1))
             {
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -129,7 +129,8 @@ namespace WizardWars
                         spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, null, hit.point);
 
                         // make player look at target of spell
-                        playerModel.transform.LookAt(hit.point);
+                        Vector3 castDirection = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+                        playerModel.transform.LookAt(castDirection);
 
                         // if player is moving, stop moving
                         newPosition = transform.position;
@@ -150,6 +151,7 @@ namespace WizardWars
 
         private void moveChar()
         {
+            // ignore y-coordinate for measuring distance
             Vector3 d1 = new Vector3(newPosition.x, 0, newPosition.z);
             Vector3 d2 = new Vector3(transform.position.x, 0, transform.position.z);
             if (Vector3.Distance(d1, d2) > walkRange)
@@ -159,10 +161,14 @@ namespace WizardWars
                 // update player rotation
                 Quaternion lookRotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
                 lookRotation = new Quaternion(0, lookRotation.y, 0, lookRotation.w);
+
+                // prevent unnecessary rotation
                 if (Vector3.Distance(newPosition, transform.position) > 1f)
                 {
                     playerModel.transform.rotation = Quaternion.Slerp(lookRotation, playerModel.transform.rotation, rotationSpeed);
                 }
+
+                // debug raycast
                 Debug.DrawLine(transform.position, newPosition, Color.red);
             }
         }

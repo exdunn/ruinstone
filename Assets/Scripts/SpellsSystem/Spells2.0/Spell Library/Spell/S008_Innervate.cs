@@ -19,7 +19,7 @@ namespace SpellSystem {
                 Debug.Log("_status is empty!");
             }
 
-            SpellUtility.Status("Spells/U000_Innervate", caster);
+            SpellUtility.Status("Spells/U_Innervate", caster);
             isCastable = false;
             StartCoroutine(Cooldown(caster));
         }

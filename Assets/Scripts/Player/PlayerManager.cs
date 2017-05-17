@@ -34,12 +34,9 @@ namespace WizardWars
 
         AutoCam _autoCam;
 
-        SpellStats[] library;
-
         List<Status> _statuses;
 
         GameObject gameManager;
-        GameObject playerUI;
         GameObject message;
         GameObject[] spawnPoints;
 
@@ -157,15 +154,16 @@ namespace WizardWars
 
         #region Public Methods
 
-        public void AddStatus(Status status) {
+        public void AddStatus(GameObject status) {
             //Create Instance of Status
             //Call Status's Apply
             //Add Status to List
 
             
 
-            status.Activate(this.gameObject, _statuses.Count);
-            _statuses.Add(status);
+            //status.GetComponent<PhotonView>().RPC("ReceivedAddStatus", PhotonTargets.All, status);
+            status.GetComponent<Status>().Activate(this.gameObject, _statuses.Count);
+            _statuses.Add(status.GetComponent<Status>());
         }
 
         public void RemoveStatus(int where) {
@@ -345,12 +343,48 @@ namespace WizardWars
             playerId = id;
         }
 
+        // Set moveSpeedModifier for remote player
+        [PunRPC]
+        public void UpdateMoveSpeedModifier(float value)
+        {
+            moveSpeedModifier = value;
+        }
+
+        // Set damageModifier for remote player
+        [PunRPC]
+        public void UpdateDamgeModifier(float value)
+        {
+            damageModifier = value;
+        }
+
+        // Set damageReceivedModifier for remote player
+        [PunRPC]
+        public void UpdateDamageReceivedModifier(float value)
+        {
+            damageReceivedModifier = value;
+        }
+
+        // Set cooldownReduction for remote player
+        [PunRPC]
+        public void UpdateCooldownRedution(float value)
+        {
+            cooldownReduction = value;
+        }
+
         // Teleport player to position
         [PunRPC]
         public void TeleportPlayer(Vector3 pos)
         {
             GetComponent<PlayerControllerV2>().newPosition = pos;
             transform.position = pos;
+        }
+
+        // Sends command to all clients in photon room
+        // Make it so that the status is parented to the player in everyone's view
+        [PunRPC]
+        public void ReceivedAddStatus(GameObject status)
+        {
+            status.transform.parent = this.transform;
         }
 
         #endregion

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace WizardWars
 {
-    public class GameManager : MonoBehaviour {
+    public class GameManager : Photon.PunBehaviour {
 
         #region Public Variables
 
@@ -141,6 +141,7 @@ namespace WizardWars
         void OnApplicationQuit()
         {
             Debug.Log("disconnecting from photon");
+            PhotonNetwork.LeaveRoom();
             PhotonNetwork.Disconnect();
         }
 
@@ -169,6 +170,15 @@ namespace WizardWars
 
 
         #endregion
-   
+
+        #region PUN callbacks
+
+        public override void OnPhotonPlayerDisconnected(PhotonPlayer player)
+        {
+            Debug.Log("PLAYER " + player.CustomProperties["ID"] + "HAS DISCONNECTED");
+        }
+
+        #endregion
+
     }
 }

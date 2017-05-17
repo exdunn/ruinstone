@@ -25,7 +25,11 @@ namespace SpellSystem {
             projectile.GetComponent<SphereCollider>().radius = radius;
             return projectile;
         }
-        /* Damage */
+
+
+        /******************************************************** DAMAGE ********************************************************/
+
+
         public static void Damage(GameObject target, float damage) {
             PlayerManager player = CheckAndGetPlayer(target);
             if(!player) {
@@ -59,7 +63,11 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        /* Heal */
+
+
+        /******************************************************** HEAL ********************************************************/
+
+
         public static void Heal(GameObject target, float heal) {
             PlayerManager player = CheckAndGetPlayer(target);
             if(!player) {
@@ -93,22 +101,29 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        /* Status */
+
+
+        /******************************************************** Status ********************************************************/
+
+
         public static void Status(String prefab, GameObject target) {
             PlayerManager player = CheckAndGetPlayer(target);
-            Debug.Log("1");
+
             if (!player) {
-                Debug.Log("2");
                 return;
-                
             }
-            Debug.Log("3");
+            // instantiate the status so that all players can see it
             GameObject newStatus = PhotonNetwork.Instantiate(prefab, target.transform.position, target.transform.rotation, 0);
+
+            // parent the status to the target
             newStatus.transform.parent = target.transform;
-            player.AddStatus(newStatus.GetComponent<Status>());
+            newStatus.GetComponent<Status>().ParentStatus(player.playerId);
+
+            // add the status to the player
+            player.AddStatus(newStatus);
         }
 
-        public static IEnumerator StatusOverTime(GameObject target, Status status, float duration) {
+        public static IEnumerator StatusOverTime(GameObject target, GameObject status, float duration) {
             float timer = 0f;
             PlayerManager player = CheckAndGetPlayer(target);
             if(!player) {
@@ -134,7 +149,11 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        /* Control */
+
+
+        /******************************************************** CONTROL ********************************************************/
+
+
         public static void Control(GameObject target, int control) {
             PlayerManager player = CheckAndGetPlayer(target);
             if(!player) {
@@ -168,7 +187,11 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        /* Displace */
+
+
+        /******************************************************** DISPLACE ********************************************************/
+
+
         public static void Displace(GameObject target, Vector3 impact, float force) {
             PlayerManager player = CheckAndGetPlayer(target);
             if(!player) {
@@ -207,7 +230,11 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        /* Teleport */
+
+
+        /******************************************************** TELEPORT ********************************************************/
+
+
         public static void Teleport(GameObject target, Vector3 point) {
             PlayerManager player = CheckAndGetPlayer(target);
             if(!player) {
@@ -215,7 +242,11 @@ namespace SpellSystem {
             }
             player.Teleport(point);
         }
-        /* Delay */
+
+
+        /******************************************************** DELAY ********************************************************/
+
+
         public static IEnumerator Delay(float duration) {
             float timer = 0f;
             while(timer < duration) {

@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using WizardWars;
 
 namespace SpellSystem {
-    public abstract class Status : MonoBehaviour {
-        public int _id;
+    public abstract class Status : Photon.MonoBehaviour {
         public float _duration;
 
         protected int where { get; set; }
@@ -27,7 +26,7 @@ namespace SpellSystem {
         }
 
         void Update() {
-            Debug.Log(isDone +", " + isEnd + "," + isStarting);
+            //Debug.Log(isDone +", " + isEnd + "," + isStarting);
 ;            if(!isStarting || isDone) {
                 return;
             }
@@ -35,7 +34,34 @@ namespace SpellSystem {
                 //target.GetComponent<PlayerManager>().RemoveStatus(where);
                 target.GetComponent<PlayerManager>().RemoveStatus(this);
                 isDone = true;
-                Photon.MonoBehaviour.Destroy(this.gameObject);
+                PhotonNetwork.Destroy(this.gameObject);
+            }
+        }
+
+        /// <summary>
+        /// Set the parent of the status prefab
+        /// </summary>
+        public void ParentStatus(int playerId)
+        {
+            Debug.Log("parentstatus called");
+            GetComponent<PhotonView>().RPC("OnParent", PhotonTargets.All, playerId);
+        }
+
+        /// <summary>
+        /// Find player with playerId and parent status to them
+        /// </summary>
+        /// <param name="playerId"></param>
+        [PunRPC]
+        public void OnParent(int playerId)
+        {
+            Debug.Log("onparent called");
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject player in players)
+            {
+                if (playerId == player.GetComponent<PlayerManager>().playerId)
+                {
+                    transform.parent = player.transform;
+                }
             }
         }
 

@@ -7,7 +7,7 @@ using WizardWars;
 namespace SpellSystem {
     public class U_Slow : Status {
         public float _moveSpeedModifier;
-        public float _cooldownReduction;
+
         public override void Activate(GameObject target, int where) {
             if(isStarting) {
                 return;
@@ -20,8 +20,8 @@ namespace SpellSystem {
             if(!player) {
                 return;
             }
-            player.moveSpeedModifier += _moveSpeedModifier;
-            player.cooldownReduction += _cooldownReduction;
+            player.GetComponent<PhotonView>().RPC("UpdateMoveSpeedModifier", PhotonTargets.All, player.moveSpeedModifier + _moveSpeedModifier);
+            //player.cooldownReduction += _cooldownReduction;
 
             StartCoroutine(Run());
         }
@@ -32,8 +32,8 @@ namespace SpellSystem {
             if(!player) {
                 return;
             }
-            player.moveSpeedModifier -= _moveSpeedModifier;
-            player.cooldownReduction -= _cooldownReduction;
+            player.GetComponent<PhotonView>().RPC("UpdateMoveSpeedModifier", PhotonTargets.All, player.moveSpeedModifier - _moveSpeedModifier);
+            // player.cooldownReduction -= _cooldownReduction;
         }
 
         protected override IEnumerator Run() {
