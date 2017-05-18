@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace SpellSystem {
-    public class S_Meteor : DelayedSpell {
+    public class S001_Meteor : DelayedSpell {
         public string meteor;
         public string indicator;
         public float height;

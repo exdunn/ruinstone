@@ -21,13 +21,8 @@ namespace SpellSystem {
 
             GameObject proj = SpellUtility.SpawnProjectile("Spells/" + spawn, this.transform, spawnPos, Quaternion.identity, _stats.radius);
             proj.GetComponent<Projectile>()._stats = _stats;
-            proj.GetComponent<Projectile>().Move(caster, point);
+            proj.GetComponent<Projectile>().Move(caster, point, 0);
             StartCoroutine(Cooldown(caster));
-        }
-
-        protected override IEnumerator StartCast(GameObject caster, GameObject target, Vector3 point)
-        {
-            throw new NotImplementedException();
         }
     }
 }
