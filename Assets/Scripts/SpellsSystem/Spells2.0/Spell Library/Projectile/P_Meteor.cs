@@ -14,6 +14,7 @@ namespace SpellSystem {
         }
 
         protected override void OnCollide(GameObject target) {
+            //Do Nothing
         }
 
         protected override void OnLocation() {
