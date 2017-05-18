@@ -25,6 +25,10 @@ namespace SpellSystem {
             projectile.GetComponent<SphereCollider>().radius = radius;
             return projectile;
         }
+        public static GameObject SpawnIndicator(string prefab, Transform parent, Vector3 position, Quaternion rotation, float radius) {
+            GameObject indicator = PhotonNetwork.Instantiate(prefab, position, rotation, 0);
+            return indicator;
+        }
 
 
         /******************************************************** DAMAGE ********************************************************/
@@ -247,12 +251,14 @@ namespace SpellSystem {
         /******************************************************** DELAY ********************************************************/
 
 
-        public static IEnumerator Delay(float duration) {
+        public static IEnumerator Delay(float duration, Spell s) {
             float timer = 0f;
+            s.delay = false;
             while(timer < duration) {
                 yield return new WaitForSeconds(TICK);
                 timer += TICK;
             }
+            s.delay = true;
         }
     }
 }

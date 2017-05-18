@@ -13,6 +13,7 @@ namespace SpellSystem {
         protected bool isStarting { get; set; }
         protected bool isDone { get; set; }
         protected bool isDoingEffect { get; set; }
+        protected bool isVertical { get; set; }
 
         protected bool atLocation { get; set; }
         protected bool collidedWithTarget { get; set; }
@@ -46,6 +47,7 @@ namespace SpellSystem {
             collidedWithTarget = false;
             outOfRange = false;
             caster = null;
+            isVertical = false;
         }
 
         void Update() {
@@ -102,14 +104,18 @@ namespace SpellSystem {
         }
 
         //Target is where the caster clicked
-        public void Move(GameObject caster, Vector3 target) {
+        public void Move(GameObject caster, Vector3 target, float height) {
             this.target = target;
             this.caster = caster;
-            origin = caster.transform.position;
+            if(height > 0) {
+                origin = new Vector3(target.x, target.y + height, target.z);
+                isVertical = true;
+            }
+            else {
+                origin = caster.transform.position;
+            }
             SetTargetAndDirection();
-            Debug.Log("Starting is True now");
             isStarting = true;
-            Debug.Log("isStarting: " + isStarting);
         }
 
         protected bool IsReadyToFinish() {
@@ -120,8 +126,8 @@ namespace SpellSystem {
             PhotonNetwork.Destroy(this.gameObject);
         }
 
-        protected Vector3 LevelPointToCaster(Vector3 point, Vector3 caster) {
-            return new Vector3(point.x, caster.y, point.z);
+        protected virtual Vector3 LevelPointToCaster(Vector3 point, Vector3 caster) {
+            return isVertical ? point : new Vector3(point.x, caster.y, point.z);
         }
 
         protected void SetTargetAndDirection() {
