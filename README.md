@@ -14,12 +14,16 @@ game.
 
 *********************************************** CREDITS ****************************************************
 
-Alex Dunn...        Game Designer, Programmer, 2D Artist
+Alex Dunn...          Game Designer, Programmer, 2D Artist
 
-Joseph Park...       Game Designer, Programmer
+Joseph Park...        Game Designer, Programmer
 
-Christian Sydow...  3D Artist
+Christian Sydow...    3D Artist
 
-Kevin Permana... Sound Programmer
+Kevin Permana...      Sound Programmer
 
-Alex Fiete...       Sound Effects, Theme Song Composer
+Alex Fiete...         Sound Effects, Theme Song Composer
+
+John Grefiel...       Playtesting, QA
+
+David Wu...           Playtesting, QA
