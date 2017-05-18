@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{49D000A3-B52A-4AEE-A1DC-6A4825FAA7A2}" SchemaVersion="75">
+	<SoundBanks>
+		<WorkUnit Name="Default Work Unit" ID="{49D000A3-B52A-4AEE-A1DC-6A4825FAA7A2}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="Main" ID="{A4CCBD7D-5693-48F8-9F4F-379ECD77F3EF}">
+					<ObjectInclusionList>
+						<ObjectRef Name="PlayerWalk_water" ID="{B20B4C44-C3A7-444C-B4B5-2ACA0581ACDE}" WorkUnitID="{B997634E-36F3-4A09-9BE4-C111C288B821}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="PlayerWalk_wood" ID="{331EF248-E46E-44E8-A252-3C1BF7AA0381}" WorkUnitID="{B997634E-36F3-4A09-9BE4-C111C288B821}" Filter="7" Origin="Manual"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
+	</SoundBanks>
+</WwiseDocument>

@@ -165,7 +165,7 @@ using ExitGames.Client.Photon;
         /// This is an async request which triggers a OnOperationResponse() call.
         /// </summary>
         /// <remarks>
-        /// If the room is already existing, the OperationResponse will have a returnCode of ErrorCode.GameAlreadyExists.
+        /// If the room is already existing, the OperationResponse will have a returnCode of ErrorCode_Photon.GameAlreadyExists.
         /// </remarks>
         public virtual bool OpCreateRoom(EnterRoomParams opParams)
         {
@@ -213,8 +213,8 @@ using ExitGames.Client.Photon;
         /// This is an async request which triggers a OnOperationResponse() call.
         /// </summary>
         /// <remarks>
-        /// If the room is not existing (anymore), the OperationResponse will have a returnCode of ErrorCode.GameDoesNotExist.
-        /// Other possible ErrorCodes are: GameClosed, GameFull.
+        /// If the room is not existing (anymore), the OperationResponse will have a returnCode of ErrorCode_Photon.GameDoesNotExist.
+        /// Other possible ErrorCode_Photons are: GameClosed, GameFull.
         /// </remarks>
         /// <returns>If the operation could be sent (requires connection).</returns>
         public virtual bool OpJoinRoom(EnterRoomParams opParams)
@@ -272,7 +272,7 @@ using ExitGames.Client.Photon;
         /// <summary>
         /// Operation to join a random, available room. Overloads take additional player properties.
         /// This is an async request which triggers a OnOperationResponse() call.
-        /// If all rooms are closed or full, the OperationResponse will have a returnCode of ErrorCode.NoRandomMatchFound.
+        /// If all rooms are closed or full, the OperationResponse will have a returnCode of ErrorCode_Photon.NoRandomMatchFound.
         /// If successful, the OperationResponse contains a gameserver address and the name of some room.
         /// </summary>
         /// <returns>If the operation could be sent currently (requires connection).</returns>
@@ -503,7 +503,7 @@ using ExitGames.Client.Photon;
         /// <remarks>
         /// This operation makes use of encryption, if that is established before.
         /// See: EstablishEncryption(). Check encryption with IsEncryptionAvailable.
-        /// This operation is allowed only once per connection (multiple calls will have ErrorCode != Ok).
+        /// This operation is allowed only once per connection (multiple calls will have ErrorCode_Photon != Ok).
         /// </remarks>
         /// <param name="appId">Your application's name or ID to authenticate. This is assigned by Photon Cloud (webpage).</param>
         /// <param name="appVersion">The client's version (clients with differing client appVersions are separated and players don't meet).</param>
@@ -594,7 +594,7 @@ using ExitGames.Client.Photon;
         /// <remarks>
         /// This operation makes use of encryption, if that is established before.
         /// See: EstablishEncryption(). Check encryption with IsEncryptionAvailable.
-        /// This operation is allowed only once per connection (multiple calls will have ErrorCode != Ok).
+        /// This operation is allowed only once per connection (multiple calls will have ErrorCode_Photon != Ok).
         /// </remarks>
         /// <param name="appId">Your application's name or ID to authenticate. This is assigned by Photon Cloud (webpage).</param>
         /// <param name="appVersion">The client's version (clients with differing client appVersions are separated and players don't meet).</param>
@@ -808,9 +808,9 @@ using ExitGames.Client.Photon;
 
 
     /// <summary>
-    /// ErrorCode defines the default codes associated with Photon client/server communication.
+    /// ErrorCode_Photon defines the default codes associated with Photon client/server communication.
     /// </summary>
-    public class ErrorCode
+    public class ErrorCode_Photon
     {
         /// <summary>(0) is always "OK", anything else an error or specific situation.</summary>
         public const int Ok = 0;
@@ -1264,7 +1264,7 @@ using ExitGames.Client.Photon;
         /// <summary>(208) Parameters for a WebRPC as: Dictionary&lt;string, object&gt;. This will get serialized to JSon.</summary>
         public const byte WebRpcParameters = 208;
 
-        /// <summary>(207) ReturnCode for the WebRPC, as sent by the web service (not by Photon, which uses ErrorCode). Type: byte.</summary>
+        /// <summary>(207) ReturnCode for the WebRPC, as sent by the web service (not by Photon, which uses ErrorCode_Photon). Type: byte.</summary>
         public const byte WebRpcReturnCode = 207;
 
         /// <summary>(206) Message returned by WebRPC server. Analog to Photon's debug message. Type: string.</summary>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{B997634E-36F3-4A09-9BE4-C111C288B821}" SchemaVersion="75">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{B997634E-36F3-4A09-9BE4-C111C288B821}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="PlayerWalk_water" ID="{B20B4C44-C3A7-444C-B4B5-2ACA0581ACDE}">
+					<ChildrenList>
+						<Action Name="Play" ID="{99F4259B-A38B-441B-A042-1D64E534509A}" ShortID="686120109" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{E9C2D37F-1339-4CB9-BB45-70FEE6C8A617}" Global="false">
+									<ObjectRef Name="Footstep_water" ID="{BAB73423-6214-4127-BE05-5ABF4C978D0A}" WorkUnitID="{09378E42-7321-475A-8415-ABA2527C3766}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayerWalk_wood" ID="{331EF248-E46E-44E8-A252-3C1BF7AA0381}">
+					<ChildrenList>
+						<Action Name="Play" ID="{3C4FEC9C-264E-4FC6-B83A-635ADC5A3732}" ShortID="486138773" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{7D0413C7-129D-4DD4-8C04-0423488D64BC}" Global="false">
+									<ObjectRef Name="Footstep_Wood" ID="{5C57522E-29E0-4BAE-9F52-EEEFDBD125CB}" WorkUnitID="{09378E42-7321-475A-8415-ABA2527C3766}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

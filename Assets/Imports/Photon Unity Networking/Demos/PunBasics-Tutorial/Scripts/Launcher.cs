@@ -166,12 +166,12 @@ namespace ExitGames.Demos.DemoAnimator
 		}
 
 		/// <summary>
-		/// Called when a JoinRandom() call failed. The parameter provides ErrorCode and message.
+		/// Called when a JoinRandom() call failed. The parameter provides ErrorCode_Photon and message.
 		/// </summary>
 		/// <remarks>
 		/// Most likely all rooms are full or no rooms are available. <br/>
 		/// </remarks>
-		/// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode. codeAndMsg[1] is string debug msg.</param>
+		/// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode_Photon. codeAndMsg[1] is string debug msg.</param>
 		public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
 		{
 			LogFeedback("<Color=Red>OnPhotonRandomJoinFailed</Color>: Next -> Create a new Room");

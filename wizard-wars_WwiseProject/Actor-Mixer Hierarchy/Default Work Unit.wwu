@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{09378E42-7321-475A-8415-ABA2527C3766}" SchemaVersion="75">
+	<AudioObjects>
+		<WorkUnit Name="Default Work Unit" ID="{09378E42-7321-475A-8415-ABA2527C3766}" PersistMode="Standalone">
+			<ChildrenList>
+				<RandomSequenceContainer Name="Footstep_water" ID="{BAB73423-6214-4127-BE05-5ABF4C978D0A}" ShortID="372497281">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="204013__duckduckpony__footsteps-water-light-002" ID="{5791CB15-4769-46D3-8FCE-69E52CA3A166}" ShortID="34195703" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="204013__duckduckpony__footsteps-water-light-002" ID="{4FD2A816-17ED-4427-B88B-BDB7388D746D}" ShortID="789193888">
+									<Language>SFX</Language>
+									<AudioFile>Footstep_water\204013__duckduckpony__footsteps-water-light-002.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="204013__duckduckpony__footsteps-water-light-002" ID="{4FD2A816-17ED-4427-B88B-BDB7388D746D}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="204014__duckduckpony__footsteps-water-light-001" ID="{7D66AEBE-0240-4218-9FA7-0ED0C27FA2FE}" ShortID="546377270" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="204014__duckduckpony__footsteps-water-light-001" ID="{7F8ADA27-1798-48A4-90E7-67A0BF038EC9}" ShortID="189613205">
+									<Language>SFX</Language>
+									<AudioFile>Footstep_water\204014__duckduckpony__footsteps-water-light-001.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="204014__duckduckpony__footsteps-water-light-001" ID="{7F8ADA27-1798-48A4-90E7-67A0BF038EC9}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="204017__duckduckpony__footsteps-water-light-004" ID="{A24DB6EF-98B1-459A-B5DE-CA6790D26CED}" ShortID="690268101" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="204017__duckduckpony__footsteps-water-light-004" ID="{68A30C98-D312-4378-969F-30D5A85B0DD4}" ShortID="473820313">
+									<Language>SFX</Language>
+									<AudioFile>Footstep_water\204017__duckduckpony__footsteps-water-light-004.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="204017__duckduckpony__footsteps-water-light-004" ID="{68A30C98-D312-4378-969F-30D5A85B0DD4}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="204018__duckduckpony__footsteps-water-light-003-9624" ID="{642DEB26-52C8-4884-A383-1E0E6A78B2D8}" ShortID="566233838" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="204018__duckduckpony__footsteps-water-light-003-9624" ID="{B08902F1-E559-48B4-BCBE-27189C97CCC8}" ShortID="809661030">
+									<Language>SFX</Language>
+									<AudioFile>Footstep_water\204018__duckduckpony__footsteps-water-light-003-9624.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="204018__duckduckpony__footsteps-water-light-003-9624" ID="{B08902F1-E559-48B4-BCBE-27189C97CCC8}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="204032__duckduckpony__footsteps-water-light-005" ID="{9C9E58D1-1531-48DF-ACF8-2728BCBFED6E}" ShortID="356525537" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="204032__duckduckpony__footsteps-water-light-005" ID="{B57B5FE7-405F-41D9-BFC6-B47EE01DC06E}" ShortID="253921561">
+									<Language>SFX</Language>
+									<AudioFile>Footstep_water\204032__duckduckpony__footsteps-water-light-005.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="204032__duckduckpony__footsteps-water-light-005" ID="{B57B5FE7-405F-41D9-BFC6-B47EE01DC06E}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="204033__duckduckpony__footsteps-water-light-006" ID="{7EA18650-524C-4BD6-9F11-FA1974507EA7}" ShortID="325256119" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="204033__duckduckpony__footsteps-water-light-006" ID="{B92D840D-B85E-49A1-813E-C22FF66A1E0F}" ShortID="621778761">
+									<Language>SFX</Language>
+									<AudioFile>Footstep_water\204033__duckduckpony__footsteps-water-light-006.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="204033__duckduckpony__footsteps-water-light-006" ID="{B92D840D-B85E-49A1-813E-C22FF66A1E0F}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="204034__duckduckpony__footsteps-water-light-007" ID="{86F97088-C43C-4F7F-9F9D-CE72BC11E082}" ShortID="699110933" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="204034__duckduckpony__footsteps-water-light-007" ID="{16236FE0-71CE-4432-A06F-451014AA887F}" ShortID="850153493">
+									<Language>SFX</Language>
+									<AudioFile>Footstep_water\204034__duckduckpony__footsteps-water-light-007.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="204034__duckduckpony__footsteps-water-light-007" ID="{16236FE0-71CE-4432-A06F-451014AA887F}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="204035__duckduckpony__footsteps-water-light-008" ID="{F65701A1-40B2-450A-8031-33ECB73C3120}" ShortID="768987317" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="204035__duckduckpony__footsteps-water-light-008" ID="{417A5C73-0D4F-4649-94C6-2E671E14114B}" ShortID="418215184">
+									<Language>SFX</Language>
+									<AudioFile>Footstep_water\204035__duckduckpony__footsteps-water-light-008.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="204035__duckduckpony__footsteps-water-light-008" ID="{417A5C73-0D4F-4649-94C6-2E671E14114B}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</RandomSequenceContainer>
+				<RandomSequenceContainer Name="Footstep_Wood" ID="{5C57522E-29E0-4BAE-9F52-EEEFDBD125CB}" ShortID="978930191">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="FootstepsWood 6017_07_1" ID="{A578E8FE-E510-4AE2-8220-EC499AD5CFC8}" ShortID="717585398" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="FootstepsWood 6017_07_1" ID="{80D909AD-D4A0-4E89-B516-B8C88EB97FE9}" ShortID="680085273">
+									<Language>SFX</Language>
+									<AudioFile>Footstep_Wood\FootstepsWood 6017_07_1.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="FootstepsWood 6017_07_1" ID="{80D909AD-D4A0-4E89-B516-B8C88EB97FE9}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="FootstepsWood 6017_09_2" ID="{6412C88F-8834-440F-8BDD-1618E3963C8E}" ShortID="142479658" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="FootstepsWood 6017_09_2" ID="{C81F5198-37F4-4D16-BB5F-8F42E71A0D98}" ShortID="174200355">
+									<Language>SFX</Language>
+									<AudioFile>Footstep_Wood\FootstepsWood 6017_09_2.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="FootstepsWood 6017_09_2" ID="{C81F5198-37F4-4D16-BB5F-8F42E71A0D98}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="FootstepsWood 6017_19_1" ID="{BF2DE53A-24F3-46D4-B1E0-4255DA8A7C91}" ShortID="103207454" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{707B8E0B-47ED-41CB-AE5F-5F44FA0566B0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{59BD9A78-55F7-477F-9536-27DB790C58F5}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="FootstepsWood 6017_19_1" ID="{93D0F697-BFEF-497D-81B9-F5A87C28226A}" ShortID="646564857">
+									<Language>SFX</Language>
+									<AudioFile>Footstep_Wood\FootstepsWood 6017_19_1.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="FootstepsWood 6017_19_1" ID="{93D0F697-BFEF-497D-81B9-F5A87C28226A}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</RandomSequenceContainer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>
