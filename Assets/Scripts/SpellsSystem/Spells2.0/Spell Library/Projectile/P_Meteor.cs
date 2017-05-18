@@ -14,8 +14,6 @@ namespace SpellSystem {
         }
 
         protected override void OnCollide(GameObject target) {
-            SpellUtility.AreaDamage(Types.Target.ENEMY, caster, target, _stats.radius, _stats.damage);
-            Dissipate();
         }
 
         protected override void OnLocation() {
