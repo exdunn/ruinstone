@@ -38,7 +38,7 @@
             case Target.SELF:
                 return "self";
             case Target.GROUND:
-                return "ground";
+                return "Ground";
             default:
                 return "";
         }

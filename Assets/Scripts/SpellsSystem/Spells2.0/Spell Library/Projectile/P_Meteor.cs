@@ -9,12 +9,16 @@ namespace SpellSystem {
 
         public override void Dissipate() {
             //Explode
-            PhotonNetwork.Destroy(indicator);
+            if(indicator) {
+                PhotonNetwork.Destroy(indicator);
+            }
+            
             Die();
         }
 
         protected override void OnCollide(GameObject target) {
-            //Do Nothing
+            SpellUtility.AreaDamage(Types.Target.ENEMY, caster, this.target, _stats.radius, _stats.damage);
+            Dissipate();
         }
 
         protected override void OnLocation() {
