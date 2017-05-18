@@ -22,9 +22,12 @@ namespace WizardWars {
 
             foreach (PhotonPlayer player in PhotonNetwork.playerList)
             {
-                GameObject newLabel = Instantiate(labelPrefab, gameObject.transform);
+                GameObject newLabel = PhotonNetwork.Instantiate("Scoreboard Label", transform.position, transform.rotation, 0);
+                newLabel.transform.parent = transform;
                 scorebaordLabels[(int)player.CustomProperties["ID"]] = newLabel.GetComponent<ScoreboardLabelUI>();
+                newLabel.GetComponent<ScoreboardLabelUI>().BroadcastNameTextChange(player.NickName);
             }
+            
 	    }
         
 	    // Update is called once per frame
@@ -38,6 +41,7 @@ namespace WizardWars {
 
         public void UpdateScoreLabelName(int key, string name)
         {
+            
             scorebaordLabels[key].gameObject.GetComponent<PhotonView>().
                 RPC("BroadcastNameTextChange",
                 PhotonTargets.All,
@@ -62,6 +66,7 @@ namespace WizardWars {
 
         public void UpdateScoreLabelDamage(int key, float damage)
         {
+            Debug.Log("key: " + key);
             scorebaordLabels[key].GetComponent<PhotonView>().
                 RPC("BroadcastDamageTextChange", 
                 PhotonTargets.All, 

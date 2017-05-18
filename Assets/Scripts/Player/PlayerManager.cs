@@ -40,6 +40,11 @@ namespace WizardWars
             get; set;
         }
 
+        public string playerName
+        {
+            get; set;
+        }
+
         public int lives
         {
             get; set;
@@ -129,8 +134,6 @@ namespace WizardWars
 
             // set scoreboard
             scoreboard = gameManager.GetComponent<GameManager>().scoreboard.GetComponent<ScoreboardManager>();
-
-            scoreboard.UpdateScoreLabelName(playerId, PlayerPrefs.GetString("PlayerName"));
 
             // set robe color
             GetComponent<PlayerControllerV2>().playerModel.GetComponent<Renderer>().materials[0].color = Color.red;
