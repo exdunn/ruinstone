@@ -130,6 +130,8 @@ namespace WizardWars
             // set scoreboard
             scoreboard = gameManager.GetComponent<GameManager>().scoreboard.GetComponent<ScoreboardManager>();
 
+            scoreboard.UpdateScoreLabelName(playerId, PlayerPrefs.GetString("PlayerName"));
+
             // set robe color
             GetComponent<PlayerControllerV2>().playerModel.GetComponent<Renderer>().materials[0].color = Color.red;
 
@@ -333,6 +335,9 @@ namespace WizardWars
         public void BroadcastDeaths(int value)
         {
             deaths = value;
+
+            // update the scoreboard
+            scoreboard.UpdateScoreLabelDeaths(playerId, deaths);
         }
 
         // Broadcast damage to all players
@@ -340,6 +345,9 @@ namespace WizardWars
         public void BroadcastDamageDealt(float value)
         {
             damageDealt = value;
+
+            // update the scoreboard
+            scoreboard.UpdateScoreLabelDamage(playerId, damageDealt);
         }
 
         // Set the player ID in everyone else's view

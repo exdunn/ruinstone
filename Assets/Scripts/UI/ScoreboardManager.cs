@@ -36,6 +36,14 @@ namespace WizardWars {
 
         #region public methods
 
+        public void UpdateScoreLabelName(int key, string name)
+        {
+            scorebaordLabels[key].gameObject.GetComponent<PhotonView>().
+                RPC("BroadcastNameTextChange",
+                PhotonTargets.All,
+                name);
+        }
+
         public void UpdateScoreLabelKills(int key, int kills)
         {
             scorebaordLabels[key].gameObject.GetComponent<PhotonView>().
@@ -52,7 +60,7 @@ namespace WizardWars {
                 "Deaths: " + deaths);
         }
 
-        public void UpdateScoreLabelDamage(int key, int damage)
+        public void UpdateScoreLabelDamage(int key, float damage)
         {
             scorebaordLabels[key].GetComponent<PhotonView>().
                 RPC("BroadcastDamageTextChange", 

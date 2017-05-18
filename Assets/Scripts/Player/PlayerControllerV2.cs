@@ -95,51 +95,19 @@ namespace WizardWars
             // enter targeting state when user presses spell button
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                curSpell = 0;
-                if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
-                {
-                    spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
-                }
-                else
-                {
-                    targetting = true;
-                }
+                CastHelper(0);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                curSpell = 1;
-                if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
-                {
-                    spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
-                }
-                else
-                {
-                    targetting = true;
-                }
+                CastHelper(1);
             }
             else if(Input.GetKeyDown(KeyCode.Alpha3))
             {
-                curSpell = 2;
-                if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
-                {
-                    spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
-                }
-                else
-                {
-                    targetting = true;
-                }
+                CastHelper(2);
             }
             else if(Input.GetKeyDown(KeyCode.Alpha4))
             {
-                curSpell = 3;
-                if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
-                {
-                    spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
-                }
-                else
-                {
-                    targetting = true;
-                }
+                CastHelper(3);
             } 
 
             // spell targetting state
@@ -209,6 +177,21 @@ namespace WizardWars
             {
                 playerModel.GetComponent<Animator>().SetBool("moving", false);
                 GetComponent<PhotonView>().RPC("BroadcastMoveAnim", PhotonTargets.All, false);
+            }
+        }
+
+        private void CastHelper(int index)
+        {
+            curSpell = index;
+            if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
+            {
+                spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
+                playerModel.GetComponent<Animator>().SetTrigger("self cast");
+            }
+            else
+            {
+                targetting = true;
+                playerModel.GetComponent<Animator>().SetTrigger("projectile cast");
             }
         }
 
