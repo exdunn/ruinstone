@@ -23,7 +23,8 @@
     {
         DEFAULT,
         ENEMY,
-        SELF
+        SELF,
+        GROUND
     }
 
     public static string TargetToString(Target target)
@@ -36,6 +37,8 @@
                 return "Player";
             case Target.SELF:
                 return "self";
+            case Target.GROUND:
+                return "ground";
             default:
                 return "";
         }
