@@ -5,7 +5,7 @@ using UnityEngine;
 using WizardWars;
 
 namespace SpellSystem {
-    public class S003_Incandescence : Spell {
+    public class S002_Incandescence : Spell {
         public Status _status;
 
         public override void Cast(GameObject caster, GameObject target, Vector3 point) {

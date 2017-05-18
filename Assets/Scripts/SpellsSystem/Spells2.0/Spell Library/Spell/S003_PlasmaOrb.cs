@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace SpellSystem {
     public class S003_PlasmaOrb : Spell {
@@ -22,6 +23,11 @@ namespace SpellSystem {
             proj.GetComponent<Projectile>()._stats = _stats;
             proj.GetComponent<Projectile>().Move(caster, point);
             StartCoroutine(Cooldown(caster));
+        }
+
+        protected override IEnumerator StartCast(GameObject caster, GameObject target, Vector3 point)
+        {
+            throw new NotImplementedException();
         }
     }
 }
