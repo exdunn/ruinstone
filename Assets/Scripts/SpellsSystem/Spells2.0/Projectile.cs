@@ -104,7 +104,7 @@ namespace SpellSystem {
         }
 
         //Target is where the caster clicked
-        public void Move(GameObject caster, Vector3 target, float height) {
+        public void Move(GameObject caster, Vector3 target, float height = 0f) {
             this.target = target;
             this.caster = caster;
             if(height > 0) {
