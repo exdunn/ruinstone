@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 namespace SpellSystem {
-    public class P006_Quark : Projectile {
+    public class P_Quark : Projectile {
         public override void Dissipate() {
             //Put death stuff here
             Die();

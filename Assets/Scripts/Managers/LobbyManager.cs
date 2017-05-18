@@ -120,6 +120,9 @@ namespace WizardWars
             spellSlots = GetComponentsInChildren<SpellSlotUI>();
             InstantiatePlayerLabels();
             SetSpellIcons(PlayerPrefsX.GetIntArray("Spells1"));
+
+            // set current spells to Spells 1
+            PlayerPrefsX.SetIntArray("CurSpells", PlayerPrefsX.GetIntArray("Spells1"));
         }
 
         /// <summary>

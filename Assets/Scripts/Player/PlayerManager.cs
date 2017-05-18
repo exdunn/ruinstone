@@ -16,16 +16,9 @@ namespace WizardWars
         // Leave variables public for now for testing purposes
         // Should be private in production version
 
-        [Tooltip("The current Health of our player")]
         public float health = 100f;
-
-        [Tooltip("The maximum Health of our player")]
         public float maxHealth = 100f;
-
-        [Tooltip("The number of kills player has this round")]
         public int kills;
-
-        [Tooltip("The number of times the player has died this round")]
         public int deaths;   
 
         #endregion
@@ -162,8 +155,6 @@ namespace WizardWars
             //Call Status's Apply
             //Add Status to List
 
-            
-
             //status.GetComponent<PhotonView>().RPC("ReceivedAddStatus", PhotonTargets.All, status);
             status.GetComponent<Status>().Activate(this.gameObject, _statuses.Count);
             _statuses.Add(status.GetComponent<Status>());
@@ -211,19 +202,20 @@ namespace WizardWars
         /// <param name="damage"></param>
         public void UpdateHealth(float damage)
         {
-            health += damage; 
+            // damage taken is damage * player's damage received modifier
+            float finalDamage = damage * damageReceivedModifier;
+            health += finalDamage; 
 
             if (health >= maxHealth)
             {
                 health = maxHealth;
             }
             else if (health < 0)
-            {
-                
-
+            {        
                 health = 0;
             }
 
+            // broad cast player's new health to other players
             GetComponent<PhotonView>().RPC("ReceivedUpdateHealth", PhotonTargets.All, health);    
         }
 
@@ -355,7 +347,7 @@ namespace WizardWars
 
         // Set damageModifier for remote player
         [PunRPC]
-        public void UpdateDamgeModifier(float value)
+        public void UpdateDamageModifier(float value)
         {
             damageModifier = value;
         }

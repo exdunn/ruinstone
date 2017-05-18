@@ -3,14 +3,17 @@ using System;
 using System.Collections.Generic;
 
 namespace SpellSystem {
-    public class P000_Fireball : Projectile {
+    public class P_Fireball : Projectile {
         public override void Dissipate() {
             //Put death stuff here
             Die();
         }
 
         protected override void OnCollide(GameObject target) {
-            SpellUtility.Damage(target, _stats.damage);
+
+            // the damage of the spell is the spell damage * player's damage modifier
+            float damage = _stats.damage * caster.GetComponent<WizardWars.PlayerManager>().damageModifier;
+            SpellUtility.Damage(target, damage);
             Dissipate();
         }
 
