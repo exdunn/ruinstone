@@ -8,14 +8,17 @@ namespace SpellSystem {
     public class S008_Innervate : Spell {
         public Status _status;
 
-        protected override IEnumerator StartCast(GameObject caster, GameObject target, Vector3 point) {
+        public override void Cast(GameObject caster, GameObject target, Vector3 point) {
+            bool p = Precast(caster, target, point);
+            if(!p) {
+                return;
+            }
             if(!_status) {
                 Debug.Log("_status is empty!");
             }
 
             SpellUtility.Status("Spells/U_Innervate", caster);
             StartCoroutine(Cooldown(caster));
-            yield return null;
         }
     }
 }

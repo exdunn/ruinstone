@@ -24,7 +24,9 @@ namespace SpellSystem
 
         //Primary Activation Method
         //Question: Should this be a coroutine?
-        public void Cast(GameObject caster, GameObject target, Vector3 point) {
+        public abstract void Cast(GameObject caster, GameObject target, Vector3 point);
+
+        protected bool Precast(GameObject caster, GameObject target, Vector3 point) {
             if(caster == null) {
                 Debug.Log(this + ": \n" + "Caster is null...");
             }
@@ -33,13 +35,12 @@ namespace SpellSystem
             }
             if(!isCastable) {
                 Debug.Log(this + " is not castable yet.");
-                return;
+                return false;
             }
             isCastable = false;
-            StartCoroutine(StartCast(caster, target, point));
+            return true;
         }
 
-        protected abstract IEnumerator StartCast(GameObject caster, GameObject target, Vector3 point);
         protected IEnumerator Cooldown(GameObject caster)
         {
             //float cd = _stats.GetCooldown() - (_stats.GetCooldown() * caster's cdr)
