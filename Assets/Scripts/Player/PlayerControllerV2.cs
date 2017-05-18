@@ -187,11 +187,13 @@ namespace WizardWars
             {
                 spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
                 playerModel.GetComponent<Animator>().SetTrigger("self cast");
+                GetComponent<PhotonView>().RPC("BroadcastSelfCastAnim", PhotonTargets.All);
             }
             else
             {
                 targetting = true;
                 playerModel.GetComponent<Animator>().SetTrigger("projectile cast");
+                GetComponent<PhotonView>().RPC("BroadcastProjectileCastAnim", PhotonTargets.All);
             }
         }
 
@@ -199,14 +201,29 @@ namespace WizardWars
 
         #region PUN RPC
 
-        /// <summary>
-        /// broadcast to other players if the player is moving or not
-        /// </summary>
-        /// <param name="moving"></param>
+        // Play death animation
+        [PunRPC]
+        public void ReceivedDyingAnim()
+        {
+            playerModel.GetComponent<Animator>().SetTrigger("dying");
+        }
+
         [PunRPC]
         public void BroadcastMoveAnim(bool moving)
         {
             playerModel.GetComponent<Animator>().SetBool("moving", moving);
+        }
+
+        [PunRPC]
+        public void BroadcastProjectileCastAnim()
+        {
+            playerModel.GetComponent<Animator>().SetTrigger("projectile cast");
+        }
+
+        [PunRPC]
+        public void BroadcastSelfCastAnim()
+        {
+            playerModel.GetComponent<Animator>().SetTrigger("self cast");
         }
 
         #endregion

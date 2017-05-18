@@ -210,7 +210,7 @@ namespace WizardWars
             UpdateLives(-1);
 
             // player death anim
-            GetComponent<PhotonView>().RPC("ReceivedDieAnim", PhotonTargets.All, true);
+            GetComponent<PhotonView>().RPC("ReceivedDyingAnim", PhotonTargets.All);
 
             // player is eliminated when they run out of lives
             if (lives <= 0)
@@ -315,9 +315,9 @@ namespace WizardWars
 
         // Play death animation
         [PunRPC]
-        public void ReceivedDieAnim(bool die)
+        public void ReceivedRespawnAnim()
         {
-            GetComponentInChildren<Animator>().SetBool("dead", die);
+            GetComponentInChildren<Animator>().SetTrigger("respawn");
         }
 
         // Broadcast kills to all players
@@ -425,6 +425,9 @@ namespace WizardWars
                     message.GetComponentInChildren<UnityEngine.UI.Text>().text = "";
                 }
             }
+
+            // stop dying animation
+            GetComponent<PhotonView>().RPC("ReceivedRespawnAnim", PhotonTargets.All);
 
             // restore health to max health
             health = maxHealth;
