@@ -18,7 +18,7 @@ namespace SpellSystem {
         }
 
         protected override void OnLocation() {
-            SpellUtility.AreaDamage(Types.Target.ENEMY, target, _stats.radius, _stats.damage);
+            SpellUtility.AreaDamage(Types.Target.ENEMY, caster, target, _stats.radius, _stats.damage);
             Dissipate();
         }
 

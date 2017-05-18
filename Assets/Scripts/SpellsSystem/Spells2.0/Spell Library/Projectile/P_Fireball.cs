@@ -11,9 +11,7 @@ namespace SpellSystem {
 
         protected override void OnCollide(GameObject target) {
 
-            // the damage of the spell is the spell damage * player's damage modifier
-            float damage = _stats.damage * caster.GetComponent<WizardWars.PlayerManager>().damageModifier;
-            SpellUtility.Damage(target, damage);
+            SpellUtility.Damage(target, caster, _stats.damage);
             Dissipate();
         }
 

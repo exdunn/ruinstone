@@ -9,19 +9,12 @@ namespace WizardWars
 {
     public class GameManager : Photon.PunBehaviour {
 
-        #region Public Variables
+        #region variables
 
-        [Tooltip("The prefab to use for representing the player")]
         public GameObject playerPrefab;
-
-        /// <summary>
-        /// Game menu which can be opened by pressing ESC
-        /// </summary>
         public GameObject gameMenu;
-
-        #endregion
-
-        #region Private Variables
+        public GameObject scoreboard;
+        public GameObject[] spawnPoints;
 
         public bool gameOver
         {
@@ -37,8 +30,6 @@ namespace WizardWars
         // key => player ID
         // value => true = alive and false = dead
         Dictionary<int, bool> playerStatus;
-
-        public GameObject[] spawnPoints;
 
         #endregion
 
@@ -136,6 +127,17 @@ namespace WizardWars
                     gameMenu.SetActive(false);
                 }
             }
+
+            // open/close score board
+            if (Input.GetKey(KeyCode.Tab))
+            {
+                scoreboard.GetComponent<CanvasGroup>().alpha = 1;
+            }
+            else if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                scoreboard.GetComponent<CanvasGroup>().alpha = 0;
+            }
+
         }
 
         void OnApplicationQuit()

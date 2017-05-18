@@ -19,7 +19,8 @@ namespace WizardWars
         public float health = 100f;
         public float maxHealth = 100f;
         public int kills;
-        public int deaths;   
+        public int deaths;
+        public float damageDealt; 
 
         #endregion
 
@@ -31,6 +32,7 @@ namespace WizardWars
 
         GameObject gameManager;
         GameObject message;
+        ScoreboardManager scoreboard;
         GameObject[] spawnPoints;
 
         public int playerId
@@ -95,15 +97,11 @@ namespace WizardWars
                 LocalPlayerInstance = this.gameObject;
             }
 
-            // set all stats to 0
+            // initialize stats
             moveSpeedModifier = 1;
             damageModifier = 1;
             damageReceivedModifier = 1;
             cooldownReduction = 0;
-
-            // #Critical
-            // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
-            // DontDestroyOnLoad(this.gameObject);
         }
 
         void Start()
@@ -118,17 +116,19 @@ namespace WizardWars
             {
                 GetComponent<PhotonView>().RPC("BroadcastPlayerId", PhotonTargets.All, playerId);
             }
-
-            // set up spawn points
-            spawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
-
+  
             // set local gameManager
             gameManager = GameObject.Find("GameManager");
             lives = gameManager.GetComponent<GameManager>().lives;
 
+            // set up spawn points
+            spawnPoints = gameManager.GetComponent<GameManager>().spawnPoints;
+
             // set canvas message
             message = GameObject.Find("Canvas/Display Message");
-            Debug.Log("MESSAGE " + message);
+
+            // set scoreboard
+            scoreboard = gameManager.GetComponent<GameManager>().scoreboard.GetComponent<ScoreboardManager>();
 
             // set robe color
             GetComponent<PlayerControllerV2>().playerModel.GetComponent<Renderer>().materials[0].color = Color.red;
@@ -194,26 +194,43 @@ namespace WizardWars
             //Change the position of the player to point
         }
 
-        public void Respawn()
+        /// <summary>
+        /// Player death function
+        /// </summary>
+        public void PlayerDie()
         {
+            dead = true;
+
+            // increment deaths
+            UpdateDeaths(1);
+
+            // decrement lives
+            UpdateLives(-1);
+
+            // player death anim
+            GetComponent<PhotonView>().RPC("ReceivedDieAnim", PhotonTargets.All, true);
+
+            // player is eliminated when they run out of lives
             if (lives <= 0)
             {
-                Debug.Log("Player has no more lives");
+                if (photonView.isMine)
+                {
+                    message.GetComponentInChildren<UnityEngine.UI.Text>().text = "You have been eliminated!";
+                    gameManager.GetComponent<GameManager>().PlayerEliminated(playerId);
+                }
                 return;
             }
-
-            StartCoroutine(RespawnTimer());
+            StartCoroutine(Respawn());
         }
 
         /// <summary>
-        /// Update current health of the player
+        /// Update player's health by subtracting damage
         /// </summary>
-        /// <param name="damage"></param>
-        public void UpdateHealth(float damage)
+        /// <param name="damage">Amount that is subtracted from ccurrent health</param>
+        /// <returns>New health</returns>
+        public float UpdateHealth(float damage)
         {
-            // damage taken is damage * player's damage received modifier
-            float finalDamage = damage * damageReceivedModifier;
-            health += finalDamage; 
+            health += damage; 
 
             if (health >= maxHealth)
             {
@@ -225,7 +242,9 @@ namespace WizardWars
             }
 
             // broad cast player's new health to other players
-            GetComponent<PhotonView>().RPC("ReceivedUpdateHealth", PhotonTargets.All, health);    
+            GetComponent<PhotonView>().RPC("ReceivedUpdateHealth", PhotonTargets.All, health);
+
+            return health;   
         }
 
         /// <summary>
@@ -254,11 +273,6 @@ namespace WizardWars
             {
                 lives = 0;
             }
-
-            if (lives == 0)
-            {
-                // tell game manager player has no more lives
-            }
         }
 
         /// <summary>
@@ -273,30 +287,8 @@ namespace WizardWars
             {
                 deaths = 0;
             }
-        }
 
-        /// <summary>
-        /// Return number of kills
-        /// </summary>
-        public int GetKills ()
-        {
-            return kills;
-        }
-
-        /// <summary>
-        /// Return number of deaths
-        /// </summary>
-        public int GetDeaths()
-        {
-            return deaths;
-        }
-
-        /// <summary>
-        /// Return current heatlh
-        /// </summary>
-        public float GetHealth()
-        {
-            return health;
+            GetComponent<PhotonView>().RPC("BroadcastDeaths", PhotonTargets.All, deaths);
         }
 
         #endregion
@@ -312,24 +304,10 @@ namespace WizardWars
         {
             health = newHealth;
 
+            // handle player death logic here
             if (health == 0)
             {
-                Debug.Log("player has died!");
-
-                dead = true;
-
-                // player death anim
-                GetComponent<PhotonView>().RPC("ReceivedDieAnim", PhotonTargets.All, true);
-
-                // respawn player
-                Respawn();
-
-                // tell game manager player is dead
-                if (lives == 0)
-                {
-                    gameManager.GetComponent<GameManager>().PlayerEliminated(playerId);
-                }
-                
+                PlayerDie();   
             }
         }
 
@@ -338,6 +316,30 @@ namespace WizardWars
         public void ReceivedDieAnim(bool die)
         {
             GetComponentInChildren<Animator>().SetBool("dead", die);
+        }
+
+        // Broadcast kills to all players
+        [PunRPC]
+        public void BroadcastKills(int value)
+        {
+            kills = value;
+
+            // update the scoreboard
+            scoreboard.UpdateScoreLabelKills(playerId, kills);
+        }
+
+        // Broadcast deaths to all players
+        [PunRPC]
+        public void BroadcastDeaths(int value)
+        {
+            deaths = value;
+        }
+
+        // Broadcast damage to all players
+        [PunRPC]
+        public void BroadcastDamageDealt(float value)
+        {
+            damageDealt = value;
         }
 
         // Set the player ID in everyone else's view
@@ -370,7 +372,7 @@ namespace WizardWars
 
         // Set cooldownReduction for remote player
         [PunRPC]
-        public void UpdateCooldownRedution(float value)
+        public void UpdateCooldownReduction(float value)
         {
             cooldownReduction = value;
         }
@@ -395,7 +397,7 @@ namespace WizardWars
 
         #region Private Methods
 
-        IEnumerator RespawnTimer()
+        IEnumerator Respawn()
         {
             if (message != null)
             {
@@ -407,6 +409,7 @@ namespace WizardWars
             
             yield return new WaitForSeconds(3f);
 
+            // hide canvas message
             if (message != null)
             {
                 if (photonView.isMine)
@@ -415,10 +418,11 @@ namespace WizardWars
                 }
             }
 
+            // restore health to max health
             health = maxHealth;
 
             // pick a random spawn location
-            Transform spawnPoint = spawnPoints[spawnIndex].transform;
+            Transform spawnPoint = spawnPoints[playerId].transform;
 
             // teleport player to spawn point
             transform.position = spawnPoint.position;

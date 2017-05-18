@@ -34,12 +34,29 @@ namespace SpellSystem {
         /******************************************************** DAMAGE ********************************************************/
 
 
-        public static void Damage(GameObject target, float damage) {
+        public static void Damage(GameObject target, GameObject caster, float damage) {
             PlayerManager player = CheckAndGetPlayer(target);
             if(!player) {
                 return;
             }
-            player.UpdateHealth(-damage);
+
+            // multiply damage by the targets damage received modifier and the casters damage modifier
+            damage = damage * player.damageReceivedModifier * caster.GetComponent<PlayerManager>().damageModifier;
+
+            // update the caster's damage dealt
+            caster.GetComponent<PhotonView>().
+                RPC("BroadcastDamageDealt",
+                PhotonTargets.All,
+                caster.GetComponent<PlayerManager>().damageDealt + damage);
+
+            // if target's health is reduced to 0, increment caster's kills
+            if (player.UpdateHealth(-damage) <= 0)
+            {
+                caster.GetComponent<PhotonView>().
+                    RPC("BroadcastKills", 
+                    PhotonTargets.All, 
+                    ++caster.GetComponent<PlayerManager>().kills);
+            }
         }
         public static IEnumerator DamageOverTime(GameObject target, float damage, float duration) {
             float timer = 0f;
@@ -53,16 +70,16 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        public static void AreaDamage(Types.Target type, Vector3 center, float radius, float damage) {
+        public static void AreaDamage(Types.Target type, GameObject caster, Vector3 center, float radius, float damage) {
             List<GameObject> targets = Utils.GetAll(type, center, radius);
             for(int i = 0; i < targets.Count; ++i) {
-                Damage(targets[i], damage);
+                Damage(targets[i], caster, damage);
             }
         }
-        public static IEnumerator AreaDamageOverTime(Types.Target type, Vector3 center, float radius, float damage, float duration) {
+        public static IEnumerator AreaDamageOverTime(Types.Target type, GameObject caster, Vector3 center, float radius, float damage, float duration) {
             float timer = 0f;
             while(timer < duration) {
-                AreaDamage(type, center, radius, damage);
+                AreaDamage(type, caster, center, radius, damage);
                 yield return new WaitForSeconds(TICK);
                 timer += TICK;
             }
