@@ -48,6 +48,11 @@ namespace WizardWars
             get; set;
         }
 
+        public bool pushed
+        {
+            get; set;
+        }
+
         #endregion
 
         #region player stats
@@ -106,6 +111,7 @@ namespace WizardWars
             deaths = 0;
             kills = 0;
             dead = false;
+            pushed = false;
             _statuses = new List<Status>();
 
             if (photonView.isMine)
@@ -177,8 +183,11 @@ namespace WizardWars
             //Toggle the specified crowd control to whatever
         }
 
-        public void ForceMove(float magnitude, Vector3 direction) {
-            //Push the player in some direction
+        public void ForceMove(float magnitude) {
+
+            //GetComponent<Rigidbody>().isKinematic = false;
+            pushed = true;
+            GetComponent<Rigidbody>().AddForce(-transform.forward * magnitude, ForceMode.Impulse);
         }
 
         public void Teleport(Vector3 point) {

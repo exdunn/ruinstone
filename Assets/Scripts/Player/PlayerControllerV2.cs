@@ -75,6 +75,7 @@ namespace WizardWars
                 return;
             }
 
+            // move player to clicked location
             moveChar();
 
             // move player when user presses RMB
@@ -95,23 +96,51 @@ namespace WizardWars
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 curSpell = 0;
-                targetting = true;
+                if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
+                {
+                    spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
+                }
+                else
+                {
+                    targetting = true;
+                }
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 curSpell = 1;
-                targetting = true;
+                if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
+                {
+                    spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
+                }
+                else
+                {
+                    targetting = true;
+                }
             }
             else if(Input.GetKeyDown(KeyCode.Alpha3))
             {
                 curSpell = 2;
-                targetting = true;
+                if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
+                {
+                    spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
+                }
+                else
+                {
+                    targetting = true;
+                }
             }
             else if(Input.GetKeyDown(KeyCode.Alpha4))
             {
                 curSpell = 3;
-                spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0,0,0));
-            }
+                if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
+                {
+                    spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
+                }
+                else
+                {
+                    targetting = true;
+                }
+            } 
 
             // spell targetting state
             //bool canSpell = spells[0].GetComponent<Spell>().isCastable;
@@ -129,8 +158,8 @@ namespace WizardWars
                         spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, null, hit.point);
 
                         // make player look at target of spell
-                        Vector3 castDirection = new Vector3(hit.point.x, transform.position.y, hit.point.z);
-                        playerModel.transform.LookAt(castDirection);
+                        playerModel.transform.LookAt(hit.point);
+                        playerModel.transform.rotation = new Quaternion(0, playerModel.transform.rotation.y, 0, playerModel.transform.rotation.w);
 
                         // if player is moving, stop moving
                         newPosition = transform.position;

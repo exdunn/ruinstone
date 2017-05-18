@@ -204,7 +204,7 @@ namespace SpellSystem {
             //Calculate the direction (Push the target AWAY from origin)
             Vector3 relativeDir = impact - target.transform.position; //This is the direction between the target and the point of impact
             relativeDir = relativeDir.normalized;
-            player.ForceMove(force, -relativeDir);
+            // player.ForceMove(force, -relativeDir);
         }
         public static IEnumerator DisplaceOverTime(GameObject target, Vector3 impact, float force, float duration) {
             float timer = 0f;
@@ -215,7 +215,7 @@ namespace SpellSystem {
             while(timer < duration) {
                 Vector3 relativeDir = impact - target.transform.position; 
                 relativeDir = relativeDir.normalized;
-                player.ForceMove(force, -relativeDir);
+                // player.ForceMove(force, -relativeDir);
                 yield return new WaitForSeconds(TICK);
                 timer += TICK;
             }

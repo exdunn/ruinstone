@@ -50,6 +50,7 @@ namespace SpellSystem
                 yield return new WaitForSeconds(SpellUtility.TICK);
                 _cooldownTimer += SpellUtility.TICK;
             }
+            _cooldownTimer = 0;
             isCastable = true;
         }
     }

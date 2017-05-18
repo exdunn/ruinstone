@@ -9,12 +9,12 @@ namespace SpellSystem {
         public Status _status;
 
         public override void Cast(GameObject caster, GameObject target, Vector3 point) {
-            //Check caster
-            if(!caster) {
-                Debug.Log("Caster is empty!");
+            bool p = Precast(caster, target, point);
+            if (!p)
+            {
+                return;
             }
-
-            if(!_status)
+            if (!_status)
             {
                 Debug.Log("_status is empty!");
             }
