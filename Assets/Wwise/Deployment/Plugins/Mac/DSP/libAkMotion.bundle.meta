@@ -1,97 +1,53 @@
 fileFormatVersion: 2
-guid: 59bd742e3dfb62e4f9ccded07c7d2bc8
-timeCreated: 1495141275
+guid: f37e212f6bc1b9e44b68557f21fb4ade
+timeCreated: 1494953893
 licenseType: Free
 PluginImporter:
-  serializedVersion: 2
+  serializedVersion: 1
   iconMap: {}
   executionOrder: {}
   isPreloaded: 0
   isOverridable: 0
   platformData:
+    Editor:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+    Linux:
+      enabled: 0
+      settings:
+        CPU: None
+    Linux64:
+      enabled: 0
+      settings:
+        CPU: None
+    LinuxUniversal:
+      enabled: 0
+      settings:
+        CPU: None
+    OSXIntel:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+    OSXIntel64:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+    OSXUniversal:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+    Win:
+      enabled: 0
+      settings:
+        CPU: None
+    Win64:
+      enabled: 0
+      settings:
+        CPU: None
     data:
-      first:
-        Any: 
-      second:
-        enabled: 0
-        settings: {}
-    data:
-      first:
-        Editor: Editor
-      second:
-        enabled: 0
-        settings:
-          DefaultValueInitialized: true
-    data:
-      first:
-        Facebook: Win
-      second:
-        enabled: 0
-        settings:
-          CPU: None
-    data:
-      first:
-        Facebook: Win64
-      second:
-        enabled: 0
-        settings:
-          CPU: None
-    data:
-      first:
-        Standalone: Linux
-      second:
-        enabled: 0
-        settings:
-          CPU: None
-    data:
-      first:
-        Standalone: Linux64
-      second:
-        enabled: 0
-        settings:
-          CPU: None
-    data:
-      first:
-        Standalone: LinuxUniversal
-      second:
-        enabled: 0
-        settings:
-          CPU: None
-    data:
-      first:
-        Standalone: OSXIntel
-      second:
-        enabled: 0
-        settings:
-          CPU: AnyCPU
-    data:
-      first:
-        Standalone: OSXIntel64
-      second:
-        enabled: 0
-        settings:
-          CPU: AnyCPU
-    data:
-      first:
-        Standalone: OSXUniversal
-      second:
-        enabled: 0
-        settings:
-          CPU: AnyCPU
-    data:
-      first:
-        Standalone: Win
-      second:
-        enabled: 0
-        settings:
-          CPU: None
-    data:
-      first:
-        Standalone: Win64
-      second:
-        enabled: 0
-        settings:
-          CPU: None
+      enabled: 0
+      settings: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
