@@ -8,11 +8,7 @@ namespace WizardWars
     public class PlayerControllerV2 : Photon.MonoBehaviour
     {
 
-        #region public variables 
-
-        #endregion
-
-        #region private variables 
+        #region variables 
 
         // position of mouse click that player moves to
         public Vector3 newPosition
@@ -21,6 +17,7 @@ namespace WizardWars
         }
 
         GameObject[] spells;
+        CursorManager cursorManager;
 
         bool targetting = false;
 
@@ -56,14 +53,17 @@ namespace WizardWars
         {
             newPosition = transform.position;
 
+            // instantiate spell prefabs
             spells = new GameObject[spellPrefabs.Length];
-
             for (int i = 0; i < spellPrefabs.Length; ++i)
             {
                 //Debug.Log("Loaded Spell");
                 spells[i] = Instantiate(spellPrefabs[i], transform.position, transform.rotation);
                 //Debug.Log("Spell: " + spells[i]);
             }
+
+            // set cursor manager
+            cursorManager = GameObject.Find("Cursor Manager").GetComponent<CursorManager>();
         }
 
         // Update is called once per frame
@@ -95,57 +95,22 @@ namespace WizardWars
             // enter targeting state when user presses spell button
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                curSpell = 0;
-                if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
-                {
-                    spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
-                }
-                else
-                {
-                    targetting = true;
-                }
+                CastHelper(0);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                curSpell = 1;
-                if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
-                {
-                    spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
-                }
-                else
-                {
-                    targetting = true;
-                }
+                CastHelper(1);
             }
             else if(Input.GetKeyDown(KeyCode.Alpha3))
             {
-                curSpell = 2;
-                if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
-                {
-                    spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
-                }
-                else
-                {
-                    targetting = true;
-                }
+                CastHelper(2);
             }
             else if(Input.GetKeyDown(KeyCode.Alpha4))
             {
-                curSpell = 3;
-                if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
-                {
-                    spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
-                }
-                else
-                {
-                    targetting = true;
-                }
+                CastHelper(3);
             } 
 
-            // spell targetting state
-            //bool canSpell = spells[0].GetComponent<Spell>().isCastable;
-            //Debug.Log("Castable: " + canSpell);
-
+            // go into targetting mode
             if (targetting)
             {
                 if (Input.GetMouseButtonDown(0))
@@ -161,10 +126,18 @@ namespace WizardWars
                         playerModel.transform.LookAt(hit.point);
                         playerModel.transform.rotation = new Quaternion(0, playerModel.transform.rotation.y, 0, playerModel.transform.rotation.w);
 
+                        // play casting animation
+                        //playerModel.GetComponent<Animator>().SetTrigger("projectile cast");
+                        GetComponent<PhotonView>().RPC("BroadcastProjectileCastAnim", PhotonTargets.All);
+
                         // if player is moving, stop moving
                         newPosition = transform.position;
                     }
 
+                    // set normal cursor sprite
+                    cursorManager.activated = false;
+
+                    // leave targetting mode
                     targetting = false;
                 }
             }
@@ -212,18 +185,64 @@ namespace WizardWars
             }
         }
 
+        private void CastHelper(int index)
+        {
+            curSpell = index;
+            
+            if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
+            {
+                if (spells[curSpell].GetComponent<SpellSystem.Spell>().isCastable)
+                {
+                    GetComponent<PhotonView>().RPC("BroadcastSelfCastAnim", PhotonTargets.All);
+
+                    // set normal cursor sprite
+                    cursorManager.activated = false;
+
+                    // exit targetting mode
+                    targetting = false;
+                }
+                spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
+            }
+            else
+            {
+                if (spells[curSpell].GetComponent<SpellSystem.Spell>().isCastable)
+                {
+                    // set activated cursor sprite
+                    cursorManager.activated = true;
+
+                    // enter targetting mode
+                    targetting = true;
+                }
+            }
+        }
+
         #endregion
 
         #region PUN RPC
 
-        /// <summary>
-        /// broadcast to other players if the player is moving or not
-        /// </summary>
-        /// <param name="moving"></param>
+        // Play death animation
+        [PunRPC]
+        public void ReceivedDyingAnim()
+        {
+            playerModel.GetComponent<Animator>().SetTrigger("dying");
+        }
+
         [PunRPC]
         public void BroadcastMoveAnim(bool moving)
         {
             playerModel.GetComponent<Animator>().SetBool("moving", moving);
+        }
+
+        [PunRPC]
+        public void BroadcastProjectileCastAnim()
+        {
+            playerModel.GetComponent<Animator>().SetTrigger("projectile cast");
+        }
+
+        [PunRPC]
+        public void BroadcastSelfCastAnim()
+        {
+            playerModel.GetComponent<Animator>().SetTrigger("self cast");
         }
 
         #endregion

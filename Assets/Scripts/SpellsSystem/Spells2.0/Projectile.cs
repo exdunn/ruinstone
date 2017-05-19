@@ -91,7 +91,7 @@ namespace SpellSystem {
             }
 
             if (other.tag == Types.TargetToString(_targetType)) {
-                if(other.gameObject.GetComponent<WizardWars.PlayerManager>().playerId == caster.GetComponent<WizardWars.PlayerManager>().playerId) {
+                if(other.tag != "Ground" && other.gameObject.GetComponent<WizardWars.PlayerManager>().playerId == caster.GetComponent<WizardWars.PlayerManager>().playerId) {
                     return;
                 }
                 collidedWithTarget = true;

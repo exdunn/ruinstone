@@ -40,6 +40,11 @@ namespace WizardWars
             get; set;
         }
 
+        public string playerName
+        {
+            get; set;
+        }
+
         public int lives
         {
             get; set;
@@ -208,7 +213,7 @@ namespace WizardWars
             UpdateLives(-1);
 
             // player death anim
-            GetComponent<PhotonView>().RPC("ReceivedDieAnim", PhotonTargets.All, true);
+            GetComponent<PhotonView>().RPC("ReceivedDyingAnim", PhotonTargets.All);
 
             // player is eliminated when they run out of lives
             if (lives <= 0)
@@ -313,9 +318,9 @@ namespace WizardWars
 
         // Play death animation
         [PunRPC]
-        public void ReceivedDieAnim(bool die)
+        public void ReceivedRespawnAnim()
         {
-            GetComponentInChildren<Animator>().SetBool("dead", die);
+            GetComponentInChildren<Animator>().SetTrigger("respawn");
         }
 
         // Broadcast kills to all players
@@ -333,6 +338,9 @@ namespace WizardWars
         public void BroadcastDeaths(int value)
         {
             deaths = value;
+
+            // update the scoreboard
+            scoreboard.UpdateScoreLabelDeaths(playerId, deaths);
         }
 
         // Broadcast damage to all players
@@ -340,6 +348,9 @@ namespace WizardWars
         public void BroadcastDamageDealt(float value)
         {
             damageDealt = value;
+
+            // update the scoreboard
+            scoreboard.UpdateScoreLabelDamage(playerId, damageDealt);
         }
 
         // Set the player ID in everyone else's view
@@ -417,6 +428,9 @@ namespace WizardWars
                     message.GetComponentInChildren<UnityEngine.UI.Text>().text = "";
                 }
             }
+
+            // stop dying animation
+            GetComponent<PhotonView>().RPC("ReceivedRespawnAnim", PhotonTargets.All);
 
             // restore health to max health
             health = maxHealth;
