@@ -14,6 +14,7 @@ namespace WizardWars
         public GameObject playerPrefab;
         public GameObject gameMenu;
         public GameObject scoreboard;
+        public Text displayMessage;
         public GameObject[] spawnPoints;
 
         public bool gameOver
@@ -40,6 +41,7 @@ namespace WizardWars
         /// </summary>
         public void LeaveClick()
         {
+            PhotonNetwork.LeaveRoom();
             PhotonNetwork.Disconnect();
             SceneManager.LoadScene(0);
         }
@@ -60,25 +62,21 @@ namespace WizardWars
                 Debug.Log("Cannot find key " + playerId);
                 return;
             }
+    
+            GetComponent<PhotonView>().RPC("BroadcastPlayerElimination", PhotonTargets.All, playerId);
+        }
 
-            playerStatus[playerId] = false;
-            Debug.Log("PLAYER " + playerId + " HAS DIED");
-            //GetComponent<PhotonView>().RPC("ReceivedPlayerDeath", PhotonTargets.All, playerId);
+        #endregion
 
-            Debug.Log("number of remaining players: " + playerStatus.Count(c => true));
+        #region private methods
 
-            // if there is one remaining player alive game is over
-            // surviving player is declared the winner
-            if (playerStatus.Count(item => item.Value == true) == 1)
-            {
-                int winner = playerStatus.FirstOrDefault(x => x.Value == true).Key;
-                Debug.Log("THE WINNER IS PLAYER " + winner);
-            }
-            // less than one player remaining means the game is a draw
-            else if (playerStatus.Count(item => item.Value == true) < 1)
-            {
-                Debug.Log("NO REMAINING PLAYERS, GAME IS A DRAW");
-            }
+        private void EndGame(int winner)
+        {
+            Debug.Log("end game");
+            gameOver = true;
+            displayMessage.text = "Player " + winner + " is victorious!";
+            //PhotonNetwork.LeaveRoom();
+            //PhotonNetwork.Disconnect();
         }
 
         #endregion
@@ -138,6 +136,23 @@ namespace WizardWars
                 scoreboard.GetComponent<CanvasGroup>().alpha = 0;
             }
 
+
+            // ***** WIN CONDITION DETECTION *****
+
+            // if only one player is left they are the winner
+            if (playerStatus.Count(item => item.Value == true) == 1)
+            {
+                // for testing purposes only end the game if there is more than one person in the room
+                if (PhotonNetwork.room.PlayerCount > 1)
+                {
+                    EndGame(playerStatus.FirstOrDefault(x => x.Value == true).Key);
+                }
+            }
+            // less than one player remaining means the game is a draw
+            else if (playerStatus.Count(item => item.Value == true) < 1)
+            {
+                Debug.Log("NO REMAINING PLAYERS, GAME IS A DRAW");
+            }
         }
 
         void OnApplicationQuit()
@@ -152,7 +167,7 @@ namespace WizardWars
         #region PUN RPC
 
         [PunRPC]
-        public void ReceivedPlayerDeath(int playerId)
+        public void BroadcastPlayerElimination(int playerId)
         {
             if (!playerStatus.ContainsKey(playerId))
             {
@@ -161,7 +176,6 @@ namespace WizardWars
             }
 
             playerStatus[playerId] = false;
-            Debug.Log("PLAYER " + playerId + " HAS DIED");
         }
 
         [PunRPC]
