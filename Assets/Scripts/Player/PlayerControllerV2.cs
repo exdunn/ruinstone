@@ -129,6 +129,10 @@ namespace WizardWars
                         playerModel.transform.LookAt(hit.point);
                         playerModel.transform.rotation = new Quaternion(0, playerModel.transform.rotation.y, 0, playerModel.transform.rotation.w);
 
+                        // play casting animation
+                        //playerModel.GetComponent<Animator>().SetTrigger("projectile cast");
+                        GetComponent<PhotonView>().RPC("BroadcastProjectileCastAnim", PhotonTargets.All);
+
                         // if player is moving, stop moving
                         newPosition = transform.position;
                     }
@@ -185,15 +189,22 @@ namespace WizardWars
             curSpell = index;
             if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
             {
+                if (spells[curSpell].GetComponent<SpellSystem.Spell>().isCastable)
+                {
+                    GetComponent<PhotonView>().RPC("BroadcastSelfCastAnim", PhotonTargets.All);
+                }
+
                 spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
-                playerModel.GetComponent<Animator>().SetTrigger("self cast");
-                GetComponent<PhotonView>().RPC("BroadcastSelfCastAnim", PhotonTargets.All);
+                //playerModel.GetComponent<Animator>().SetTrigger("self cast");
+
+                
             }
             else
             {
-                targetting = true;
-                playerModel.GetComponent<Animator>().SetTrigger("projectile cast");
-                GetComponent<PhotonView>().RPC("BroadcastProjectileCastAnim", PhotonTargets.All);
+                if (spells[curSpell].GetComponent<SpellSystem.Spell>().isCastable)
+                {
+                    targetting = true;
+                }
             }
         }
 
