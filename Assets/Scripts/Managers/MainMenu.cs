@@ -8,20 +8,17 @@ namespace WizardWars
     public class MainMenu : Photon.MonoBehaviour
     {
 
-        #region Public Variables
+        #region Variables
+
 
         #endregion
 
-        #region Private Variables
-
-        #endregion
-
-        #region Public Methods
+        #region public methods
 
         /// <summary>
         /// Go to the create lobby menu
         /// </summary>
-        public void CreateClick ()
+        public void CreateClick()
         {
             SceneManager.LoadScene("Create Menu");
         }
@@ -61,7 +58,7 @@ namespace WizardWars
         #endregion
 
         #region Private Methods
-        
+
         /// <summary>
         /// Create presets in player prefs
         /// </summary>
@@ -80,12 +77,14 @@ namespace WizardWars
 
 
         // Use this for initialization
-        void Start ()
+        void Start()
         {
+            // set volume to 50%
             AudioListener.volume = 0.5f;
-            InitializePresets();
-            PhotonNetwork.playerName = PlayerPrefs.GetString("PlayerName");
-	    }
-    }
 
+            InitializePresets();
+
+            PhotonNetwork.playerName = PlayerPrefs.GetString("PlayerName");
+        }
+    }
 }

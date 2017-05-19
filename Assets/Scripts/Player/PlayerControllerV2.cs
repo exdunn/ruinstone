@@ -8,11 +8,7 @@ namespace WizardWars
     public class PlayerControllerV2 : Photon.MonoBehaviour
     {
 
-        #region public variables 
-
-        #endregion
-
-        #region private variables 
+        #region variables 
 
         // position of mouse click that player moves to
         public Vector3 newPosition
@@ -21,6 +17,7 @@ namespace WizardWars
         }
 
         GameObject[] spells;
+        CursorManager cursorManager;
 
         bool targetting = false;
 
@@ -56,14 +53,17 @@ namespace WizardWars
         {
             newPosition = transform.position;
 
+            // instantiate spell prefabs
             spells = new GameObject[spellPrefabs.Length];
-
             for (int i = 0; i < spellPrefabs.Length; ++i)
             {
                 //Debug.Log("Loaded Spell");
                 spells[i] = Instantiate(spellPrefabs[i], transform.position, transform.rotation);
                 //Debug.Log("Spell: " + spells[i]);
             }
+
+            // set cursor manager
+            cursorManager = GameObject.Find("Cursor Manager").GetComponent<CursorManager>();
         }
 
         // Update is called once per frame
@@ -110,10 +110,7 @@ namespace WizardWars
                 CastHelper(3);
             } 
 
-            // spell targetting state
-            //bool canSpell = spells[0].GetComponent<Spell>().isCastable;
-            //Debug.Log("Castable: " + canSpell);
-
+            // go into targetting mode
             if (targetting)
             {
                 if (Input.GetMouseButtonDown(0))
@@ -137,6 +134,10 @@ namespace WizardWars
                         newPosition = transform.position;
                     }
 
+                    // set normal cursor sprite
+                    cursorManager.activated = false;
+
+                    // leave targetting mode
                     targetting = false;
                 }
             }
@@ -187,22 +188,29 @@ namespace WizardWars
         private void CastHelper(int index)
         {
             curSpell = index;
+            
             if (spells[curSpell].GetComponent<SpellSystem.Spell>()._stats.behaviour.Equals("Self"))
             {
                 if (spells[curSpell].GetComponent<SpellSystem.Spell>().isCastable)
                 {
                     GetComponent<PhotonView>().RPC("BroadcastSelfCastAnim", PhotonTargets.All);
+
+                    // set normal cursor sprite
+                    cursorManager.activated = false;
+
+                    // exit targetting mode
+                    targetting = false;
                 }
-
                 spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
-                //playerModel.GetComponent<Animator>().SetTrigger("self cast");
-
-                
             }
             else
             {
                 if (spells[curSpell].GetComponent<SpellSystem.Spell>().isCastable)
                 {
+                    // set activated cursor sprite
+                    cursorManager.activated = true;
+
+                    // enter targetting mode
                     targetting = true;
                 }
             }
