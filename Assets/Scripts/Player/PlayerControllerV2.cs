@@ -18,6 +18,7 @@ namespace WizardWars
 
         GameObject[] spells;
         CursorManager cursorManager;
+        GameManager gameManager;
 
         bool targetting = false;
 
@@ -62,6 +63,9 @@ namespace WizardWars
                 //Debug.Log("Spell: " + spells[i]);
             }
 
+            // set game manager 
+            gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
             // set cursor manager
             cursorManager = GameObject.Find("Cursor Manager").GetComponent<CursorManager>();
         }
@@ -70,7 +74,7 @@ namespace WizardWars
         void Update()
         {
             // if player is dead then return
-            if (GetComponent<PlayerManager>().dead)
+            if (GetComponent<PlayerManager>().dead || gameManager.gameOver)
             {
                 return;
             }

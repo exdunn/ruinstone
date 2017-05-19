@@ -102,17 +102,20 @@ namespace WizardWars
                 LocalPlayerInstance = this.gameObject;
             }
 
+            
+        }
+
+        void Start()
+        {
             // initialize stats
             moveSpeedModifier = 1;
             damageModifier = 1;
             damageReceivedModifier = 1;
             cooldownReduction = 0;
-        }
 
-        void Start()
-        {
             deaths = 0;
             kills = 0;
+
             dead = false;
             pushed = false;
             _statuses = new List<Status>();
@@ -123,7 +126,7 @@ namespace WizardWars
             }
   
             // set local gameManager
-            gameManager = GameObject.Find("GameManager");
+            gameManager = GameObject.Find("Game Manager");
             lives = gameManager.GetComponent<GameManager>().lives;
 
             // set up spawn points
