@@ -27,13 +27,13 @@ namespace WizardWars
         #region Private Variables
 
         AutoCam _autoCam;
-
         List<Status> _statuses;
-
         GameObject gameManager;
         GameObject message;
         ScoreboardManager scoreboard;
         GameObject[] spawnPoints;
+
+        public int[] spells;
 
         public int playerId
         {
@@ -100,9 +100,7 @@ namespace WizardWars
             if (photonView.isMine)
             {
                 LocalPlayerInstance = this.gameObject;
-            }
-
-            
+            }   
         }
 
         void Start()
@@ -113,8 +111,10 @@ namespace WizardWars
             damageReceivedModifier = 1;
             cooldownReduction = 0;
 
+            // initialize misc
             deaths = 0;
             kills = 0;
+            spells = PlayerPrefsX.GetIntArray("curSpells");
 
             dead = false;
             pushed = false;

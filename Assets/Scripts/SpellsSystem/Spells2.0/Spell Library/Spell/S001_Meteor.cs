@@ -11,10 +11,10 @@ namespace SpellSystem {
 
         protected override IEnumerator DelayedCast (GameObject caster, GameObject target, Vector3 point) {
             Vector3 spawnPos = new Vector3(point.x, point.y + height, point.z);
-            GameObject m = SpellUtility.SpawnProjectile("Spells/" + meteor, this.transform, spawnPos, Quaternion.identity, _stats.radius);
+            GameObject m = SpellUtility.SpawnProjectile("Spells/P/" + meteor, this.transform, spawnPos, Quaternion.identity, _stats.radius);
             m.GetComponent<Projectile>()._stats = _stats;
             m.GetComponent<Projectile>()._targetType = Types.Target.GROUND;
-            GameObject i = SpellUtility.SpawnIndicator("Spells/" + indicator, this.transform, point, Quaternion.identity, _stats.radius);
+            GameObject i = SpellUtility.SpawnIndicator("Spells/I/" + indicator, this.transform, point, Quaternion.identity, _stats.radius);
             m.GetComponent<P_Meteor>().indicator = i;
 
             m.GetComponent<Projectile>().Move(caster, point, height);

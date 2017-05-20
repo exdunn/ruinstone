@@ -13,21 +13,18 @@ namespace WizardWars
             get; set;
         }
 
-        SpellUI[] spells;
+        public SpellUI[] spells;
         SpellStats[] library;
         public HealthGlobeUI healthGlobe;
         
-
         // Use this for initialization
         void Start()
         {
             healthGlobe = GetComponentInChildren<HealthGlobeUI>();
             GetComponent<Transform>().SetParent(GameObject.Find("Canvas").GetComponent<Transform>());
             library = GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>();
-            spells = GetComponentsInChildren<SpellUI>();
 
             int[] spellIds = PlayerPrefsX.GetIntArray("CurSpells");
-
             for (int i = 0; i < spells.Length; i++)
             {
                 spells[i].spell = library[spellIds[i]];
@@ -46,11 +43,8 @@ namespace WizardWars
                 healthGlobe.tooltip.GetComponent<Text>().text = player.health + "/" + player.maxHealth;
             }
         }
-
-        /// <summary>
-        /// attaches local player to playerUI
-        /// </summary>
-        /// <param name="player"></param>
+        
+        // attach ui to target player
         public void SetTarget(PlayerManager player)
         {
             if (player == null)
@@ -60,6 +54,11 @@ namespace WizardWars
             }
 
             this.player = player;
+        }
+
+        public void OnCast(int index)
+        {
+            spells[index].ResetCooldownTimer();
         }
     }
 

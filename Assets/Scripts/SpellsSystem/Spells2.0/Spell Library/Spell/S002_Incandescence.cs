@@ -19,7 +19,7 @@ namespace SpellSystem {
                 Debug.Log("_status is empty!");
             }
 
-            SpellUtility.Status("Spells/U_Incandescence", caster);
+            SpellUtility.Status("Spells/U/U_Incandescence", caster);
             isCastable = false;
             StartCoroutine(Cooldown(caster));
         }
