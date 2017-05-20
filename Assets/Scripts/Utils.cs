@@ -11,16 +11,7 @@ public static class Utils {
         return n;
     }
 
-    public static List<GameObject> GetAll(Types.Target type, Vector3 center, float radius) {
-        Collider[] t = Physics.OverlapSphere(center, radius);
-        List<GameObject> all = new List<GameObject>();
-        foreach(Collider c in t) {
-            if(c.gameObject.CompareTag(Types.TargetToString(type))) {
-                all.Add(c.gameObject);
-            }
-        }
-        return all;
-    }
+
 
     /*public static GameObject CreateProjectile(string prefab, Projectile proj, Transform parent, Vector3 position, Quaternion rotation) {
         // PhotonNetwork API doc-api.photonengine.com/en/pun/current/class_photon_network.html#a843d9f62d28ab123c83291c1e6bb857d

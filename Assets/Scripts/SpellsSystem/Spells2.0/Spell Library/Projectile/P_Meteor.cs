@@ -16,12 +16,17 @@ namespace SpellSystem {
             Die();
         }
 
+
         protected override void OnCollide(GameObject target) {
+            Debug.Log("On Collision");
+            //this.target = SpellUtility.LevelPoint(this.target);
             SpellUtility.AreaDamage(Types.Target.ENEMY, caster, this.target, _stats.radius, _stats.damage);
             Dissipate();
         }
 
         protected override void OnLocation() {
+            Debug.Log("On Location");
+            this.target = SpellUtility.LevelPoint(this.target);
             SpellUtility.AreaDamage(Types.Target.ENEMY, caster, target, _stats.radius, _stats.damage);
             Dissipate();
         }

@@ -89,18 +89,24 @@ namespace SpellSystem {
             if(isDone || !isStarting) {
                 return;
             }
-
-            if (other.tag == Types.TargetToString(_targetType)) {
-                if(other.tag != "Ground" && other.gameObject.GetComponent<WizardWars.PlayerManager>().playerId == caster.GetComponent<WizardWars.PlayerManager>().playerId) {
-                    return;
-                }
-                collidedWithTarget = true;
-                if(isDoingEffect) {
-                    return;
-                }
-                isDoingEffect = true;
-                OnCollide(other.gameObject);
+            if(other.tag == "Ground") {
+                Debug.Log("Collided with ground");
+                Collide(other);
             }
+            else if (other.tag == Types.TargetToString(_targetType)) {
+                if(other.gameObject.GetComponent<WizardWars.PlayerManager>().playerId == caster.GetComponent<WizardWars.PlayerManager>().playerId) {
+                    return;
+                }
+                Collide(other);
+            }
+        }
+        void Collide(Collider other) {
+            collidedWithTarget = true;
+            if(isDoingEffect) {
+                return;
+            }
+            isDoingEffect = true;
+            OnCollide(other.gameObject);
         }
 
         //Target is where the caster clicked

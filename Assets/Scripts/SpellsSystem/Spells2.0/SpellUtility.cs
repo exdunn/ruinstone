@@ -7,6 +7,7 @@ using WizardWars;
 namespace SpellSystem {
     public static class SpellUtility {
         public static float TICK = 1f;
+        public static float GROUND_HEIGHT = -2.3f;
 
         public static PlayerManager CheckAndGetPlayer(GameObject target) {
             if(target == null) {
@@ -28,6 +29,21 @@ namespace SpellSystem {
         public static GameObject SpawnIndicator(string prefab, Transform parent, Vector3 position, Quaternion rotation, float radius) {
             GameObject indicator = PhotonNetwork.Instantiate(prefab, position, rotation, 0);
             return indicator;
+        }
+        public static List<GameObject> GetAll(Types.Target type, Vector3 center, float radius) {
+            //Debug.Log(center + ", " + radius);
+            Collider[] t = Physics.OverlapSphere(center, radius);
+            List<GameObject> all = new List<GameObject>();
+            foreach(Collider c in t) {
+                Debug.Log("c: " + c);
+                if(c.gameObject.CompareTag(Types.TargetToString(type))) {
+                    all.Add(c.gameObject);
+                }
+            }
+            return all;
+        }
+        public static Vector3 LevelPoint(Vector3 point, float offset = 0f) {
+            return new Vector3(point.x, GROUND_HEIGHT + offset, point.z);
         }
 
 
@@ -71,8 +87,10 @@ namespace SpellSystem {
             }
         }
         public static void AreaDamage(Types.Target type, GameObject caster, Vector3 center, float radius, float damage) {
-            List<GameObject> targets = Utils.GetAll(type, center, radius);
+            List<GameObject> targets = GetAll(type, center, radius);
+            Debug.Log("Targets: ");
             for(int i = 0; i < targets.Count; ++i) {
+                Debug.Log(targets[i]);
                 Damage(targets[i], caster, damage);
             }
         }
@@ -109,7 +127,7 @@ namespace SpellSystem {
             }
         }
         public static void AreaHeal(Types.Target type, Vector3 center, float radius, float heal) {
-            List<GameObject> targets = Utils.GetAll(type, center, radius);
+            List<GameObject> targets = GetAll(type, center, radius);
             for(int i = 0; i < targets.Count; ++i) {
                 Heal(targets[i], heal);
             }
@@ -157,7 +175,7 @@ namespace SpellSystem {
             }
         }
         public static void AreaStatus(Types.Target type, Vector3 center, float radius, string prefab) {
-            List<GameObject> targets = Utils.GetAll(type, center, radius);
+            List<GameObject> targets = GetAll(type, center, radius);
             for(int i = 0; i < targets.Count; ++i) {
                 Status(prefab, targets[i]);
             }
@@ -195,7 +213,7 @@ namespace SpellSystem {
             }
         }
         public static void AreaControl(Types.Target type, Vector3 center, float radius, int control) {
-            List<GameObject> targets = Utils.GetAll(type, center, radius);
+            List<GameObject> targets = GetAll(type, center, radius);
             for(int i = 0; i < targets.Count; ++i) {
                 Control(targets[i], control);
             }
@@ -238,7 +256,7 @@ namespace SpellSystem {
             }
         }
         public static void AreaDisplace(Types.Target type, Vector3 center, float radius, float force) {
-            List<GameObject> targets = Utils.GetAll(type, center, radius);
+            List<GameObject> targets = GetAll(type, center, radius);
             for(int i = 0; i < targets.Count; ++i) {
                 Displace(targets[i], center, force);
             }
