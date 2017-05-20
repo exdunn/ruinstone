@@ -18,7 +18,7 @@ namespace SpellSystem {
             point = SpellUtility.LevelPoint(point);
             Debug.Log("new point: " + point);
             Vector3 spawnPos = new Vector3(point.x, point.y + height, point.z);
-            GameObject m = SpellUtility.SpawnProjectile("Spells/P/" + meteor, this.transform, spawnPos, Quaternion.identity, _stats.areaRadius);
+            GameObject m = SpellUtility.SpawnProjectile("Spells/P/" + meteor, this.transform, spawnPos, Quaternion.identity, _stats.projRadius);
             m.GetComponent<Projectile>()._stats = _stats;
             m.GetComponent<Projectile>()._targetType = Types.Target.GROUND;
             GameObject i = SpellUtility.SpawnIndicator("Spells/I/" + indicator, this.transform, point, Quaternion.identity, _stats.areaRadius);
