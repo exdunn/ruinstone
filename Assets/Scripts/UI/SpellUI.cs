@@ -34,14 +34,13 @@ namespace WizardWars
 
             
 	    }
-	
-	    // Update is called once per frame
-	    void Update () {
 
+        private void FixedUpdate()
+        {
             // set fill to display remaining cooldown
             if (cooldownTimer <= spell.cooldown)
             {
-                cooldownTimer += 0.1f;
+                cooldownTimer += Time.deltaTime;
                 fill.GetComponent<Image>().fillAmount = (spell.cooldown - cooldownTimer) / spell.cooldown;
             }
         }
@@ -52,6 +51,7 @@ namespace WizardWars
 
         public void ResetCooldownTimer()
         {
+            Debug.Log("cooldown: " + spell.cooldown);
             cooldownTimer = 0;
         }
 

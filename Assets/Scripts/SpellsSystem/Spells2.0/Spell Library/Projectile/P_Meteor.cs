@@ -7,6 +7,11 @@ namespace SpellSystem {
     public class P_Meteor : Projectile {
         public GameObject indicator;
 
+        void Start() {
+
+            explosionPrefab = "Effects/FireExplosion";
+        } 
+
         public override void Dissipate() {
             //Explode
             if(indicator) {
@@ -21,6 +26,7 @@ namespace SpellSystem {
             Debug.Log("On Collision");
             //this.target = SpellUtility.LevelPoint(this.target);
             SpellUtility.AreaDamage(Types.Target.ENEMY, caster, this.target, _stats.areaRadius, _stats.damage);
+            
             Dissipate();
         }
 

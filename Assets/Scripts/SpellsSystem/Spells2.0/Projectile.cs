@@ -10,6 +10,8 @@ namespace SpellSystem {
         public Types.Area _areaType = Types.Area.LINEAR;
         public Types.Target _targetType = Types.Target.ENEMY;
 
+        protected string explosionPrefab { get; set; }
+
         protected bool isStarting { get; set; }
         protected bool isDone { get; set; }
         protected bool isDoingEffect { get; set; }
@@ -89,7 +91,17 @@ namespace SpellSystem {
             if(isDone || !isStarting) {
                 return;
             }
-            if(other.tag == "Ground") {
+
+
+            // if projectile has an explosion prefab then instantiate it
+            if (explosionPrefab != null)
+            {
+                Debug.Log("exp prefab: " + explosionPrefab);
+                PhotonNetwork.Instantiate(explosionPrefab, this.target, new Quaternion(0, 0, 0, 0), 0);
+            }
+            
+
+            if (other.tag == "Ground") {
                 Debug.Log("Collided with ground");
                 Collide(other);
             }
