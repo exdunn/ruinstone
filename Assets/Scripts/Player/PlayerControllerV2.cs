@@ -19,15 +19,12 @@ namespace WizardWars
         GameObject[] spells;
         CursorManager cursorManager;
         GameManager gameManager;
+        PlayerUI playerUI;
 
         bool targetting = false;
 
         // index of spell being targeted
         int curSpell = 0;
-
-        [Tooltip("List of spells the player can use")]
-        [SerializeField]
-        GameObject[] spellPrefabs;
 
         [Tooltip("Movement speed of the player")]
         [SerializeField]
@@ -54,13 +51,14 @@ namespace WizardWars
         {
             newPosition = transform.position;
 
-            // instantiate spell prefabs
-            spells = new GameObject[spellPrefabs.Length];
-            for (int i = 0; i < spellPrefabs.Length; ++i)
+            spells = new GameObject[4];
+
+            // get spell IDs from the current spell bar
+            int[] spellIDs = PlayerPrefsX.GetIntArray("CurSpells");
+            for (int i = 0; i < spellIDs.Length; ++i)
             {
-                //Debug.Log("Loaded Spell");
-                spells[i] = Instantiate(spellPrefabs[i], transform.position, transform.rotation);
-                //Debug.Log("Spell: " + spells[i]);
+                // instantiate spell by using Resource.Load and fetching the filename located in Constants
+                spells[i] = (GameObject)Instantiate(Resources.Load(Constants.spellPrefabString[spellIDs[i]]));
             }
 
             // set game manager 
@@ -68,6 +66,9 @@ namespace WizardWars
 
             // set cursor manager
             cursorManager = GameObject.Find("Cursor Manager").GetComponent<CursorManager>();
+
+            // set player ui
+            playerUI = GameObject.Find("Canvas/PlayerUI").GetComponent<PlayerUI>();
         }
 
         // Update is called once per frame
@@ -131,8 +132,10 @@ namespace WizardWars
                         playerModel.transform.rotation = new Quaternion(0, playerModel.transform.rotation.y, 0, playerModel.transform.rotation.w);
 
                         // play casting animation
-                        //playerModel.GetComponent<Animator>().SetTrigger("projectile cast");
                         GetComponent<PhotonView>().RPC("BroadcastProjectileCastAnim", PhotonTargets.All);
+
+                        // set spell globe fill
+                        playerUI.OnCast(curSpell);
 
                         // if player is moving, stop moving
                         newPosition = transform.position;
@@ -204,6 +207,9 @@ namespace WizardWars
 
                     // exit targetting mode
                     targetting = false;
+
+                    // set spell globe fill
+                    playerUI.OnCast(curSpell);
                 }
                 spells[curSpell].GetComponent<SpellSystem.Spell>().Cast(gameObject, gameObject, new Vector3(0, 0, 0));
             }

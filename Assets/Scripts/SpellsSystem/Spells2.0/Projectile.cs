@@ -127,7 +127,7 @@ namespace SpellSystem {
         }
 
         protected virtual Vector3 LevelPointToCaster(Vector3 point, Vector3 caster) {
-            return isVertical ? point : new Vector3(point.x, caster.y, point.z);
+            return isVertical ? point : new Vector3(point.x, caster.y+1, point.z);
         }
 
         protected void SetTargetAndDirection() {

@@ -178,13 +178,6 @@ namespace WizardWars
             playerStatus[playerId] = false;
         }
 
-        [PunRPC]
-        public void UpdateSpawnPoint(int index)
-        {
-            spawnPoints[index].GetComponent<Spawn>().taken = true;
-        }
-
-
         #endregion
 
         #region PUN callbacks

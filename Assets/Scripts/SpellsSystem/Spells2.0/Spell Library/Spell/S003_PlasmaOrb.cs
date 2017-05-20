@@ -19,7 +19,7 @@ namespace SpellSystem {
 
             Vector3 spawnPos = new Vector3(caster.transform.position.x, caster.transform.position.y + 1, caster.transform.position.z);
 
-            GameObject proj = SpellUtility.SpawnProjectile("Spells/" + spawn, this.transform, spawnPos, Quaternion.identity, _stats.radius);
+            GameObject proj = SpellUtility.SpawnProjectile("Spells/P/" + spawn, this.transform, spawnPos, Quaternion.identity, _stats.radius);
             proj.GetComponent<Projectile>()._stats = _stats;
             proj.GetComponent<Projectile>().Move(caster, point, 0);
             StartCoroutine(Cooldown(caster));

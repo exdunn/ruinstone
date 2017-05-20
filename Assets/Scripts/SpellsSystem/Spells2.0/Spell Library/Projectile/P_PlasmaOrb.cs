@@ -11,7 +11,7 @@ namespace SpellSystem {
 
         protected override void OnCollide(GameObject target) {
             SpellUtility.Damage(target, caster, _stats.damage);
-            SpellUtility.Status("Spells/U_PlasmaOrb", target);
+            SpellUtility.Status("Spells/U/U_PlasmaOrb", target);
             Dissipate();
         }
 
