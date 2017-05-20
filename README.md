@@ -22,7 +22,7 @@ Christian Sydow...    3D Artist
 
 Kevin Permana...      Sound Programmer
 
-Alex Fiete...         Sound Effects, Theme Song Composer
+Cyrus Fiete...         Sound Effects, Theme Song Composer
 
 John Grefiel...       Playtesting, QA
 
