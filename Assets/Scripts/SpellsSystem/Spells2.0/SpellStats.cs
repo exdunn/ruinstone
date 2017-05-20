@@ -23,7 +23,10 @@ public class SpellStats: MonoBehaviour {
     public float damage;
 
     [SerializeField]
-    public float radius;
+    public float projRadius;
+
+    [SerializeField]
+    public float areaRadius;
 
     [SerializeField]
     public float range;
