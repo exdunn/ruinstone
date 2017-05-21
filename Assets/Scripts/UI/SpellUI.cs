@@ -32,7 +32,7 @@ namespace WizardWars
         // Use this for initialization
         void Start () {
 
-            
+            cooldownTimer = spell.cooldown;
 	    }
 
         private void FixedUpdate()

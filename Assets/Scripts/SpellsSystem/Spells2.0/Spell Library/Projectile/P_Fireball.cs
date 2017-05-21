@@ -22,7 +22,7 @@ namespace SpellSystem {
             // if projectile has an explosion prefab then instantiate it
             if (explosionPrefab != null)
             {
-                CreateExplosion(target.transform.position, 2f, 3f);
+                CreateExplosion(transform.position, 2f, 0.5f);
             }
 
             Dissipate();

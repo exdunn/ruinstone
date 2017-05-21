@@ -25,7 +25,13 @@ namespace SpellSystem {
         protected override void OnCollide(GameObject target) {
             Debug.Log("On Collision");
             //this.target = SpellUtility.LevelPoint(this.target);
-            SpellUtility.AreaDamage(Types.Target.ENEMY, caster, this.target, _stats.areaRadius, _stats.damage);  
+            SpellUtility.AreaDamage(Types.Target.ENEMY, caster, this.target, _stats.areaRadius, _stats.damage);
+
+            // if projectile has an explosion prefab then instantiate it
+            if (explosionPrefab != null)
+            {
+                CreateExplosion(transform.position, 8f, 1f);
+            }
 
             Dissipate();
         }
@@ -36,7 +42,7 @@ namespace SpellSystem {
             // if projectile has an explosion prefab then instantiate it
             if (explosionPrefab != null)
             {
-                CreateExplosion(this.target, 8f, 1f);
+                CreateExplosion(transform.position, 8f, 1f);
             }
 
             this.target = SpellUtility.LevelPoint(this.target);
