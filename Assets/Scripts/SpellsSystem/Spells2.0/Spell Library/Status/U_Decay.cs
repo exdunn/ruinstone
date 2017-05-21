@@ -20,7 +20,7 @@ namespace SpellSystem {
                 return;
             }
 
-            //player.GetComponent<PhotonView>().RPC("UpdateDamageModifier", PhotonTargets.All, player.damageModifier + _damageModifier);
+            player.GetComponent<PhotonView>().RPC("UpdateMoveSpeedModifier", PhotonTargets.All, player.moveSpeedModifier - _slowModifier);
             player.GetComponent<PhotonView>().RPC("UpdateDamageReceivedModifier", PhotonTargets.All, player.damageReceivedModifier + _damageReceivedModifier);
 
             StartCoroutine(Run());
@@ -31,7 +31,7 @@ namespace SpellSystem {
             if(!player) {
                 return;
             }
-            //player.GetComponent<PhotonView>().RPC("UpdateDamageModifier", PhotonTargets.All, player.damageModifier + _damageModifier);
+            player.GetComponent<PhotonView>().RPC("UpdateMoveSpeedModifier", PhotonTargets.All, player.moveSpeedModifier - _slowModifier);
             player.GetComponent<PhotonView>().RPC("UpdateDamageReceivedModifier", PhotonTargets.All, player.damageReceivedModifier + _damageReceivedModifier);
         }
 
