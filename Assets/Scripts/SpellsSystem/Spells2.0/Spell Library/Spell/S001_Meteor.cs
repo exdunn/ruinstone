@@ -25,8 +25,11 @@ namespace SpellSystem {
             m.GetComponent<Projectile>()._targetType = Types.Target.GROUND;
 
             // create ground indicator
+
+            /*
             GameObject i = SpellUtility.SpawnIndicator("Spells/I/" + indicator, this.transform, point, Quaternion.identity, _stats.areaRadius);
             m.GetComponent<P_Meteor>().indicator = i;
+            */
 
             m.GetComponent<Projectile>().Move(caster, point, height);
             StartCoroutine(Cooldown(caster));

@@ -10,6 +10,7 @@ namespace WizardWars
 
         #region Variables
 
+        bool ready = false;
 
         #endregion
 
@@ -52,7 +53,13 @@ namespace WizardWars
         /// </summary>
         public void CollectionClick()
         {
-            SceneManager.LoadScene("Spell Collection");
+            if (ready)
+                SceneManager.LoadScene("Spell Collection");
+            else
+            {
+                // not ready
+            }
+
         }
 
         #endregion

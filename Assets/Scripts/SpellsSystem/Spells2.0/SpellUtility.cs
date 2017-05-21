@@ -91,7 +91,11 @@ namespace SpellSystem {
             Debug.Log("Targets: ");
             for(int i = 0; i < targets.Count; ++i) {
                 Debug.Log(targets[i]);
-                Damage(targets[i], caster, damage);
+
+                // don't deal damage to self
+                if (targets[i].GetComponent<PlayerManager>().playerId != caster.GetComponent<PlayerManager>().playerId) {
+                    Damage(targets[i], caster, damage);
+                }
             }
         }
         public static IEnumerator AreaDamageOverTime(Types.Target type, GameObject caster, Vector3 center, float areaRadius, float damage, float duration) {
