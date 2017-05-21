@@ -10,21 +10,9 @@ namespace WizardWars
     {
         #region Public Variables
 
-        /// <summary>
-        /// Player label prefab
-        /// </summary>
         public GameObject labelPrefab;
-
-        /// <summary>
-        /// Panel which is used as the parent when instantiating lobby labels
-        /// </summary>
         public GameObject playersPanel;
-
         public GameObject spellsPanel;
-
-        #endregion
-
-        #region Private Variables
 
         SpellSlotUI[] spellSlots;
         SpellStats[] library;
@@ -114,8 +102,6 @@ namespace WizardWars
         // Use this for initialization
         void Start()
         {
-            Debug.Log("lives: " + PhotonNetwork.room.CustomProperties["l"]);
-
             library = GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>();
             spellSlots = GetComponentsInChildren<SpellSlotUI>();
             InstantiatePlayerLabels();

@@ -13,5 +13,5 @@
         "Spells/S007_lightningBolt",
         "Spells/S008_innervate"
         };
-    }
+     }
 }

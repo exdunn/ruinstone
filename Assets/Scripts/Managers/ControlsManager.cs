@@ -8,10 +8,6 @@ namespace WizardWars
 {
     public class ControlsManager : MonoBehaviour {
 
-        enum RobeColor {
-            black, red, green, blue
-        };
-
         #region Public Variables
 
         public GameObject userTab;
@@ -23,11 +19,24 @@ namespace WizardWars
 
         #region private variables 
 
-        RobeColor rc = RobeColor.black;
+        int robeColor;
 
         #endregion
 
         #region MonoBehaviour Callbacks
+
+        void Start()
+        {
+            if (System.String.IsNullOrEmpty(PlayerPrefs.GetInt("Color").ToString())) 
+            {
+                robeColor = 0;
+            }
+            else
+            {
+                robeColor = PlayerPrefs.GetInt("Color");
+            }
+            colorButton.GetComponent<Image>().color = GetColor(robeColor);
+        }
 
         // Update is called once per frame
         void Update()
@@ -74,31 +83,30 @@ namespace WizardWars
 
         public void ColorClick()
         {
-            switch (rc)
+            robeColor = robeColor >= 3 ? 0 : ++robeColor;
+
+            Debug.Log("color: " + robeColor);
+
+            PlayerPrefs.SetInt("Color", robeColor);
+            colorButton.GetComponent<Image>().color = GetColor(robeColor);
+        }
+
+        private Color GetColor(int i)
+        {
+            switch (i)
             {
-                case RobeColor.black:
-                    colorButton.GetComponent<Image>().color = Color.red;
-                    PlayerPrefs.SetString("robe", "red");
-                    rc++;
-                    break;
-                case RobeColor.red:
-                    colorButton.GetComponent<Image>().color = Color.green;
-                    PlayerPrefs.SetString("robe", "green");
-                    rc++;
-                    break;
-                case RobeColor.green:
-                    colorButton.GetComponent<Image>().color = Color.blue;
-                    PlayerPrefs.SetString("robe", "blue");
-                    rc++;
-                    break;
-                case RobeColor.blue:
-                    colorButton.GetComponent<Image>().color = Color.black;
-                    PlayerPrefs.SetString("robe", "black");
-                    rc = 0;
-                    break;
+                case 0:
+                    return Color.black;
+                case 1:
+                    return Color.red;
+                case 2:
+                    return new Color32(117, 6, 188, 255);
+                case 3:
+                    return Color.green;
                 default:
-                    break;
+                    return Color.black;
             }
+
         }
 
         public void SetVolume(float value)
