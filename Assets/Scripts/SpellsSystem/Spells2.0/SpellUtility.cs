@@ -35,7 +35,7 @@ namespace SpellSystem {
             Collider[] t = Physics.OverlapSphere(center, projRadius);
             List<GameObject> all = new List<GameObject>();
             foreach(Collider c in t) {
-                Debug.Log("c: " + c);
+                //Debug.Log("c: " + c);
                 if(c.gameObject.CompareTag(Types.TargetToString(type))) {
                     all.Add(c.gameObject);
                 }

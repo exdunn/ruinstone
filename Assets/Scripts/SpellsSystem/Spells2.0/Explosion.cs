@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour {
 
-    [SerializeField]
-    float timer;
+    public ParticleSystem lightFlare;
 
-	// Update is called once per frame
+    public float timer { get; set; }
+
+    public float size { get; set; }
+
+    void Start()
+    {
+        ParticleSystem.MainModule main = lightFlare.main;
+        main.startSizeMultiplier = size;
+    }
+
+    // Update is called once per frame
 	void FixedUpdate () {
 		if (timer > 0)
         {

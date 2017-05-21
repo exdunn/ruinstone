@@ -66,7 +66,6 @@ namespace WizardWars {
 
         public void UpdateScoreLabelDamage(int key, float damage)
         {
-            Debug.Log("key: " + key);
             scorebaordLabels[key].GetComponent<PhotonView>().
                 RPC("BroadcastDamageTextChange", 
                 PhotonTargets.All, 

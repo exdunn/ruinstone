@@ -90,16 +90,7 @@ namespace SpellSystem {
         void OnTriggerEnter(Collider other) {
             if(isDone || !isStarting) {
                 return;
-            }
-
-
-            // if projectile has an explosion prefab then instantiate it
-            if (explosionPrefab != null)
-            {
-                Debug.Log("exp prefab: " + explosionPrefab);
-                PhotonNetwork.Instantiate(explosionPrefab, this.target, new Quaternion(0, 0, 0, 0), 0);
-            }
-            
+            }            
 
             if (other.tag == "Ground") {
                 Debug.Log("Collided with ground");
@@ -112,6 +103,7 @@ namespace SpellSystem {
                 Collide(other);
             }
         }
+
         void Collide(Collider other) {
             collidedWithTarget = true;
             if(isDoingEffect) {
@@ -119,6 +111,16 @@ namespace SpellSystem {
             }
             isDoingEffect = true;
             OnCollide(other.gameObject);
+        }
+
+        protected void CreateExplosion(Vector3 location, float size, float duration)
+        {
+            Debug.Log("exp prefab: " + explosionPrefab);
+            GameObject explosion = PhotonNetwork.Instantiate(explosionPrefab, location, new Quaternion(0, 0, 0, 0), 0);
+
+            // set properties for the explosion
+            explosion.GetComponent<Explosion>().size = size;
+            explosion.GetComponent<Explosion>().timer = duration;
         }
 
         //Target is where the caster clicked

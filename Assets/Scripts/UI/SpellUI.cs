@@ -51,7 +51,6 @@ namespace WizardWars
 
         public void ResetCooldownTimer()
         {
-            Debug.Log("cooldown: " + spell.cooldown);
             cooldownTimer = 0;
         }
 
