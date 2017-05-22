@@ -17,7 +17,8 @@ namespace SpellSystem {
                 Debug.Log("_status is empty!");
             }
 
-            SpellUtility.Status("Spells/U/U_Innervate", caster);
+            SpellUtility.Status("Spells/U/U_Innervate", caster, _stats.duration);
+
             StartCoroutine(Cooldown(caster));
         }
     }

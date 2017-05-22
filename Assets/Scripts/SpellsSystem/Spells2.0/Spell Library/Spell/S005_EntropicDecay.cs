@@ -16,7 +16,7 @@ namespace SpellSystem {
                 while(!delay) {
                     yield return null;
                 }
-                SpellUtility.AreaStatusOverTime(Types.Target.ENEMY, point, _stats.areaRadius, "Spells/U/" + status, _stats.duration);
+                SpellUtility.AreaStatusOverTime(Types.Target.ENEMY, point, _stats.areaRadius, "Spells/U/" + status, _stats.duration, _stats.duration);
                 StartCoroutine(Cooldown(caster));
             }
             yield return null;

@@ -21,15 +21,18 @@ namespace SpellSystem {
             }
             return player;
         }
+
         public static GameObject SpawnProjectile(string prefab, Transform parent, Vector3 position, Quaternion rotation, float projRadius) {
             GameObject projectile = PhotonNetwork.Instantiate(prefab, position, rotation, 0);
             projectile.GetComponent<SphereCollider>().radius = projRadius;
             return projectile;
         }
+
         public static GameObject SpawnIndicator(string prefab, Transform parent, Vector3 position, Quaternion rotation, float projRadius) {
             GameObject indicator = PhotonNetwork.Instantiate(prefab, position, rotation, 0);
             return indicator;
         }
+
         public static List<GameObject> GetAll(Types.Target type, Vector3 center, float projRadius) {
             //Debug.Log(center + ", " + radius);
             Collider[] t = Physics.OverlapSphere(center, projRadius);
@@ -42,6 +45,7 @@ namespace SpellSystem {
             }
             return all;
         }
+
         public static Vector3 LevelPoint(Vector3 point, float offset = 0f) {
             return new Vector3(point.x, GROUND_HEIGHT + offset, point.z);
         }
@@ -149,7 +153,7 @@ namespace SpellSystem {
         /******************************************************** Status ********************************************************/
 
 
-        public static void Status(String prefab, GameObject target) {
+        public static void Status(String prefab, GameObject target, float duration) {
             PlayerManager player = CheckAndGetPlayer(target);
 
             if (!player) {
@@ -157,6 +161,8 @@ namespace SpellSystem {
             }
             // instantiate the status so that all players can see it
             GameObject newStatus = PhotonNetwork.Instantiate(prefab, target.transform.position, target.transform.rotation, 0);
+
+            newStatus.GetComponent<Status>()._duration = duration;
 
             // parent the status to the target
             newStatus.transform.parent = target.transform;
@@ -178,16 +184,16 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        public static void AreaStatus(Types.Target type, Vector3 center, float areaRadius, string prefab) {
+        public static void AreaStatus(Types.Target type, Vector3 center, float areaRadius, string prefab, float duration) {
             List<GameObject> targets = GetAll(type, center, areaRadius);
             for(int i = 0; i < targets.Count; ++i) {
-                Status(prefab, targets[i]);
+                Status(prefab, targets[i], duration);
             }
         }
-        public static IEnumerator AreaStatusOverTime(Types.Target type, Vector3 center, float areaRadius, string prefab, float duration) {
+        public static IEnumerator AreaStatusOverTime(Types.Target type, Vector3 center, float areaRadius, string prefab, float primaryDur, float secondaryDur) {
             float timer = 0f;
-            while(timer < duration) {
-                AreaStatus(type, center, areaRadius, prefab);
+            while(timer < primaryDur) {
+                AreaStatus(type, center, areaRadius, prefab, secondaryDur);
                 yield return new WaitForSeconds(TICK);
                 timer += TICK;
             }

@@ -5,25 +5,21 @@ using UnityEngine;
 using WizardWars;
 
 namespace SpellSystem {
-    public class S002_Incandescence : Spell {
+    public class S004_VoidWalk : Spell {
         public Status _status;
 
         public override void Cast(GameObject caster, GameObject target, Vector3 point) {
             bool p = Precast(caster, target, point);
-            if (!p)
-            {
+            if(!p) {
                 return;
             }
-            if (!_status)
-            {
+            if(!_status) {
                 Debug.Log("_status is empty!");
             }
 
-            SpellUtility.Status("Spells/U/U_Incandescence", caster, _stats.duration);
-            isCastable = false;
+            SpellUtility.Status("Spells/U/U_VoidWalk", caster, _stats.duration);
             StartCoroutine(Cooldown(caster));
         }
-
     }
 }
 

@@ -10,7 +10,7 @@ namespace WizardWars
 
         #region Variables
 
-        bool ready = false;
+        bool cinematic = false;
 
         #endregion
 
@@ -53,13 +53,7 @@ namespace WizardWars
         /// </summary>
         public void CollectionClick()
         {
-            if (ready)
-                SceneManager.LoadScene("Spell Collection");
-            else
-            {
-                // not ready
-            }
-
+            SceneManager.LoadScene("Spell Collection");
         }
 
         #endregion
@@ -89,9 +83,13 @@ namespace WizardWars
             // set volume to 50%
             AudioListener.volume = 0.5f;
 
-            InitializePresets();
+            //InitializePresets();
 
             PhotonNetwork.playerName = PlayerPrefs.GetString("PlayerName");
+
+            // if recording mode then go to cinematic scene
+            if (cinematic)
+                SceneManager.LoadScene("Cinematic Scene");
         }
     }
 }
