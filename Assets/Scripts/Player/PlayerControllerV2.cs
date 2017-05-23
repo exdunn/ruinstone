@@ -46,11 +46,8 @@ namespace WizardWars
 
         #region monobehaviour callbacks
 
-        // Use this for initialization
-        void Start()
+        private void Awake()
         {
-            newPosition = transform.position;
-
             spells = new GameObject[4];
 
             // get spell IDs from the current spell bar
@@ -60,6 +57,12 @@ namespace WizardWars
                 // instantiate spell by using Resource.Load and fetching the filename located in Constants
                 spells[i] = (GameObject)Instantiate(Resources.Load(Constants.spellPrefabString[spellIDs[i]]));
             }
+        }
+
+        // Use this for initialization
+        void Start()
+        {
+            newPosition = transform.position;
 
             // set game manager 
             gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();

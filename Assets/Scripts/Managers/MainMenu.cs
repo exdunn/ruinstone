@@ -10,6 +10,7 @@ namespace WizardWars
 
         #region Variables
 
+        bool cinematic = false;
 
         #endregion
 
@@ -64,12 +65,12 @@ namespace WizardWars
         /// </summary>
         private void InitializePresets()
         {
-            PlayerPrefsX.SetStringArray("SpellBarNames", new string[] { "Spells 1", "Spells 2", "Spells 3", "Spells 4", "Spells 5" });
+            PlayerPrefsX.SetStringArray("SpellBarNames", new string[] { "Spells 1", "Spells 2", "Spells 3", "Spells 4" });
 
             PlayerPrefsX.SetIntArray("Spells1", new int[] { 0, 1, 2, 8 });
-            PlayerPrefsX.SetIntArray("Spells2", new int[] { 6, 3, 8, 1 });
+            PlayerPrefsX.SetIntArray("Spells2", new int[] { 1, 2, 3, 8 });
             PlayerPrefsX.SetIntArray("Spells3", new int[] { 1, 6, 2, 8 });
-            PlayerPrefsX.SetIntArray("Spells4", new int[] { 5, 6, 7, 8 });
+            PlayerPrefsX.SetIntArray("Spells4", new int[] { 0, 1, 6, 8 });
         }
 
         #endregion
@@ -82,9 +83,13 @@ namespace WizardWars
             // set volume to 50%
             AudioListener.volume = 0.5f;
 
-            InitializePresets();
+            //InitializePresets();
 
             PhotonNetwork.playerName = PlayerPrefs.GetString("PlayerName");
+
+            // if recording mode then go to cinematic scene
+            if (cinematic)
+                SceneManager.LoadScene("Cinematic Scene");
         }
     }
 }

@@ -104,8 +104,13 @@ namespace WizardWars
 
                 // spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
                 GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoints[index].transform.position, spawnPoints[index].transform.rotation, 0);
+
+                // enable controller for local player
                 newPlayer.GetComponent<PlayerControllerV2>().enabled = true;
+
+                // set properties for local player
                 newPlayer.GetComponent<PlayerManager>().playerId = (int)PhotonNetwork.player.CustomProperties["ID"];
+                newPlayer.GetComponent<PlayerManager>().color = PlayerPrefs.GetInt("Color");
                 lives = System.Convert.ToInt32(PhotonNetwork.room.CustomProperties["l"]);          
             }
         }

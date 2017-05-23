@@ -22,10 +22,6 @@ namespace WizardWars
         public int deaths;
         public float damageDealt; 
 
-        #endregion
-
-        #region Private Variables
-
         AutoCam _autoCam;
         List<Status> _statuses;
         GameObject gameManager;
@@ -35,60 +31,25 @@ namespace WizardWars
 
         public int[] spells;
 
-        public int playerId
-        {
-            get; set;
-        }
+        public int playerId { get; set; }
+        //public string playerName { get; set; }
+        public int lives { get; set; }
+        public int spawnIndex { get; set; }
+        public int color { get; set; }
+        public bool dead { get; set; }
 
-        public string playerName
-        {
-            get; set;
-        }
-
-        public int lives
-        {
-            get; set;
-        }
-
-        public int spawnIndex
-        {
-            get; set;
-        }
-
-        public bool pushed
-        {
-            get; set;
-        }
+        // use this to disable movement if the player is being knocked back
+        public bool pushed { get; set; }
 
         #endregion
 
         #region player stats
 
-        public float moveSpeedModifier
-        {
-            get;set;
-        }
-
-        public float damageModifier
-        {
-            get;set;
-        }
-
-        public float damageReceivedModifier
-        {
-            get;set;
-        }
-
-        public float cooldownReduction
-        {
-            get;set;
-        }
-
-        public bool dead
-        {
-            get; set;
-        }
-
+        public float moveSpeedModifier { get; set; }
+        public float damageModifier { get; set; }
+        public float damageReceivedModifier { get; set; }
+        public float cooldownReduction { get; set; }
+        
         #endregion
 
         #region MonoBehaviour Callbacks
@@ -123,6 +84,7 @@ namespace WizardWars
             if (photonView.isMine)
             {
                 GetComponent<PhotonView>().RPC("BroadcastPlayerId", PhotonTargets.All, playerId);
+                GetComponent<PhotonView>().RPC("BroadcastPlayerColor", PhotonTargets.All, color);
             }
   
             // set local gameManager
@@ -139,7 +101,24 @@ namespace WizardWars
             scoreboard = gameManager.GetComponent<GameManager>().scoreboard.GetComponent<ScoreboardManager>();
 
             // set robe color
-            GetComponent<PlayerControllerV2>().playerModel.GetComponent<Renderer>().materials[0].color = Color.red;
+            switch (color)
+            {
+                case 0:
+                    GetComponent<PlayerControllerV2>().playerModel.GetComponent<Renderer>().materials[0].color = new Color32(26, 26, 26,255);
+                    break;
+                case 1:
+                    GetComponent<PlayerControllerV2>().playerModel.GetComponent<Renderer>().materials[0].color = new Color32(124, 15, 15, 255);
+                    break;
+                case 2:
+                    GetComponent<PlayerControllerV2>().playerModel.GetComponent<Renderer>().materials[0].color = new Color32(117, 6, 188,255);
+                    break;
+                case 3:
+                    GetComponent<PlayerControllerV2>().playerModel.GetComponent<Renderer>().materials[0].color = new Color32(15, 96, 25,255);
+                    break;
+                default:
+                    GetComponent<PlayerControllerV2>().playerModel.GetComponent<Renderer>().materials[0].color = new Color32(26, 26, 26,255);
+                    break;
+            }
 
             // attach camera to player
             _autoCam = Camera.main.GetComponentInParent<AutoCam>();
@@ -361,6 +340,13 @@ namespace WizardWars
         public void BroadcastPlayerId(int id)
         {
             playerId = id;
+        }
+
+        // Set the player color in everyone else's view
+        [PunRPC]
+        public void BroadcastPlayerColor(int value)
+        {
+            color = value;
         }
 
         // Set moveSpeedModifier for remote player

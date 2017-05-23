@@ -7,6 +7,7 @@ using WizardWars;
 namespace SpellSystem {
     public static class SpellUtility {
         public static float TICK = 1f;
+        public static float GROUND_HEIGHT = -2.3f;
 
         public static PlayerManager CheckAndGetPlayer(GameObject target) {
             if(target == null) {
@@ -20,14 +21,33 @@ namespace SpellSystem {
             }
             return player;
         }
-        public static GameObject SpawnProjectile(string prefab, Transform parent, Vector3 position, Quaternion rotation, float radius) {
+
+        public static GameObject SpawnProjectile(string prefab, Transform parent, Vector3 position, Quaternion rotation, float projRadius) {
             GameObject projectile = PhotonNetwork.Instantiate(prefab, position, rotation, 0);
-            projectile.GetComponent<SphereCollider>().radius = radius;
+            projectile.GetComponent<SphereCollider>().radius = projRadius;
             return projectile;
         }
-        public static GameObject SpawnIndicator(string prefab, Transform parent, Vector3 position, Quaternion rotation, float radius) {
+
+        public static GameObject SpawnIndicator(string prefab, Transform parent, Vector3 position, Quaternion rotation, float projRadius) {
             GameObject indicator = PhotonNetwork.Instantiate(prefab, position, rotation, 0);
             return indicator;
+        }
+
+        public static List<GameObject> GetAll(Types.Target type, Vector3 center, float projRadius) {
+            //Debug.Log(center + ", " + radius);
+            Collider[] t = Physics.OverlapSphere(center, projRadius);
+            List<GameObject> all = new List<GameObject>();
+            foreach(Collider c in t) {
+                //Debug.Log("c: " + c);
+                if(c.gameObject.CompareTag(Types.TargetToString(type))) {
+                    all.Add(c.gameObject);
+                }
+            }
+            return all;
+        }
+
+        public static Vector3 LevelPoint(Vector3 point, float offset = 0f) {
+            return new Vector3(point.x, GROUND_HEIGHT + offset, point.z);
         }
 
 
@@ -70,16 +90,22 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        public static void AreaDamage(Types.Target type, GameObject caster, Vector3 center, float radius, float damage) {
-            List<GameObject> targets = Utils.GetAll(type, center, radius);
+        public static void AreaDamage(Types.Target type, GameObject caster, Vector3 center, float areaRadius, float damage) {
+            List<GameObject> targets = GetAll(type, center, areaRadius);
+            Debug.Log("Targets: ");
             for(int i = 0; i < targets.Count; ++i) {
-                Damage(targets[i], caster, damage);
+                Debug.Log(targets[i]);
+
+                // don't deal damage to self
+                if (targets[i].GetComponent<PlayerManager>().playerId != caster.GetComponent<PlayerManager>().playerId) {
+                    Damage(targets[i], caster, damage);
+                }
             }
         }
-        public static IEnumerator AreaDamageOverTime(Types.Target type, GameObject caster, Vector3 center, float radius, float damage, float duration) {
+        public static IEnumerator AreaDamageOverTime(Types.Target type, GameObject caster, Vector3 center, float areaRadius, float damage, float duration) {
             float timer = 0f;
             while(timer < duration) {
-                AreaDamage(type, caster, center, radius, damage);
+                AreaDamage(type, caster, center, areaRadius, damage);
                 yield return new WaitForSeconds(TICK);
                 timer += TICK;
             }
@@ -108,16 +134,16 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        public static void AreaHeal(Types.Target type, Vector3 center, float radius, float heal) {
-            List<GameObject> targets = Utils.GetAll(type, center, radius);
+        public static void AreaHeal(Types.Target type, Vector3 center, float areaRadius, float heal) {
+            List<GameObject> targets = GetAll(type, center, areaRadius);
             for(int i = 0; i < targets.Count; ++i) {
                 Heal(targets[i], heal);
             }
         }
-        public static IEnumerator AreaHealOverTime(Types.Target type, Vector3 center, float radius, float heal, float duration) {
+        public static IEnumerator AreaHealOverTime(Types.Target type, Vector3 center, float areaRadius, float heal, float duration) {
             float timer = 0f;
             while(timer < duration) {
-                AreaHeal(type, center, radius, heal);
+                AreaHeal(type, center, areaRadius, heal);
                 yield return new WaitForSeconds(TICK);
                 timer += TICK;
             }
@@ -127,7 +153,7 @@ namespace SpellSystem {
         /******************************************************** Status ********************************************************/
 
 
-        public static void Status(String prefab, GameObject target) {
+        public static void Status(String prefab, GameObject target, float duration) {
             PlayerManager player = CheckAndGetPlayer(target);
 
             if (!player) {
@@ -135,6 +161,8 @@ namespace SpellSystem {
             }
             // instantiate the status so that all players can see it
             GameObject newStatus = PhotonNetwork.Instantiate(prefab, target.transform.position, target.transform.rotation, 0);
+
+            newStatus.GetComponent<Status>()._duration = duration;
 
             // parent the status to the target
             newStatus.transform.parent = target.transform;
@@ -156,16 +184,16 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        public static void AreaStatus(Types.Target type, Vector3 center, float radius, string prefab) {
-            List<GameObject> targets = Utils.GetAll(type, center, radius);
+        public static void AreaStatus(Types.Target type, Vector3 center, float areaRadius, string prefab, float duration) {
+            List<GameObject> targets = GetAll(type, center, areaRadius);
             for(int i = 0; i < targets.Count; ++i) {
-                Status(prefab, targets[i]);
+                Status(prefab, targets[i], duration);
             }
         }
-        public static IEnumerator AreaStatusOverTime(Types.Target type, Vector3 center, float radius, string prefab, float duration) {
+        public static IEnumerator AreaStatusOverTime(Types.Target type, Vector3 center, float areaRadius, string prefab, float primaryDur, float secondaryDur) {
             float timer = 0f;
-            while(timer < duration) {
-                AreaStatus(type, center, radius, prefab);
+            while(timer < primaryDur) {
+                AreaStatus(type, center, areaRadius, prefab, secondaryDur);
                 yield return new WaitForSeconds(TICK);
                 timer += TICK;
             }
@@ -194,16 +222,16 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        public static void AreaControl(Types.Target type, Vector3 center, float radius, int control) {
-            List<GameObject> targets = Utils.GetAll(type, center, radius);
+        public static void AreaControl(Types.Target type, Vector3 center, float areaRadius, int control) {
+            List<GameObject> targets = GetAll(type, center, areaRadius);
             for(int i = 0; i < targets.Count; ++i) {
                 Control(targets[i], control);
             }
         }
-        public static IEnumerator AreaControlOverTime(Types.Target type, Vector3 center, float radius, int control, float duration) {
+        public static IEnumerator AreaControlOverTime(Types.Target type, Vector3 center, float areaRadius, int control, float duration) {
             float timer = 0f;
             while(timer < duration) {
-                AreaControl(type, center, radius, control);
+                AreaControl(type, center, areaRadius, control);
                 yield return new WaitForSeconds(TICK);
                 timer += TICK;
             }
@@ -237,16 +265,16 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
-        public static void AreaDisplace(Types.Target type, Vector3 center, float radius, float force) {
-            List<GameObject> targets = Utils.GetAll(type, center, radius);
+        public static void AreaDisplace(Types.Target type, Vector3 center, float areaRadius, float force) {
+            List<GameObject> targets = GetAll(type, center, areaRadius);
             for(int i = 0; i < targets.Count; ++i) {
                 Displace(targets[i], center, force);
             }
         }
-        public static IEnumerator AreaDisplaceOverTime(Types.Target type, Vector3 center, float radius, float force, float duration) {
+        public static IEnumerator AreaDisplaceOverTime(Types.Target type, Vector3 center, float areaRadius, float force, float duration) {
             float timer = 0f;
             while(timer < duration) {
-                AreaDisplace(type, center, radius, force);
+                AreaDisplace(type, center, areaRadius, force);
                 yield return new WaitForSeconds(TICK);
                 timer += TICK;
             }

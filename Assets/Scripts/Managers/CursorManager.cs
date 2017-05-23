@@ -20,6 +20,11 @@ namespace WizardWars
             activated = false;
             Cursor.visible = false;
             DontDestroyOnLoad(this);
+
+            if (FindObjectsOfType(GetType()).Length > 1)
+            {
+                Destroy(gameObject);
+            }
         }
 
         // Update is called once per frame

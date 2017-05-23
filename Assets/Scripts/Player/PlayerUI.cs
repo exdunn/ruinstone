@@ -16,20 +16,28 @@ namespace WizardWars
         public SpellUI[] spells;
         SpellStats[] library;
         public HealthGlobeUI healthGlobe;
-        
-        // Use this for initialization
-        void Start()
+
+        private void Awake()
         {
-            healthGlobe = GetComponentInChildren<HealthGlobeUI>();
-            GetComponent<Transform>().SetParent(GameObject.Find("Canvas").GetComponent<Transform>());
+            // set spell stats library
             library = GameObject.FindGameObjectWithTag("Library").GetComponents<SpellStats>();
 
+            // get ids of spells currently in use
             int[] spellIds = PlayerPrefsX.GetIntArray("CurSpells");
+
+            // set spells for each spell globe ui elemet
             for (int i = 0; i < spells.Length; i++)
             {
                 spells[i].spell = library[spellIds[i]];
                 spells[i].SetIcon(library[spellIds[i]].iconSprite);
             }
+        }
+
+        // Use this for initialization
+        void Start()
+        {
+            healthGlobe = GetComponentInChildren<HealthGlobeUI>();
+            GetComponent<Transform>().SetParent(GameObject.Find("Canvas").GetComponent<Transform>());      
         } 
 
         // Update is called once per frame

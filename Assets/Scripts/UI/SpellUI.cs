@@ -32,16 +32,15 @@ namespace WizardWars
         // Use this for initialization
         void Start () {
 
-            
+            cooldownTimer = spell.cooldown;
 	    }
-	
-	    // Update is called once per frame
-	    void Update () {
 
+        private void FixedUpdate()
+        {
             // set fill to display remaining cooldown
             if (cooldownTimer <= spell.cooldown)
             {
-                cooldownTimer += 0.1f;
+                cooldownTimer += Time.deltaTime;
                 fill.GetComponent<Image>().fillAmount = (spell.cooldown - cooldownTimer) / spell.cooldown;
             }
         }

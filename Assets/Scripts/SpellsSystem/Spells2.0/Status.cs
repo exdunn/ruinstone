@@ -6,8 +6,8 @@ using WizardWars;
 
 namespace SpellSystem {
     public abstract class Status : Photon.MonoBehaviour {
-        public float _duration;
 
+        public float _duration { get; set; }
         protected int where { get; set; }
         public bool isDone { get; set; }
         public bool isEnd { get; set; }

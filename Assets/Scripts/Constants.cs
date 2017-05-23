@@ -3,15 +3,15 @@
     public static class Constants
     {
         public static readonly string[] spellPrefabString = {
-        "Spells/S000_fireball",
-        "Spells/S001_meteor",
-        "Spells/S002_incandescence",
-        "Spells/S003_plasmaOrb",
+        "Spells/S000_Fireball",
+        "Spells/S001_Meteor",
+        "Spells/S002_Incandescence",
+        "Spells/S003_PlasmaOrb",
         "Spells/S004_voidwalk",
-        "Spells/S005_entropicDecay",
+        "Spells/S005_EntropicDecay",
         "Spells/S006_quark",
-        "Spells/S007_lightningBolt",
-        "Spells/S008_innervate"
+        "Spells/S007_LightningStrike",
+        "Spells/S008_Innervate"
         };
-    }
+     }
 }

@@ -10,6 +10,8 @@ namespace SpellSystem {
         public Types.Area _areaType = Types.Area.LINEAR;
         public Types.Target _targetType = Types.Target.ENEMY;
 
+        protected string explosionPrefab { get; set; }
+
         protected bool isStarting { get; set; }
         protected bool isDone { get; set; }
         protected bool isDoingEffect { get; set; }
@@ -88,19 +90,37 @@ namespace SpellSystem {
         void OnTriggerEnter(Collider other) {
             if(isDone || !isStarting) {
                 return;
-            }
+            }            
 
-            if (other.tag == Types.TargetToString(_targetType)) {
-                if(other.tag != "Ground" && other.gameObject.GetComponent<WizardWars.PlayerManager>().playerId == caster.GetComponent<WizardWars.PlayerManager>().playerId) {
-                    return;
-                }
-                collidedWithTarget = true;
-                if(isDoingEffect) {
-                    return;
-                }
-                isDoingEffect = true;
-                OnCollide(other.gameObject);
+            if (other.tag == "Ground") {
+                Debug.Log("Collided with ground");
+                Collide(other);
             }
+            else if (other.tag == Types.TargetToString(_targetType)) {
+                if(other.gameObject.GetComponent<WizardWars.PlayerManager>().playerId == caster.GetComponent<WizardWars.PlayerManager>().playerId) {
+                    return;
+                }
+                Collide(other);
+            }
+        }
+
+        void Collide(Collider other) {
+            collidedWithTarget = true;
+            if(isDoingEffect) {
+                return;
+            }
+            isDoingEffect = true;
+            OnCollide(other.gameObject);
+        }
+
+        protected void CreateExplosion(Vector3 location, float size, float duration)
+        {
+            Debug.Log("exp prefab: " + explosionPrefab);
+            GameObject explosion = PhotonNetwork.Instantiate(explosionPrefab, location, new Quaternion(0, 0, 0, 0), 0);
+
+            // set properties for the explosion
+            explosion.GetComponent<Explosion>().size = size;
+            explosion.GetComponent<Explosion>().timer = duration;
         }
 
         //Target is where the caster clicked
