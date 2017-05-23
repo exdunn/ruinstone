@@ -1,5 +1,8 @@
 # ruinstone
 
+trailer:
+https://www.youtube.com/watch?v=ntGTQM9DjMo&t=26s
+
 A fantasy, multiplayer online battle arena game.  Combat is fast-paced and the objective is to be the last contestant standing. 
 Eliminate your enemies with destructive magic by reducing their health to 0.  A clean hit will knock the target back and
 knocking them off the map will instantly eliminate them.  Players can create "spell bars" by navigating to the Athenaeum menu
@@ -23,6 +26,8 @@ Christian Sydow...    3D Artist
 Kevin Permana...      Sound Programmer
 
 Cyrus Fiete...         Sound Effects, Theme Song Composer
+
+Camille Dunn...       Video Content Creator
 
 John Grefiel...       Playtesting, QA
 
