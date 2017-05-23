@@ -116,23 +116,23 @@ public interface IPunCallbacks
     void OnMasterClientSwitched(PhotonPlayer newMasterClient);
 
     /// <summary>
-    /// Called when a CreateRoom() call failed. The parameter provides ErrorCode and message (as array).
+    /// Called when a CreateRoom() call failed. The parameter provides ErrorCode_Photon and message (as array).
     /// </summary>
     /// <remarks>
     /// Most likely because the room name is already in use (some other client was faster than you).
     /// PUN logs some info if the PhotonNetwork.logLevel is >= PhotonLogLevel.Informational.
     /// </remarks>
-    /// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode and codeAndMsg[1] is a string debug msg.</param>
+    /// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode_Photon and codeAndMsg[1] is a string debug msg.</param>
     void OnPhotonCreateRoomFailed(object[] codeAndMsg);
 
     /// <summary>
-    /// Called when a JoinRoom() call failed. The parameter provides ErrorCode and message (as array).
+    /// Called when a JoinRoom() call failed. The parameter provides ErrorCode_Photon and message (as array).
     /// </summary>
     /// <remarks>
     /// Most likely error is that the room does not exist or the room is full (some other client was faster than you).
     /// PUN logs some info if the PhotonNetwork.logLevel is >= PhotonLogLevel.Informational.
     /// </remarks>
-    /// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode and codeAndMsg[1] is string debug msg.</param>
+    /// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode_Photon and codeAndMsg[1] is string debug msg.</param>
     void OnPhotonJoinRoomFailed(object[] codeAndMsg);
 
     /// <summary>
@@ -248,14 +248,14 @@ public interface IPunCallbacks
     void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer);
 
     /// <summary>
-    /// Called when a JoinRandom() call failed. The parameter provides ErrorCode and message.
+    /// Called when a JoinRandom() call failed. The parameter provides ErrorCode_Photon and message.
     /// </summary>
     /// <remarks>
     /// Most likely all rooms are full or no rooms are available. <br/>
     /// When using multiple lobbies (via JoinLobby or TypedLobby), another lobby might have more/fitting rooms.<br/>
     /// PUN logs some info if the PhotonNetwork.logLevel is >= PhotonLogLevel.Informational.
     /// </remarks>
-    /// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode. codeAndMsg[1] is string debug msg.</param>
+    /// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode_Photon. codeAndMsg[1] is string debug msg.</param>
     void OnPhotonRandomJoinFailed(object[] codeAndMsg);
 
     /// <summary>
@@ -573,25 +573,25 @@ namespace Photon
         }
 
         /// <summary>
-        /// Called when a CreateRoom() call failed. The parameter provides ErrorCode and message (as array).
+        /// Called when a CreateRoom() call failed. The parameter provides ErrorCode_Photon and message (as array).
         /// </summary>
         /// <remarks>
         /// Most likely because the room name is already in use (some other client was faster than you).
         /// PUN logs some info if the PhotonNetwork.logLevel is >= PhotonLogLevel.Informational.
         /// </remarks>
-        /// <param name="codeAndMsg">codeAndMsg[0] is a short ErrorCode and codeAndMsg[1] is a string debug msg.</param>
+        /// <param name="codeAndMsg">codeAndMsg[0] is a short ErrorCode_Photon and codeAndMsg[1] is a string debug msg.</param>
         public virtual void OnPhotonCreateRoomFailed(object[] codeAndMsg)
         {
         }
 
         /// <summary>
-        /// Called when a JoinRoom() call failed. The parameter provides ErrorCode and message (as array).
+        /// Called when a JoinRoom() call failed. The parameter provides ErrorCode_Photon and message (as array).
         /// </summary>
         /// <remarks>
         /// Most likely error is that the room does not exist or the room is full (some other client was faster than you).
         /// PUN logs some info if the PhotonNetwork.logLevel is >= PhotonLogLevel.Informational.
         /// </remarks>
-        /// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode. codeAndMsg[1] is string debug msg.</param>
+        /// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode_Photon. codeAndMsg[1] is string debug msg.</param>
         public virtual void OnPhotonJoinRoomFailed(object[] codeAndMsg)
         {
         }
@@ -731,14 +731,14 @@ namespace Photon
         }
 
         /// <summary>
-        /// Called when a JoinRandom() call failed. The parameter provides ErrorCode and message.
+        /// Called when a JoinRandom() call failed. The parameter provides ErrorCode_Photon and message.
         /// </summary>
         /// <remarks>
         /// Most likely all rooms are full or no rooms are available. <br/>
         /// When using multiple lobbies (via JoinLobby or TypedLobby), another lobby might have more/fitting rooms.<br/>
         /// PUN logs some info if the PhotonNetwork.logLevel is >= PhotonLogLevel.Informational.
         /// </remarks>
-        /// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode. codeAndMsg[1] is string debug msg.</param>
+        /// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode_Photon. codeAndMsg[1] is string debug msg.</param>
         public virtual void OnPhotonRandomJoinFailed(object[] codeAndMsg)
         {
         }

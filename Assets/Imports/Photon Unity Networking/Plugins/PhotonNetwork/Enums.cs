@@ -74,7 +74,7 @@ public enum PhotonNetworkingMessage
     OnMasterClientSwitched,
 
     /// <summary>
-    /// Called when a CreateRoom() call failed. Optional parameters provide ErrorCode and message.
+    /// Called when a CreateRoom() call failed. Optional parameters provide ErrorCode_Photon and message.
     /// </summary>
     /// <remarks>
     /// Most likely because the room name is already in use (some other client was faster than you).
@@ -82,12 +82,12 @@ public enum PhotonNetworkingMessage
     ///
     /// Example: void OnPhotonCreateRoomFailed() { ... }
     ///
-    /// Example: void OnPhotonCreateRoomFailed(object[] codeAndMsg) { // codeAndMsg[0] is short ErrorCode. codeAndMsg[1] is string debug msg.  }
+    /// Example: void OnPhotonCreateRoomFailed(object[] codeAndMsg) { // codeAndMsg[0] is short ErrorCode_Photon. codeAndMsg[1] is string debug msg.  }
     /// </remarks>
     OnPhotonCreateRoomFailed,
 
     /// <summary>
-    /// Called when a JoinRoom() call failed. Optional parameters provide ErrorCode and message.
+    /// Called when a JoinRoom() call failed. Optional parameters provide ErrorCode_Photon and message.
     /// </summary>
     /// <remarks>
     /// Most likely error is that the room does not exist or the room is full (some other client was faster than you).
@@ -95,7 +95,7 @@ public enum PhotonNetworkingMessage
     ///
     /// Example: void OnPhotonJoinRoomFailed() { ... }
     ///
-    /// Example: void OnPhotonJoinRoomFailed(object[] codeAndMsg) { // codeAndMsg[0] is short ErrorCode. codeAndMsg[1] is string debug msg.  }
+    /// Example: void OnPhotonJoinRoomFailed(object[] codeAndMsg) { // codeAndMsg[0] is short ErrorCode_Photon. codeAndMsg[1] is string debug msg.  }
     /// </remarks>
     OnPhotonJoinRoomFailed,
 
@@ -223,7 +223,7 @@ public enum PhotonNetworkingMessage
     OnPhotonPlayerDisconnected,
 
     /// <summary>
-    /// Called after a JoinRandom() call failed. Optional parameters provide ErrorCode and message.
+    /// Called after a JoinRandom() call failed. Optional parameters provide ErrorCode_Photon and message.
     /// </summary>
     /// <remarks>
     /// Most likely all rooms are full or no rooms are available.
@@ -232,7 +232,7 @@ public enum PhotonNetworkingMessage
     ///
     /// Example: void OnPhotonRandomJoinFailed() { ... }
     ///
-    /// Example: void OnPhotonRandomJoinFailed(object[] codeAndMsg) { // codeAndMsg[0] is short ErrorCode. codeAndMsg[1] is string debug msg.  }
+    /// Example: void OnPhotonRandomJoinFailed(object[] codeAndMsg) { // codeAndMsg[0] is short ErrorCode_Photon. codeAndMsg[1] is string debug msg.  }
     /// </remarks>
     OnPhotonRandomJoinFailed,
 

@@ -162,7 +162,7 @@ Unity SDK:
 *** Version 4.0.5.0 (3. December 2015 - rev3144)
     Changed: Signature of SetCustomProperties methods. All overloads now include a final, optional "webForward" parameter. This enables you to update a WebHook when properties change. This is intended for turnbased games, not for high-frequency updates - use with care.
     Internal: Added more debug output to error messages from the socket usage. This should now always include the ServerAddress to make things easier to debug server-side, if needed.
-    Added: Serveral new ErrorCode values, which will be used by v4RC5 and newer servers. See ErrorCode.JoinFailed***, HttpLimitReached and ExternalHttpCallFailed.
+    Added: Serveral new ErrorCode_Photon values, which will be used by v4RC5 and newer servers. See ErrorCode_Photon.JoinFailed***, HttpLimitReached and ExternalHttpCallFailed.
     Fixed: LoadBalancing API now reads the correct "NickName" key from the server's authentication response. So far, it was reading a key that is never used. Note: This means you can set a user's NickName server-side to override the client's nickname.
 Chat
     Added: A MessageLimit field for ChatClient and ChatChannel to limit the number of messages the client keeps locally. It might be useful to limit memory usage in long running chats. Set ChatClient.MessageLimit to apply the limit to any channel subscribed afterwards or apply a limit individually.
@@ -189,7 +189,7 @@ LoadBalancing (Realtime and Turnbased API)
     Changed: Order of execution for Ev Join. If user is known (inactive user rejoins), the player's props are read. The actor list is used, if available.
     Changed: RoomOptions to use properties with backup-fields to avoid issues in Unity which has issues with Object Initializer (curly brackets).
     Changed: JoinMode 2 is now "JoinOrRejoin". Was: "Rejoin".
-    Added: ErrorCode constant AuthenticationTicketExpired.
+    Added: ErrorCode_Photon constant AuthenticationTicketExpired.
     Internal: OpJoinRoom, OpCreateRoom and OpJoinRandomRoom no longer use a (growing) list of properties. Instead, classes were created to "sum up" their parameters. The api for games didn't change.
     Internal: Related to the refactoring of Join/Create, the LoadBalancingClient now creates a Room instance when the client arrived on the GameServer (before, it got created in the initial "create" call).
 Chat
@@ -460,7 +460,7 @@ LoadBalancing API
     Added: LoadBalancingClient.Connect overload which takes a AuthenticationValues parameter.
     Added: LoadBalancingPeer.AuthValues property to set the custom authentication values.
     Added: Parameter authValues to OpAuthenticate. This is used to provide the authentication parameters and or the secret/ticket provided by Photon.
-    Added: ErrorCode.CustomAuthenticationFailed to be used in switches for OperationResponse.ErrorCode (for OpAuthenticate).
+    Added: ErrorCode_Photon.CustomAuthenticationFailed to be used in switches for OperationResponse.ErrorCode_Photon (for OpAuthenticate).
     Changed: LoadBalancingClient.PlayerName can be set before connecting to get a UserId which is "findable" by OpFindFriends(). Find friends does NOT use any values set for custom authentication!
     Added: Class FriendInfo to contain a friend's name, online state and room name (if available and after using OpFindFriends()).
     Added: OpFindFriends() to actually find the friends. Use on the Master Server only, not on a room.
@@ -536,7 +536,7 @@ LoadBalancing API:
     Changed: LoadBalancingClient debug output now goes to: Debug.WriteLine (which is available in debugger, while Console is not always).
     Changed: CacheProperties method is now virtual for Room and Player. This allows you to override it and use this as callback to update props.
     Added: Player.Tag to store arbitrary (game) data with the Player. Put in (e.g.) a player's representation/avatar or similar.
-    Added: ErrorCode constants MaxCcuReached and InvalidRegion. These are important for the Photon Cloud.
+    Added: ErrorCode_Photon constants MaxCcuReached and InvalidRegion. These are important for the Photon Cloud.
     Added: Handling for DisconnectedByUserLimit. This is a status of OnStatusChanged when a Photon Server License's CCU limit is reached. This no longer will try to connect to a Game Server (where it gets rejected, too).
     Changed: Debug output of loadBalancingClient now goes to Debug.WriteLine (which is available in debugger).
     Changed: API now uses a factory method to create Room instances (this makes it possible to extend the Room class and instantiate the new class instead).
@@ -1195,7 +1195,7 @@ Siverlight:
 - Change: signature of NeutronSession.raiseEventForActor() is changed to "byte eventCode, Hashtable eventData, boolean filter, String userID, int minutesValid, byte maxTypeCount, byte channel"
 - Change: NeutronGame.doModerate() is now isModerator()
 - Change: moved GpOperation.SerializeData() and GpOperation.DeserializeData() to Neutron.SerializeData() and Neutron.DeserializeData().
-- New: errorCode RC_INVALID_TARGET and RC_PARAMETER_NOT_SUPPLIED added as constant.
+- New: ErrorCode_Photon RC_INVALID_TARGET and RC_PARAMETER_NOT_SUPPLIED added as constant.
 
 *** Version 4.9.3
 - New: Errors constants in NeutronListener: RC_FATAL_LOGIC, RC_MATCHMAKING_NOT_COMPLETED, RC_CHANNEL_ACCESS_VIOLATION

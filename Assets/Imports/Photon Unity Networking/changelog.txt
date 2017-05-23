@@ -475,9 +475,9 @@ Added: Error messages on-screen in the "Worker Demo" menu. When CreateRoom, Join
 Added: ShowInfoOfPlayer component (in UtilityScripts folder). It's an example how to display the owner's name of networked GameObjects (those with PhotonView). Note that the owner might be "" if you don't set a PhotonNetwork.playerName. Best set it before/at connect.
 Added: SupportLogger component (in UtilityScripts folder). Attach to any GameObject in a start scene and it will vital values we need when you have support-questions about your subscription, your CCU usage, etc. We might ask you to run your game with this script. Send the log or at least the output starting with "SupportLogger Info" in doubt.
 Added: InRoomRoundTimer component (again: in UtilityScripts folder). It is a simple synchronized timer for rounds. Players who join late can still count down to the end of a round, etc. Check out the code and usage and you should be able to implement state changes on top of this.
-Added: ErrorCode.WebHookCallFailed (32752). This can happen when you accidentally use a Turnbased or Chat ApplicationId. It just makes sense to know and maybe check AppID.
+Added: ErrorCode_Photon.WebHookCallFailed (32752). This can happen when you accidentally use a Turnbased or Chat ApplicationId. It just makes sense to know and maybe check AppID.
 Added: LogError for Operations that failed in a WebHook or Server Plugin. This should make it relatively easy to spot situations where an AppId is misconfigured on the server.
-Added: Optional object[] parameter for OnPhotonRandomJoinFailed, OnPhotonJoinRoomFailed and OnPhotonCreateRoomFailed. It makes debugging easier. When your callback has this parameter, you get ErrorCode and the debug message. You don't have to implement this new parameter though. It's only interesting in a few cases.
+Added: Optional object[] parameter for OnPhotonRandomJoinFailed, OnPhotonJoinRoomFailed and OnPhotonCreateRoomFailed. It makes debugging easier. When your callback has this parameter, you get ErrorCode_Photon and the debug message. You don't have to implement this new parameter though. It's only interesting in a few cases.
 Changed: RaiseEvent can now send events with code 0..199. They also get dispatched when you registered a OnEventCall. Before, eventCode had to be 1 and up which was a unnecessary limitation.
 Added: Description for all RoomOptions.
 Changed: The RPC-List is now sorted when new ones are added. On refresh, the whole list is sorted, which is more likely to be the same across Editors.
@@ -702,7 +702,7 @@ Fixed: PhotonNetwork.Destroy for anything owned by a player who already left. Th
 Fixed: OfflineMode for PhotonNetwork.Disconnect() now resets the state and calls events (leaving room, disconnect) as you know it by online mode.
 Changed: If you use OfflineMode, this now ends (!) when you call PhotonNetwork.Disconnect().
 Added: NetworkView groups are now using Photon's new Interest Group feature (new server SDK v3.2 and up required). This might save some bandwidth but might also lead to inconsistant states (when ignoring essential RPCs accidentally). Check out "Using Groups in PUN" topic in the PDF.
-Added: New ErrorCode constants: MaxCcuReached and InvalidRegion.
+Added: New ErrorCode_Photon constants: MaxCcuReached and InvalidRegion.
 Added: DisconnectCause values: MaxCcuReached and InvalidRegion.
 Added: OnConnectionFail() is now also called in case of Photon Cloud MaxCcuReached (the callback OnMaxCcuReached() is still called but maybe you want to handle these similar errors in one method).
 Added: OnConnectionFail() is called in case of "Invalid Region".
@@ -789,7 +789,7 @@ Improved: When connected to the lobby, countOfRooms is based on the room list le
 Fixed: When the connection 'breaks', via a disconnect call the network state will be reset properly. This mainly fixes the behaviour of iOS apps going to the background (which drops the connection).
 Fixed: Bug which kept authorize from being encrypted. Authorize encryption is now enabled by default. The AppId is now only sent in the op authorize (v1.14.2)
 Updated: PhotonStatsGui. This simple component can be attached to gameobjects and shown with shift+tab. It now shows gaps in send- and dispatch-intervals. If those go beyond a few milliseconds, the game FPS obviously stutters which might cause connection issues.
-Updated: doc for ActorProperties, ErrorCode, GameProprties, EventCode, ParameterCode, OperationCode.
+Updated: doc for ActorProperties, ErrorCode_Photon, GameProprties, EventCode, ParameterCode, OperationCode.
 Updated: Internally used client library to latest release v3.0.1.6
 Updated: PUN version string to "1.14"
 Internal only:
