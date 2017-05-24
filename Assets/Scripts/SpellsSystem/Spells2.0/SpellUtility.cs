@@ -153,11 +153,11 @@ namespace SpellSystem {
         /******************************************************** Status ********************************************************/
 
 
-        public static void Status(String prefab, GameObject target, float duration) {
+        public static GameObject Status(String prefab, GameObject target, float duration) {
             PlayerManager player = CheckAndGetPlayer(target);
 
             if (!player) {
-                return;
+                return null;
             }
             // instantiate the status so that all players can see it
             GameObject newStatus = PhotonNetwork.Instantiate(prefab, target.transform.position, target.transform.rotation, 0);
@@ -170,6 +170,8 @@ namespace SpellSystem {
 
             // add the status to the player
             player.AddStatus(newStatus);
+
+            return newStatus;
         }
 
         public static IEnumerator StatusOverTime(GameObject target, GameObject status, float duration) {

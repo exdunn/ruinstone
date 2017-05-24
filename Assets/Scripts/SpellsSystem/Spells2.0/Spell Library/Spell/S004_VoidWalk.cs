@@ -17,7 +17,10 @@ namespace SpellSystem {
                 Debug.Log("_status is empty!");
             }
 
-            SpellUtility.Status("Spells/U/U_VoidWalk", caster, _stats.duration);
+            // voidwalk is unique because it is a status with a damage component
+            GameObject newStatus = SpellUtility.Status("Spells/U/U_VoidWalk", caster, _stats.duration);
+            newStatus.GetComponent<U_VoidWalk>().damage = _stats.damage;
+
             StartCoroutine(Cooldown(caster));
         }
     }

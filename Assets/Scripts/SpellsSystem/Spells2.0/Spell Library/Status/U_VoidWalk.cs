@@ -10,6 +10,10 @@ namespace SpellSystem {
 
         public float _moveSpeedBonus;
         public float _damageReceivedModifier;
+        public float secondaryDur;
+        
+        public float damage { get; set; }
+
         public override void Activate(GameObject target, int where) {
             if(isStarting) {
                 return;
@@ -24,8 +28,8 @@ namespace SpellSystem {
             }
 
             // modify player stats
-            player.GetComponent<PhotonView>().RPC("UpdateMoveSpeed", PhotonTargets.All, player.damageModifier + _moveSpeedBonus);
-            player.GetComponent<PhotonView>().RPC("UpdateDamageReceivedModifier", PhotonTargets.All, player.damageReceivedModifier - _damageReceivedModifier);
+            player.GetComponent<PhotonView>().RPC("UpdateMoveSpeedModifier", PhotonTargets.All, player.moveSpeedModifier + _moveSpeedBonus);
+            player.GetComponent<PhotonView>().RPC("UpdateDamageReceivedModifier", PhotonTargets.All, player.damageReceivedModifier + _damageReceivedModifier);
 
             StartCoroutine(Run());
         }
@@ -38,8 +42,8 @@ namespace SpellSystem {
             }
 
             // return player stats to their original value
-            player.GetComponent<PhotonView>().RPC("UpdateMoveSpeed", PhotonTargets.All, player.damageModifier - _moveSpeedBonus);
-            player.GetComponent<PhotonView>().RPC("UpdateDamageReceivedModifier", PhotonTargets.All, player.damageReceivedModifier + _damageReceivedModifier);
+            player.GetComponent<PhotonView>().RPC("UpdateMoveSpeedModifier", PhotonTargets.All, player.moveSpeedModifier - _moveSpeedBonus);
+            player.GetComponent<PhotonView>().RPC("UpdateDamageReceivedModifier", PhotonTargets.All, player.damageReceivedModifier - _damageReceivedModifier);
         }
 
         protected override IEnumerator Run() {
@@ -49,6 +53,22 @@ namespace SpellSystem {
             }
 
             isEnd = true;
+        }
+
+        // when Voidwalking player collides with another player
+        // deal damage to and slow the other player
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.tag != "Player") {
+                return;
+            }
+
+            if (other.gameObject.GetComponent<PlayerManager>().playerId != target.GetComponent<PlayerManager>().playerId) {
+
+                SpellUtility.Damage(other.gameObject, target, damage);
+                SpellUtility.Status("Spells/U/U_PlasmaOrb", other.gameObject, secondaryDur);
+                //Debug.Log("collision");
+            }
         }
     }
 }
