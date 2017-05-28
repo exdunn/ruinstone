@@ -14,6 +14,8 @@ namespace WizardWars
         public GameObject controlsTab;
         public GameObject soundTab;
         public GameObject colorButton;
+        public GameObject musicToggle;
+        public GameObject volSlider;
 
         #endregion
 
@@ -27,15 +29,21 @@ namespace WizardWars
 
         void Start()
         {
-            if (System.String.IsNullOrEmpty(PlayerPrefs.GetInt("Color").ToString())) 
-            {
+            if (System.String.IsNullOrEmpty(PlayerPrefs.GetInt("Color").ToString())) {
+
                 robeColor = 0;
             }
-            else
-            {
+            else {
+
                 robeColor = PlayerPrefs.GetInt("Color");
             }
             colorButton.GetComponent<Image>().color = GetColor(robeColor);
+
+            // if theme == 1 then toggle on else toggle off
+            musicToggle.GetComponent<Toggle>().isOn = PlayerPrefs.GetInt("Theme") == 1 ? true : false;
+
+            // set volume slider to player pref value
+            volSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("Vol");
         }
 
         // Update is called once per frame
@@ -111,6 +119,7 @@ namespace WizardWars
 
         public void SetVolume(float value)
         {
+            PlayerPrefs.SetFloat("Vol", value);
             AudioListener.volume = value;
         }
 
@@ -118,10 +127,20 @@ namespace WizardWars
         {
             AudioSource theme = GameObject.Find("RuinStone Theme").GetComponent<AudioSource>();
 
-            if (theme == null)
-            {
+            if (theme == null) {
+
                 Debug.LogError("Cannot find audio source");
                 return;
+            }
+
+            // 1 => music on, 2 => music off
+            if (state) {
+
+                PlayerPrefs.SetInt("Theme", 1);
+            }
+            else {
+
+                PlayerPrefs.SetInt("Theme", 0);
             }
 
             theme.enabled = state;

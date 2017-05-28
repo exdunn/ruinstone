@@ -14,6 +14,29 @@ namespace WizardWars
 
         #endregion
 
+        #region monobehaviour 
+
+        // Use this for initialization
+        void Start()
+        {
+            if (PlayerPrefs.GetInt("Init") == 0) {
+
+                Initialize();
+            }
+
+            AudioListener.volume = PlayerPrefs.GetFloat("Vol");
+
+            PhotonNetwork.playerName = PlayerPrefs.GetString("PlayerName");
+
+            // if recording mode then go to cinematic scene
+            if (cinematic) {
+
+                SceneManager.LoadScene("Cinematic Scene");
+            }     
+        }
+
+        #endregion
+
         #region public methods
 
         /// <summary>
@@ -60,36 +83,26 @@ namespace WizardWars
 
         #region Private Methods
 
-        /// <summary>
-        /// Create presets in player prefs
-        /// </summary>
-        private void InitializePresets()
+        // This function is used to initialize player preferences if this is their first time opening the game
+        private void Initialize()
         {
+            // initialize spell presets
             PlayerPrefsX.SetStringArray("SpellBarNames", new string[] { "Spells 1", "Spells 2", "Spells 3", "Spells 4" });
-
             PlayerPrefsX.SetIntArray("Spells1", new int[] { 0, 1, 2, 8 });
             PlayerPrefsX.SetIntArray("Spells2", new int[] { 1, 2, 3, 8 });
             PlayerPrefsX.SetIntArray("Spells3", new int[] { 1, 6, 2, 8 });
             PlayerPrefsX.SetIntArray("Spells4", new int[] { 0, 1, 6, 8 });
+
+            // initialize volume setting
+            PlayerPrefs.SetFloat("Vol", 0.5f);
+
+            // initialize music setting
+            PlayerPrefs.SetInt("Theme", 1);
+
+            // Set init to 1 so this function isn't called again
+            PlayerPrefs.SetInt("Init", 1);
         }
 
         #endregion
-
-
-
-        // Use this for initialization
-        void Start()
-        {
-            // set volume to 50%
-            AudioListener.volume = 0.5f;
-
-            //InitializePresets();
-
-            PhotonNetwork.playerName = PlayerPrefs.GetString("PlayerName");
-
-            // if recording mode then go to cinematic scene
-            if (cinematic)
-                SceneManager.LoadScene("Cinematic Scene");
-        }
     }
 }
