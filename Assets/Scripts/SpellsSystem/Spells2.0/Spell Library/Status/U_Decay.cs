@@ -31,8 +31,8 @@ namespace SpellSystem {
             if(!player) {
                 return;
             }
-            player.GetComponent<PhotonView>().RPC("UpdateMoveSpeedModifier", PhotonTargets.All, player.moveSpeedModifier - _slowModifier);
-            player.GetComponent<PhotonView>().RPC("UpdateDamageReceivedModifier", PhotonTargets.All, player.damageReceivedModifier + _damageReceivedModifier);
+            player.GetComponent<PhotonView>().RPC("UpdateMoveSpeedModifier", PhotonTargets.All, player.moveSpeedModifier + _slowModifier);
+            player.GetComponent<PhotonView>().RPC("UpdateDamageReceivedModifier", PhotonTargets.All, player.damageReceivedModifier - _damageReceivedModifier);
         }
 
         protected override IEnumerator Run() {

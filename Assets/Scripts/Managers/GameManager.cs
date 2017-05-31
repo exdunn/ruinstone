@@ -88,6 +88,10 @@ namespace WizardWars
         {
             playerStatus = new Dictionary<int, bool>();
 
+            // play battle music
+            GameObject.Find("Jukebox").GetComponent<JukeboxManager>().ChangeTrack();
+            GameObject.Find("Jukebox").GetComponent<AudioSource>().Play(0);
+
             // initialize all players to alive
             foreach (PhotonPlayer player in PhotonNetwork.playerList)
             {

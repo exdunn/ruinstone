@@ -186,18 +186,24 @@ namespace SpellSystem {
                 timer += TICK;
             }
         }
+
         public static void AreaStatus(Types.Target type, Vector3 center, float areaRadius, string prefab, float duration) {
             List<GameObject> targets = GetAll(type, center, areaRadius);
             for(int i = 0; i < targets.Count; ++i) {
                 Status(prefab, targets[i], duration);
             }
         }
-        public static IEnumerator AreaStatusOverTime(Types.Target type, Vector3 center, float areaRadius, string prefab, float primaryDur, float secondaryDur) {
+
+        public static IEnumerator AreaStatusOverTime(Types.Target type, Vector3 center, float areaRadius, string prefab, float primaryDur, float secondaryDur, GameObject indicator) {
             float timer = 0f;
             while(timer < primaryDur) {
                 AreaStatus(type, center, areaRadius, prefab, secondaryDur);
                 yield return new WaitForSeconds(TICK);
                 timer += TICK;
+            }
+
+            if (indicator) {
+                PhotonNetwork.Destroy(indicator);
             }
         }
 

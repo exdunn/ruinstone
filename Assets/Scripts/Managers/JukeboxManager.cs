@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace WizardWars
 {
-    public class RuinStoneTheme : MonoBehaviour
+    public class JukeboxManager : MonoBehaviour
     {
+        public AudioClip battleMusic;
 
         // Use this for initialization
         void Start()
@@ -27,10 +28,11 @@ namespace WizardWars
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        public void ChangeTrack()
         {
-
+            if (GetComponent<AudioSource>().enabled) {
+                GetComponent<AudioSource>().clip = battleMusic;
+            }
         }
     }
 }

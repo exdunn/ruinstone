@@ -5,7 +5,28 @@ using UnityEngine;
 
 namespace SpellSystem {
     public class S005_EntropicDecay : DelayedSpell {
+
         public string status;
+        public string indicator;
+
+        // duration of the status applied
+        public float duration;
+
+        public override void Cast(GameObject caster, GameObject target, Vector3 point)
+        {
+            bool p = Precast(caster, target, point);
+            if (!p) {
+                return;
+            }
+
+            point = SpellUtility.LevelPoint(point, 0.5f);
+
+            GameObject i = SpellUtility.SpawnIndicator("Spells/I/" + indicator, this.transform, point, Quaternion.identity, _stats.areaRadius);
+
+            StartCoroutine(SpellUtility.AreaStatusOverTime(Types.Target.ENEMY, point, _stats.areaRadius, "Spells/U/" + status, _stats.duration, duration, i));
+            StartCoroutine(Cooldown(caster));
+        }
+
         protected override IEnumerator DelayedCast(GameObject caster, GameObject target, Vector3 point) {
             //Create an area at target location for 3 seconds.
             //Any enemy in that area is debuffed.
@@ -16,8 +37,7 @@ namespace SpellSystem {
                 while(!delay) {
                     yield return null;
                 }
-                SpellUtility.AreaStatusOverTime(Types.Target.ENEMY, point, _stats.areaRadius, "Spells/U/" + status, _stats.duration, _stats.duration);
-                StartCoroutine(Cooldown(caster));
+                
             }
             yield return null;
         }

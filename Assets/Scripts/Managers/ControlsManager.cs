@@ -125,7 +125,7 @@ namespace WizardWars
 
         public void ToggleMusic(bool state)
         {
-            AudioSource theme = GameObject.Find("RuinStone Theme").GetComponent<AudioSource>();
+            AudioSource theme = GameObject.Find("Jukebox").GetComponent<AudioSource>();
 
             if (theme == null) {
 
