@@ -6,7 +6,8 @@ namespace WizardWars
 {
     public class JukeboxManager : MonoBehaviour
     {
-        public AudioClip battleMusic;
+        public AudioClip battleTrack;
+		public AudioClip menuTrack;
 
         // Use this for initialization
         void Start()
@@ -28,11 +29,18 @@ namespace WizardWars
             }
         }
 
-        public void ChangeTrack()
+		public void ChangeTrack(int track)
         {
-            if (GetComponent<AudioSource>().enabled) {
-                GetComponent<AudioSource>().clip = battleMusic;
-            }
+			switch (track) {
+			case 0: 
+				GetComponent<AudioSource> ().clip = menuTrack;
+				break;
+			case 1:
+				GetComponent<AudioSource>().clip = battleTrack;
+				break;
+			default:
+				break;
+			}
         }
     }
 }

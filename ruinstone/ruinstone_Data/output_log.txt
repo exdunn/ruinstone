@@ -1,0 +1,164 @@
+Initialize engine version: 5.6.1f1 (2860b30f0b54)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 760 (ID=0x1187)
+    Vendor:   NVIDIA
+    VRAM:     2017 MB
+    Driver:   22.21.13.8205
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\Photon3Unity3D.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
+- Completed reload, in  0.130 seconds
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone\ruinstone_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 3200x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.916107 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 42dc -> priority: 1 
+  Thread -> id: 4668 -> priority: 1 
+  Thread -> id: 6e20 -> priority: 1 
+  Thread -> id: 6c9c -> priority: 1 
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.380542 ms
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 1351.
+Total: 0.532832 ms (FindLiveObjects: 0.064221 ms CreateObjectMapping: 0.036362 ms MarkObjects: 0.402043 ms  DeleteObjects: 0.029911 ms)
+
+DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+DemoAnimator / Launcher: OnJoinedLobby() was called by PUN
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.501161 ms
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 1452.
+Total: 0.654236 ms (FindLiveObjects: 0.070672 ms CreateObjectMapping: 0.051025 ms MarkObjects: 0.512891 ms  DeleteObjects: 0.019354 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.933702 ms
+
+Unloading 157 unused Assets to reduce memory usage. Loaded Objects now: 1300.
+Total: 0.896753 ms (FindLiveObjects: 0.068620 ms CreateObjectMapping: 0.063048 ms MarkObjects: 0.431661 ms  DeleteObjects: 0.332836 ms)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+S000_fireball(Clone) (SpellSystem.S000_Fireball): 
+Target is null...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Start
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+stats: S000_fireball(Clone) (SpellStats)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+S001_meteor(Clone) (SpellSystem.S001_Meteor): 
+Target is null...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Start
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+stats: S001_meteor(Clone) (SpellStats)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+parentstatus called
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+onparent called
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+parentstatus called
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+onparent called
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Collided with ground
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+On Collision
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Targets: 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Default Moba Player(Clone) (UnityEngine.GameObject)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+exp prefab: Effects/FireExplosion
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+The referenced script on this Behaviour (Game Object 'Point light') is missing!
+ 
+(Filename:  Line: 1743)
+
+The referenced script on this Behaviour (Game Object '<null>') is missing!
+ 
+(Filename:  Line: 1743)
+
+The referenced script on this Behaviour (Game Object 'Point light') is missing!
+ 
+(Filename:  Line: 1743)
+
+The referenced script on this Behaviour (Game Object 'Point light') is missing!
+ 
+(Filename:  Line: 1743)
+
+Cannot send messages when not connected. Either connect to Photon OR use offline mode!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.636618 ms
+Cannot send op: 252 Not connected. PeerState: Disconnected
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+
+Unloading 114 unused Assets to reduce memory usage. Loaded Objects now: 1653.
+Total: 0.985607 ms (FindLiveObjects: 0.071259 ms CreateObjectMapping: 0.063048 ms MarkObjects: 0.600279 ms  DeleteObjects: 0.250140 ms)
+

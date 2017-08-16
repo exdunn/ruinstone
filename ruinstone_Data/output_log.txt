@@ -1,0 +1,87 @@
+Initialize engine version: 5.6.1f1 (2860b30f0b54)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 760 (ID=0x1187)
+    Vendor:   NVIDIA
+    VRAM:     2017 MB
+    Driver:   22.21.13.8205
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\Photon3Unity3D.dll (this message is harmless)
+Loading C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
+- Completed reload, in  0.121 seconds
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\alexh\Documents\ruinstone\ruinstone_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 3200x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.931650 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 2d98 -> priority: 1 
+  Thread -> id: 30cc -> priority: 1 
+  Thread -> id: 868 -> priority: 1 
+  Thread -> id: 418 -> priority: 1 
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.499311 ms
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 1351.
+Total: 0.651598 ms (FindLiveObjects: 0.097945 ms CreateObjectMapping: 0.050145 ms MarkObjects: 0.468317 ms  DeleteObjects: 0.033723 ms)
+
+DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+DemoAnimator / Launcher: OnJoinedLobby() was called by PUN
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.177392 ms
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 1452.
+Total: 1.469468 ms (FindLiveObjects: 0.137240 ms CreateObjectMapping: 0.122284 ms MarkObjects: 1.158624 ms  DeleteObjects: 0.050731 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.968599 ms
+
+Unloading 157 unused Assets to reduce memory usage. Loaded Objects now: 1300.
+Total: 1.148654 ms (FindLiveObjects: 0.080643 ms CreateObjectMapping: 0.041641 ms MarkObjects: 0.704382 ms  DeleteObjects: 0.321693 ms)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Look rotation viewing vector is zero
+ 
+(Filename:  Line: 92)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at WizardWars.GameManager.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.332498 ms
+
+Unloading 181 unused Assets to reduce memory usage. Loaded Objects now: 1494.
+Total: 0.991473 ms (FindLiveObjects: 0.084455 ms CreateObjectMapping: 0.054544 ms MarkObjects: 0.531659 ms  DeleteObjects: 0.319934 ms)
+

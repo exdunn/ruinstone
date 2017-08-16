@@ -41,6 +41,8 @@ namespace WizardWars
         /// </summary>
         public void LeaveClick()
         {
+			GameObject.Find("Jukebox").GetComponent<JukeboxManager>().ChangeTrack(0);
+			GameObject.Find("Jukebox").GetComponent<AudioSource>().Play(0);
             PhotonNetwork.LeaveRoom();
             PhotonNetwork.Disconnect();
             SceneManager.LoadScene(0);
@@ -89,7 +91,7 @@ namespace WizardWars
             playerStatus = new Dictionary<int, bool>();
 
             // play battle music
-            GameObject.Find("Jukebox").GetComponent<JukeboxManager>().ChangeTrack();
+            GameObject.Find("Jukebox").GetComponent<JukeboxManager>().ChangeTrack(1);
             GameObject.Find("Jukebox").GetComponent<AudioSource>().Play(0);
 
             // initialize all players to alive
