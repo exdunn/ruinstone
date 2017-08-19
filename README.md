@@ -2,6 +2,7 @@
 
 trailer:
 https://www.youtube.com/watch?v=ntGTQM9DjMo&t=112s
+release: https://exdunn.itch.io/ruinstone
 
 A fantasy, multiplayer online battle arena game.  Combat is fast-paced and the objective is to be the last contestant standing. 
 Eliminate your enemies with destructive magic by reducing their health to 0.  A clean hit will knock the target back and
